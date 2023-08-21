@@ -80,6 +80,11 @@
         </button>
         <button class="menu-button" mat-button *ngIf="userService.roleMatch(['ROLE_ADMIN'])">
           <mat-list-item>
+            <a class="link-light" routerLink="/accept-list" style="text-decoration: none;"><fa-icon
+                [icon]="clock"></fa-icon>Leave Management</a></mat-list-item>
+        </button>
+        <button class="menu-button" mat-button *ngIf="userService.roleMatch(['ROLE_ADMIN'])">
+          <mat-list-item>
             <a class="link-light" routerLink="/employee-list" style="text-decoration: none;"><fa-icon
                 [icon]="clock"></fa-icon>Employees</a></mat-list-item>
         </button>
@@ -124,6 +129,9 @@
     </mat-sidenav-content>
   </mat-sidenav-container>
 </div>
+
+
+
 
 
 <!-- *ngIf="userService.roleMatch(['ROLE_USER']) && !userService.roleMatch(['ROLE_ADMIN'])" -->

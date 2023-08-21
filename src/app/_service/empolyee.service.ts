@@ -2,6 +2,8 @@ import { Injectable } from '@angular/core';
 import { UserAuthService } from './user-auth.service';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
+import { Leave } from '../models/leave.model';
+import { User } from '../models/user.model';
 
 @Injectable({
   providedIn: 'root'
@@ -13,9 +15,9 @@ export class EmpolyeeService {
 
   baseUrl = "http://localhost:8080/api/user";
 
-  public getInfoById(id) {
+  public getInfoById(id): Observable<User> {
 
-    return this.http.get(`${this.baseUrl}/info/${id}`);
+    return this.http.get<User>(`${this.baseUrl}/info/${id}`);
   }
 
   public hello(): any {
@@ -24,8 +26,8 @@ export class EmpolyeeService {
   }
 
 
-  public pendingList(id) {
-    return this.http.get(`${this.baseUrl}/pending/${id}`);
+  public pendingList(id): Observable<Leave[]> {
+    return this.http.get<Leave[]>(`${this.baseUrl}/pending/${id}`);
   }
 
   public approvedList(id) {

@@ -1,8 +1,10 @@
 <div class="container">
   <div class="row mt-5">
     <div class="d-grid gap-2 d-md-flex justify-content-md-end">
-      <button class="btn btn-outline-dark ustify-content-md-end" style="margin-right: 0px;">Add
-        Employee</button>
+      <!-- <button class="btn btn-outline-dark justify-content-md-end" data-bs-toggle="modal"
+        data-bs-target="#addEmployeeModal" style="margin-right: 0px;">Add
+        Employee</button> -->
+
 
     </div>
 
@@ -18,7 +20,7 @@
           </li>
           <li class="nav-item">
             <a class="nav-link active" aria-current="true" style="background-color: rgb(243, 68, 15);"><button
-                class="btn">Delete-List</button></a>
+                class="btn" (click)="DeleteList()">Delete-List</button></a>
           </li>
           <!-- <li class="nav-item">
             <a class="nav-link active" aria-current="true" style="background-color: rgb(15, 175, 243);"><button
@@ -36,7 +38,7 @@
               <th scope="col">Employee ID</th>
               <th scope="col">Name</th>
               <th scope="col">Gender</th>
-              <th scope="col">Emai</th>
+              <th scope="col">Email</th>
               <th scope="col">Leave Request</th>
               <th scope="col">Edit</th>
               <th scope="col">Delete</th>
@@ -51,13 +53,15 @@
               <!-- <td>{{this.datePipe.transform(item.date, 'yyyy-MM-dd')}}</td> -->
               <td>{{item.gender}}</td>
               <td>{{item.email}}</td>
+
               <td><button type="button" class="btn btn-primary" data-toggle="modal"
-                  data-target="#signupModal">view</button>
+                  data-target="#addEmployeeModal">View</button>
               </td>
               <td><button type="button" class="btn btn-primary" data-toggle="modal"
                   data-target="#xampleModal">Edit</button>
               </td>
-              <td><button type="button" class="btn btn-danger" (click)="deleteStudentById(student)">Delete</button></td>
+              <td><button type="button" class="btn btn-danger" (click)="deleteStudentById(student)"
+                  [disabled]="!visible">Delete</button></td>
             </tr>
 
           </tbody>
@@ -65,16 +69,74 @@
 
       </div>
     </div>
+    <!-- Button trigger modal -->
+
+
+    <!-- Modal -->
+
+
+
   </div>
+
+
 
 
 
 </div>
 
-
-
-
 <!-- Button trigger modal -->
-<!-- <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
+<button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addEmployeeModal">
   Launch demo modal
-</button> -->
+</button>
+
+<!-- <div class="modal fade" id="addEmployeeModal" tabindex="-1" role="dialog" aria-labelledby="addEmployeeModalLabel"
+  data-backdrop="false">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="addEmployeeModalLabel">Modal title</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <app-signup></app-signup>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary">Save changes</button>
+      </div>
+    </div>
+  </div>
+</div> -->
+<!-- 
+<div class="modal fade" id="addEmployeeModal" tabindex="-1" role="dialog" aria-labelledby="addEmployeeModalLabel">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+        <h4 class="modal-title" id="myModalLabel">Modal title</h4>
+      </div>
+      <div class="modal-body">...</div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary">Save changes</button>
+      </div>
+    </div>
+  </div> -->
+
+
+<div class="my-module">
+
+  <div class="modal fade" id="addEmployeeModal" data-backdrop="false">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-body">Modal</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script type="text/javascript">
+  $('.modal').parent().on('show.bs.modal', function (e) { $(e.relatedTarget.attributes['data-target'].value).appendTo('body'); })
+</script>

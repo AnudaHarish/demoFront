@@ -41,6 +41,7 @@ import { UserLeaveComponent } from './user/user-leave/user-leave.component';
 import { EmployeeListComponent } from './_admin/employee-list/employee-list.component';
 import { ActiveListComponent } from './_admin/employee-list/active-list/active-list.component';
 import { DeleteListComponent } from './_admin/employee-list/delete-list/delete-list.component';
+import { AcceptLeaveComponent } from './_admin/accept-leave/accept-leave.component';
 
 
 
@@ -64,7 +65,8 @@ import { DeleteListComponent } from './_admin/employee-list/delete-list/delete-l
     UserLeaveComponent,
     EmployeeListComponent,
     ActiveListComponent,
-    DeleteListComponent
+    DeleteListComponent,
+    AcceptLeaveComponent
 
 
 

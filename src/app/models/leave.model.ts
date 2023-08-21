@@ -1,4 +1,4 @@
-export class Leave {
+export interface Leave {
 
   leaveType?: string;
   id?: number;

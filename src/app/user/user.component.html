@@ -1,4 +1,4 @@
-<div class="card border-secondary text-white bg-secondary"
+<!-- <div class="card border-secondary text-white bg-secondary"
   style="width: 20rem; padding: 20px; height: 40rem;margin:auto;">
   <img src="https://cdn-icons-png.flaticon.com/512/149/149071.png" class=" card-img-top" alt="...">
   <div class="card-body">
@@ -19,4 +19,110 @@
       <a href="#" class="card-link">Edit userdetails</a>
     </div>
   </ul>
+</div> -->
+
+
+<div class="container">
+
+  <div class="row" style="width: 1000px; margin: auto; padding:10px">
+    <div class="col col-md-6  mt-5" style="min-height: 500px;">
+
+      <div class="card border-secondary" style="min-height: 500px;">
+        <h5 class="card-header fs-5 text-white" style="background-color: rgb(0, 132, 255);">Profile</h5>
+        <div class="card-body">
+          <div class="row" class="justify-content-md-center" style="align-items: center; padding-left: 100px;">
+
+            <img src="https://cdn-icons-png.flaticon.com/512/149/149071.png" class=" card-img-top" alt="..."
+              style="width:200px">
+
+          </div>
+
+          <div class="row mt-5" style="margin: auto;padding:12px">
+
+
+
+            <h3>Name: {{user.firstname}} {{user.lastname}}</h3>
+
+            <h3>Date of Birth: {{user.dob}} </h3>
+            <div class="row">
+              <div class="col">
+
+                <h3><fa-icon [icon]="at"></fa-icon>:{{user.email}} </h3>
+              </div>
+
+              <div class="col">
+                <h2><fa-icon [icon]="mobile"></fa-icon>:{{user.telephoneNo}} </h2>
+              </div>
+
+
+            </div>
+
+            <h4>Registered Date: {{user.registeredDate}}</h4>
+
+
+
+
+            <div class="row">
+              <div class="col">
+
+                <button type="button" class="btn btn-info">Edit
+
+                </button>
+
+
+              </div>
+              <div class="col">
+
+
+                <button type="button" class="btn btn-warning">Change Password</button>
+
+              </div>
+            </div>
+
+
+
+          </div>
+
+
+
+
+
+
+
+
+
+
+        </div>
+      </div>
+
+
+    </div>
+    <div class="col col-md-6 mt-5" style="min-height: 700px; padding-left: 60px;">
+      <div class="row">
+
+        <div class="card border-secondary" style="width: 25rem;">
+          <div class="card-body">
+            <h5 class="card-title">Leave Count</h5>
+            <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
+            <a href="#" class="btn btn-primary">Go somewhere</a>
+          </div>
+        </div>
+
+
+      </div>
+      <div class="row">
+
+        <div class="card mt-5 border-secondary" style="width: 25rem;">
+          <div class="card-body">
+            <h5 class="card-title">Special title treatment</h5>
+            <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
+            <a href="#" class="btn btn-primary">Go somewhere</a>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+  </div>
+
 </div>

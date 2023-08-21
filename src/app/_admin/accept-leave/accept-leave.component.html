@@ -1,0 +1,75 @@
+<div class="container">
+  <div class="row mt-5">
+    <div class="d-grid gap-2 d-md-flex">
+      <h2>Leave Management</h2>
+
+    </div>
+
+
+  </div>
+  <div class="row mt-3">
+    <div class="card text-center" style="min-width: 850px;">
+      <div class="card-header">
+        <ul class="nav nav-tabs card-header-tabs">
+          <li class="nav-item">
+            <a class="nav-link active" aria-current="true" style="background-color: rgb(239, 243, 15);"
+              (click)="pendingList()"><button class="btn">Pending-List</button></a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link active" aria-current="true" style="background-color: rgb(243, 68, 15);"
+              (click)="getAcceptList()"><button class="btn">Accepted-List</button></a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link active" aria-current="true" style="background-color: rgb(243, 68, 15);"><button
+                class="btn" (click)="getRejectList()">Rejected-List</button></a>
+          </li>
+          <!-- <li class="nav-item">
+            <a class="nav-link active" aria-current="true" style="background-color: rgb(15, 175, 243);"><button
+                class="btn">Add Employee</button></a>
+          </li> -->
+
+
+        </ul>
+      </div>
+      <div class="card-body">
+
+        <table class="table">
+          <thead>
+            <tr>
+              <th scope="col">Pending ID</th>
+              <th scope="col">Username</th>
+              <th scope="col">Apply date</th>
+              <th scope="col">Leave Type</th>
+              <th scope="col">Leave Duration</th>
+              <th scope="col">View Employee Info</th>
+              <th scope="col">Accept</th>
+              <th scope="col">Reject</th>
+
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let item of list ">
+
+              <td>{{item.id}}</td>
+
+              <!-- <td>{{this.datePipe.transform(item.date, 'yyyy-MM-dd')}}</td> -->
+              <td>{{item.username}}</td>
+              <td>{{item.date}}</td>
+              <td>{{item.leaveType}}</td>
+              <td>{{item.leaveDuration}}</td>
+              <td><button type="button" class="btn btn-primary" data-toggle="modal" data-target="#signupModal"><fa-icon
+                    [icon]="info"></fa-icon>
+                </button>
+              </td>
+              <td><button type="button" class="btn btn-success" (click)="accept(item.id)"><fa-icon
+                    [icon]="check"></fa-icon></button></td>
+              <td><button type="button" class="btn btn-danger" (click)="reject(item.id)"><fa-icon
+                    [icon]="ban"></fa-icon></button></td>
+            </tr>
+
+          </tbody>
+        </table>
+
+      </div>
+    </div>
+  </div>

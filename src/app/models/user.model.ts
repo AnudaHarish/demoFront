@@ -1,4 +1,4 @@
-export class User {
+export interface User {
 
   firstname?: string;
   lastname?: string;
@@ -6,6 +6,7 @@ export class User {
   dob?: string;
   gender?: string;
   registeredDate?: string;
+  telephoneNo?: number;
 
 
 

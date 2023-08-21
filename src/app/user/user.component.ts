@@ -4,6 +4,8 @@ import { UserAuthService } from '../_service/user-auth.service';
 import { EmpolyeeService } from '../_service/empolyee.service';
 import { Router } from '@angular/router';
 import { DatePipe } from '@angular/common';
+import { faMobileScreenButton } from '@fortawesome/free-solid-svg-icons';
+import { faAt } from '@fortawesome/free-solid-svg-icons';
 
 @Component({
   selector: 'app-user',
@@ -13,7 +15,18 @@ import { DatePipe } from '@angular/common';
 export class UserComponent implements OnInit {
 
   formattedDate;
-  userDetails: User;
+  user: User = {
+    firstname: '',
+    lastname: '',
+    email: '',
+    dob: '',
+    telephoneNo: 0,
+    registeredDate: ''
+
+
+  }
+  mobile = faMobileScreenButton;
+  at = faAt;
 
 
 
@@ -46,9 +59,21 @@ export class UserComponent implements OnInit {
     this.employeeService.getInfoById(id).subscribe(
       (res) => {
         console.log(res);
-        this.userDetails = res;
-        this.formattedDate = this.datePipe.transform(this.userDetails.dob, 'yyyy-MM-dd');
+
+
+
+        this.formattedDate = this.datePipe.transform(res.dob, 'yyyy-MM-dd');
         console.log(this.formattedDate);
+        let registerdDate = this.datePipe.transform(res.registeredDate, 'yyyy-MM-dd');
+        console.log(this.formattedDate);
+
+        this.user.firstname = res.firstname;
+        this.user.lastname = res.lastname;
+        this.user.email = res.email;
+        this.user.dob = this.formattedDate;
+        this.user.registeredDate = registerdDate;
+        this.user.telephoneNo = res.telephoneNo;
+
 
 
       },

@@ -16,4 +16,41 @@ export class AdminService {
   public activeUserList(): any {
     return this.http.get(`${this.baseUrl}/activeUser`);
   }
+
+  public deletedUserList(): any {
+    return this.http.get(`${this.baseUrl}/deleteList`);
+  }
+
+  public getAllPendings() {
+    return this.http.get(`${this.baseUrl}/pendingList`)
+  }
+
+  public findName(id) {
+    return this.http.get(`${this.baseUrl}/findName/${id}`)
+  }
+
+  public AcceptList() {
+    return this.http.get(`${this.baseUrl}/acceptList`)
+  }
+
+  public rejectedtList() {
+    return this.http.get(`${this.baseUrl}/rejectedList`)
+
+  }
+
+  public reject(id) {
+    return this.http.get(`${this.baseUrl}/rejecting/${id}`)
+  }
+
+  public accept(id) {
+    return this.http.get(`${this.baseUrl}/accepting/${id}`)
+  }
+
+
+
+
+
+
+
+
 }
