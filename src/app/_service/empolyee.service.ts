@@ -1,0 +1,58 @@
+import { Injectable } from '@angular/core';
+import { UserAuthService } from './user-auth.service';
+import { HttpClient } from '@angular/common/http';
+import { Observable } from 'rxjs';
+
+@Injectable({
+  providedIn: 'root'
+})
+export class EmpolyeeService {
+
+
+  constructor(private userAuthService: UserAuthService, private http: HttpClient) { }
+
+  baseUrl = "http://localhost:8080/api/user";
+
+  public getInfoById(id) {
+
+    return this.http.get(`${this.baseUrl}/info/${id}`);
+  }
+
+  public hello(): any {
+
+    return this.http.get(this.baseUrl + '/hello');
+  }
+
+
+  public pendingList(id) {
+    return this.http.get(`${this.baseUrl}/pending/${id}`);
+  }
+
+  public approvedList(id) {
+    return this.http.get(`${this.baseUrl}/approved/${id}`);
+  }
+
+  public disapprovedList(id) {
+    return this.http.get(`${this.baseUrl}/disapproved/${id}`);
+  }
+
+  public allLeaves(id) {
+    return this.http.get(`${this.baseUrl}/leaves/${id}`);
+  }
+
+  public addRequest(leave: []) {
+    return this.http.post(this.baseUrl + "/add" + "/request", leave);
+
+  }
+
+  public deleteRequest(id) {
+    return this.http.delete(`${this.baseUrl}/delete/${id}`);
+
+  }
+
+
+
+
+
+
+}

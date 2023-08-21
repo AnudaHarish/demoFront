@@ -1,0 +1,259 @@
+<!-- <div class="container mt-5">
+
+  <div class="card" style="padding: 20px;">
+
+    <form #loginForm="ngForm" (ngSubmit)="login(loginForm)">
+
+      <input type="text" ngModel name="username" id="username" placeholder="Enter your username"
+        class="form-control mb-3">
+
+      <input type="password" ngModel name="password" id="password" placeholder="Enter your password"
+        class="form-control mb-3">
+
+      <input type="submit" class="btn btn-outline-primary form-control rounded-0" value="Login">
+    </form>
+
+
+
+  </div>
+</div> -->
+
+
+<div class="login-page " style="background-color: rgb(207, 227, 236);">
+  <div class="container">
+    <div class="row">
+
+      <div class="col-lg-10 offset-lg-1">
+        <h2 class="mb-3">Login Now</h2>
+        <div class="bg-white shadow rounded">
+          <div class="row">
+            <div class="col-md-7 pe-0">
+              <div class="form-left h-100 py-5 px-5">
+                <form class="row g-4" #loginForm="ngForm" (ngSubmit)="login(loginForm)">
+                  <div class="col-12">
+                    <label for="username">Username<span class="text-danger">*</span></label>
+                    <div class="input-group">
+                      <div class="input-group-text"><fa-icon [icon]="user"></fa-icon></div>
+                      <input type="text" ngModel name="username" id="username" placeholder="Enter your username"
+                        class="form-control">
+
+                    </div>
+
+                  </div>
+                  <div class="col-12">
+                    <label>Password<span class="text-danger">*</span></label>
+                    <div class="input-group">
+                      <div class="input-group-text"><fa-icon [icon]="lock"></fa-icon></div>
+                      <input type="password" ngModel name="password" id="password" placeholder="Enter your password"
+                        class="form-control">
+
+                    </div>
+
+                  </div>
+                  <div class="row"></div>
+                  <div class="col-sm-6">
+                    <button type="button" class="btn btn-link" data-bs-toggle="modal"
+                      data-bs-target="#exampleModal">Signup</button>
+
+
+                  </div>
+                  <div class="col-sm-6">
+                    <a href="#" class="float-end text-primary">Forgot Password?</a>
+                  </div>
+
+                  <div class="col-12">
+                    <button type="submit" class="btn btn-primary px-4 float-end mt-4" value="login">login</button>
+                  </div>
+
+
+
+
+
+                </form>
+              </div>
+
+            </div>
+            <div class="col-md-5 ps-0 d-none d-md-block">
+              <div class="form-right h-100  text-white text-center pt-5" style="background-color: black;">
+                <i class="bi bi-bootstrap"></i>
+                <h2 class="fs-1 mt-5">Welcome Back!!!</h2>
+                <h5>Employee Leave Manager</h5>
+
+              </div>
+            </div>
+
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+
+  </div>
+</div>
+
+
+
+
+
+<!-- Modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header bg-primary text-white">
+        <h1 class="modal-title fs-5" id="exampleModalLabel">Employee Leave Management</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <!-- <form class="row g-4" #signupForm="ngForm" (ngSubmit)="signup(signupForm)" class="row row-cols-sm-auto">
+          <div class="input-group mt-3 fs-6">
+            <div class="col-md-10 col-sm-6 col-xs-12">
+              <label>Firstname</label>
+              <input ngModel type="text" class="form-control" placeholder="Firstname" id="firstname" name="firstname">
+            </div>
+          </div>
+          <div class="input-group mt-3 mb-3 fs-6">
+            <div class="col-md-10 col-sm-6 col-xs-12">
+              <label>Lastname</label>
+              <input type="text" ngModel class="form-control" placeholder="Lastname" id="Lastname" name="Lastname">
+            </div>
+          </div>
+          <div class="input-group fs-6" class="modal-date">
+            <div class="col-md-10 col-sm-6 col-xs-12">
+              <div class="form-group" class="dateModal"> -->
+        <!-- Date input -->
+        <!-- <label>Date</label>
+                <input ngModel name="date" id="date" matInput [matDatepicker]="picker" class="form-control"
+                  placeholder="MM/DD/YYYY"> -->
+        <!-- <mat-hint>MM/DD/YYYY</mat-hint> -->
+        <!-- <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+                <mat-datepicker #picker></mat-datepicker>
+              </div>
+            </div>
+
+          </div>
+          <div class="input-group mt-2 fs-6">
+            <div class="col-md-10 col-sm-6 col-xs-12">
+              <label>Email</label>
+              <input type="text" class="form-control" placeholder="email" id="email" ngModel name="email">
+            </div>
+          </div>
+          <div class="input-group mt-3 fs-6">
+            <label>Gender</label>
+            <div class="row">
+              <div class="col-md-10 col-sm-6 col-xs-12">
+                <div class="form-check">
+                  <input class="form-check-input" type="radio" ngModel name="flexRadioDefault" id="flexRadioDefault1"
+                    value="MALE">
+                  <label class="form-check-label" for="flexRadioDefault1">
+                    Male
+                  </label>
+                </div>
+              </div>
+              <div class="col-md-10 col-sm-6 col-xs-12">
+                <input class="form-check-input" type="radio" valu="FEMALE" ngModel name="flexRadioDefault"
+                  id="flexRadioDefault2">
+                <label class="form-check-label" for="flexRadioDefault1">
+                  Female
+                </label>
+              </div>
+            </div>
+            <div *ngIf="isSubmitted && signupForm.invalid">
+              <p>Please select either value</p>
+            </div>
+
+          </div>
+
+
+
+
+
+
+        </form> -->
+        <!-- <form class="row g-4" #signupForm="ngForm" (ngSubmit)="signup(signupForm)" class="row row-cols-sm-auto">
+          <div class="input-group mt-3 fs-6">
+            <div class="col-md-10 col-sm-6 col-xs-12">
+              <label>Firstname</label>
+              <input ngModel name="firstname" type="text" class="form-control" placeholder="Firstname" id="firstname">
+            </div>
+          </div>
+          <div class="input-group mt-3 mb-3 fs-6">
+            <div class="col-md-10 col-sm-6 col-xs-12">
+              <label>Lastname</label>
+              <input ngModel name="lastname" type="text" class="form-control" placeholder="Lastname" id="lastname">
+            </div>
+          </div>
+          <div class="input-group fs-6" class="modal-date">
+            <div class="col-md-10 col-sm-6 col-xs-12">
+              <div class="form-group" class="dateModal"> -->
+        <!-- Date input -->
+        <!-- <label>Date</label>
+                <input ngModel name="dob" id="dob" matInput [matDatepicker]="picker" class="form-control"
+                  placeholder="MM/DD/YYYY"> -->
+        <!-- <mat-hint>MM/DD/YYYY</mat-hint> -->
+        <!-- <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+                <mat-datepicker #picker></mat-datepicker>
+              </div>
+            </div>
+
+          </div> -->
+        <!-- Other form fields... -->
+        <!-- <div class="input-group mt-3 fs-6">
+            <label>Gender</label>
+            <div class="row">
+              <div class="col-md-10 col-sm-6 col-xs-12">
+                <div class="form-check">
+                  <input class="form-check-input" type="radio" ngModel name="gender" id="gender1" value="MALE">
+                  <label class="form-check-label" for="gender1">
+                    Male
+                  </label>
+                </div>
+              </div>
+              <div class="col-md-10 col-sm-6 col-xs-12">
+                <div class="form-check">
+                  <input class="form-check-input" type="radio" ngModel name="gender" id="gender2" value="FEMALE">
+                  <label class="form-check-label" for="gender2">
+                    Female
+                  </label>
+                </div>
+              </div>
+
+            </div>
+            <div class="input-group mt-3 mb-3 fs-6">
+              <div class="col-md-10 col-sm-6 col-xs-12">
+                <label>Email</label>
+                <input ngModel name="email" type="text" class="form-control" placeholder="Email" id="email">
+              </div>
+            </div>
+            <div class="input-group mt-3 mb-3 fs-6">
+              <div class="col-md-10 col-sm-6 col-xs-12">
+                <label for="username">Username</label>
+                <input ngModel name="username" type="text" class="form-control" placeholder="username" id="username2">
+              </div>
+            </div>
+            <div class="input-group mt-3 mb-3 fs-6">
+              <div class="col-md-10 col-sm-6 col-xs-12">
+                <label>Password</label>
+                <input ngModel name="password" type="password" class="form-control" placeholder="password"
+                  id="password2">
+              </div>
+            </div>
+            <div *ngIf="isSubmitted && signupForm.invalid">
+              <p>Please select a gender</p>
+            </div>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button> -->
+        <!-- <button type="button" class="btn btn-primary" (click)="signup(loginForm)">Save Changes</button> -->
+        <!-- <button type="submit" class="btn btn-primary">Save Changes</button>
+
+          </div>
+        </form> -->
+        <app-signup></app-signup>
+
+
+      </div>
+    </div>
+  </div>
+
+  <!-- <pre>Model: {{ model | json }}</pre> -->

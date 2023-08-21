@@ -1,0 +1,68 @@
+<div class="container" class="container-fluid mt-5" style="width: 1000px;">
+  <div class="row align-items-start">
+    <div class="card">
+
+      <article>
+        <h1>Leave History</h1>
+        <h2><span>Select a type of leave:</span></h2>
+        <select class="form-control" [(ngModel)]="value" (change)="selectChangedHandler($event)">
+          <option value="All Leaves">All leaves</option>
+          <option value="Pending Leaves">Pending Leaves</option>
+          <option value="Approved Leaves">Approved leaves</option>
+          <option value="Rejected Leaves">Rejected Leaves</option>
+        </select>
+        <p><span>Category: </span><b>{{selectedOption}}</b></p>
+      </article>
+
+
+
+
+
+
+    </div>
+
+  </div>
+  <div class="row " style="align-items: center; justify-content: center;">
+    <div class="card mt-3 ">
+      <div class="card mt-5 table-hover" style="padding: 30px; width: 900px;margin:auto ;margin-bottom: 20px;">
+        <table class="table table-hover table-boder-less">
+          <thead>
+            <tr>
+              <th scope="col">Leave ID</th>
+              <th scope="col">Apply Date</th>
+              <th scope="col">Leave Type</th>
+              <th scope="col">Duration</th>
+              <th scope="col">Status</th>
+              <th scope="col">Created Date</th>
+              <th scope="col">Edit</th>
+              <th scope="col">Delete</th>
+
+
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let pending of leaveList ">
+
+              <td>{{pending.id}}</td>
+              <td>{{this.datePipe.transform(pending.date, 'yyyy-MM-dd')}}</td>
+              <td>{{pending.leaveType}}</td>
+              <td>{{pending.duration}}</td>
+              <td>{{pending.status}}</td>
+
+              <td>{{this.datePipe.transform(pending.createdDate, 'yyyy-MM-dd')}}</td>
+
+              <td><button [disabled]="!this.pendingStatus(pending.status)" type="button" class="btn btn-primary"
+                  data-toggle="modal" data-target="#exampleModal">Edit</button>
+              </td>
+              <td><button [disabled]="!this.pendingStatus(pending.status)" type="button" class="btn btn-danger"
+                  (click)="deleteRequest(pending.id)">Delete</button></td>
+
+
+            </tr>
+
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>
