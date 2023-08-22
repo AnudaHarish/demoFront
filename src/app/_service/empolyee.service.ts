@@ -4,6 +4,7 @@ import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { Leave } from '../models/leave.model';
 import { User } from '../models/user.model';
+import { LeaveInfo } from '../models/leave-info.model';
 
 @Injectable({
   providedIn: 'root'
@@ -51,6 +52,11 @@ export class EmpolyeeService {
     return this.http.delete(`${this.baseUrl}/delete/${id}`);
 
   }
+
+  public leaveInfo(id): Observable<LeaveInfo> {
+    return this.http.get<LeaveInfo>(`${this.baseUrl}/infoLeave/${id}`);
+  }
+
 
 
 

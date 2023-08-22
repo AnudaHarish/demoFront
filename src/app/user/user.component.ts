@@ -6,6 +6,9 @@ import { Router } from '@angular/router';
 import { DatePipe } from '@angular/common';
 import { faMobileScreenButton } from '@fortawesome/free-solid-svg-icons';
 import { faAt } from '@fortawesome/free-solid-svg-icons';
+import { Chart, scales } from 'chart.js/auto';
+import { UserService } from '../_service/user/user.service';
+import { LeaveInfo } from '../models/leave-info.model';
 
 @Component({
   selector: 'app-user',
@@ -25,12 +28,18 @@ export class UserComponent implements OnInit {
 
 
   }
+
+  info: LeaveInfo = {
+    sick: 0,
+    casual: 0,
+    annual: 0
+  }
   mobile = faMobileScreenButton;
   at = faAt;
 
 
 
-  constructor(public userAuthService: UserAuthService, private router: Router, private employeeService: EmpolyeeService, private datePipe: DatePipe) { }
+  constructor(public userAuthService: UserAuthService, private router: Router, private employeeService: EmpolyeeService, private datePipe: DatePipe, private userService: UserService) { }
 
 
 
@@ -38,8 +47,36 @@ export class UserComponent implements OnInit {
   ngOnInit(): void {
 
     this.userInfo();
+    this.infoLeave()
     this.hello();
 
+
+
+
+  }
+
+  public chart(info: LeaveInfo) {
+
+    const ctx = new Chart("myChart", {
+      type: 'bar',
+      data: {
+        labels: ['Casual', 'Sick', 'Annual'],
+        datasets: [{
+          label: '# No of Leaves',
+          data: [this.info.casual, this.info.sick, this.info.annual],
+
+          borderWidth: 1
+        }]
+      },
+      options: {
+        scales: {
+          y: {
+            beginAtZero: true
+          }
+
+        }
+      }
+    });
 
   }
 
@@ -48,6 +85,29 @@ export class UserComponent implements OnInit {
     this.router.navigate(['/login']);
 
   }
+
+
+  public infoLeave() {
+    let id = this.userAuthService.getId();
+
+    this.employeeService.leaveInfo(id).subscribe(
+
+      (res) => {
+        this.info.annual = res.annual;
+        this.info.casual = res.casual;
+        this.info.sick = res.sick;
+        this.chart(this.info);
+
+        console.log(res);
+      },
+      (err) => {
+        console.log(err);
+      }
+    );
+
+  }
+
+
 
 
   public userInfo() {
