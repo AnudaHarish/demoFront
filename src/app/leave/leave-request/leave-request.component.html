@@ -53,78 +53,161 @@
 
 <div class="container">
 
-  <div class="row">
-    <div class="card mt-5" style="width: 900px;align-items: center; padding: 30px;">
-      <legend class="mb-5">Apply Leave Request</legend>
+  <div class="row align-items-center justify-content-md-center">
 
-      <form [formGroup]="form">
-        <mat-form-field>
-          <mat-label>Enter a date range</mat-label>
-          <mat-date-range-input [rangePicker]="picker" formGroupName="daterange">
-            <input formControlName="startDate" matStartDate placeholder="Start date" min='{{minDate}}'
-              class="form-control">
-            <input formControlName="endDate" matEndDate placeholder="End date" min=' {{minDate}}'>
-          </mat-date-range-input>
-          <mat-hint>MM/DD/YYYY – MM/DD/YYYY</mat-hint>
-          <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
-          <mat-date-range-picker #picker></mat-date-range-picker>
-        </mat-form-field>
+    <div class="card text-center mt-5 border-secondary" style="width:30rem; ">
+      <h4>Leave Count</h4>
+      <div class="card-body">
 
-        <button class="btn btn-primary" style="margin-left: 20px;" (click)="onSubmit()" [disabled]="isVisible">Select
-          Date Range</button>
-      </form>
+        <canvas id="myChart">
+          {{graph}}
 
 
-      <form [formGroup]="formRepeat">
 
-        <div formArrayName="item" *ngFor="let creds of formRepeat.get('item')?.controls; let i = index">
-          <ng-container [formGroupName]="i">
+        </canvas>
+      </div>
+
+
+
+    </div>
+
+    <div class="row" style="margin: 0; ">
+
+      <div class="col col-md-6" style="padding-left: 10px; margin-right:50px ;">
+
+        <div class="card mt-5 border-secondary" style="align-items: center; padding: 30px; width:600px">
+          <legend class="mb-5">Apply Leave Request</legend>
+
+          <form [formGroup]="form">
+            <mat-form-field>
+              <mat-label>Enter a date range</mat-label>
+              <mat-date-range-input [rangePicker]="picker" formGroupName="daterange">
+                <input formControlName="startDate" matStartDate placeholder="Start date" min='{{minDate}}'
+                  class="form-control">
+                <input formControlName="endDate" matEndDate placeholder="End date" min=' {{minDate}}'>
+              </mat-date-range-input>
+              <mat-hint>MM/DD/YYYY – MM/DD/YYYY</mat-hint>
+              <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+              <mat-date-range-picker #picker></mat-date-range-picker>
+            </mat-form-field>
+
+            <button class="btn btn-primary" style="margin-left: 20px;" (click)="onSubmit()"
+              [disabled]="isVisible">Submit
+              Date Range</button>
+          </form>
+
+
+          <form [formGroup]="formRepeat">
+
+            <div formArrayName="item" *ngFor="let creds of formRepeat.get('item')?.controls; let i = index">
+              <ng-container [formGroupName]="i">
+                <div class="row">
+                  <div class="col col-md-5">
+                    <label class="form-label mt-3">Selected Date {{i+1}}:</label>
+                    <input class="form-control" type="text" value="{{this.dateArray[i]}}"
+                      aria-label="Disabled input example" disabled readonly>
+                  </div>
+                  <div class="row">
+                    <div class="col col-md-6">
+                      <label class="form-label mt-3">Select Leave Type:</label>
+                      <select class="form-control" formControlName="type">
+
+                        <option type="TYPE_CASUAL">TYPE_CASUAL</option>
+                        <option type="TYPE_SICK">TYPE_SICK</option>
+                        <option type="TYPE_ANNUAL">TYPE_ANNUAL</option>
+                      </select>
+
+                    </div>
+                    <div class="col col-md-6">
+                      <label class="form-label mt-3">Select Time Duration:</label>
+                      <select class="form-control" formControlName="duration">
+
+                        <option duration="HALF">HALF</option>
+                        <option duration="ENTIRE">ENTIRE</option>
+
+                      </select>
+
+                    </div>
+                  </div>
+
+
+                </div>
+                <br>
+
+
+
+
+              </ng-container>
+            </div>
+
+            <button [disabled]="!isVisible" type="submit" class="btn btn-outline-dark"
+              (click)="submitRepeat()">Submit</button>
+
+
+          </form>
+
+        </div>
+
+      </div>
+
+      <div class="col" style="margin: 0%;">
+
+
+        <div class="card mt-5 border-secondary" style="width: 25rem;">
+          <div class="card-body">
+            <h3 class="card-title">Leave Applications</h3>
             <div class="row">
-              <div class="col col-md-5">
-                <label class="form-label mt-3">Selected Date {{i+1}}:</label>
-                <input class="form-control" type="text" value="{{this.dateArray[i]}}"
-                  aria-label="Disabled input example" disabled readonly>
-              </div>
-              <div class="row">
-                <div class="col col-md-6">
-                  <label class="form-label mt-3">Select Leave Type:</label>
-                  <select class="form-control" formControlName="type">
 
-                    <option type="TYPE_CASUAL">TYPE_CASUAL</option>
-                    <option type="TYPE_SICK">TYPE_SICK</option>
-                    <option type="TYPE_ANNUAL">TYPE_ANNUAL</option>
-                  </select>
 
-                </div>
-                <div class="col col-md-6">
-                  <label class="form-label mt-3">Select Time Duration:</label>
-                  <select class="form-control" formControlName="duration">
+              <table class="table table-borderless">
 
-                    <option duration="HALF">HALF</option>
-                    <option duration="ENTIRE">ENTIRE</option>
 
-                  </select>
 
-                </div>
-              </div>
+                <thead>
+
+
+
+                  <tr>
+
+
+                    <th>Created on</th>
+                    <th>Start Date</th>
+                    <th>End Date</th>
+                  </tr>
+                </thead>
+                <tbody>
+
+                  <tr *ngFor="let application of ">
+                    <td>{{this.datePipe.transform(application.createdDate, 'yyyy-MM-dd')}}</td>
+                    <td>{{this.datePipe.transform(application.start, 'yyyy-MM-dd')}}</td>
+                    <td>{{this.datePipe.transform(application.End, 'yyyy-MM-dd')}}</td>
+                  </tr>
+
+                </tbody>
+
+
+
+
+
+              </table>
+
+
+
+
 
 
             </div>
-            <br>
+          </div>
 
-
-
-
-          </ng-container>
         </div>
 
-        <button [disabled]="!isVisible" type="submit" class="btn btn-outline-dark"
-          (click)="submitRepeat()">Submit</button>
+
+      </div>
 
 
-      </form>
 
     </div>
+
 
   </div>
 </div>

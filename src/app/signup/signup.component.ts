@@ -33,7 +33,8 @@ export class SignupComponent implements OnInit {
       gender: ['', [Validators.required]],
       username: ['', [Validators.required]],
       password: ['', [Validators.required]],
-      confirmPassword: ['', [Validators.required]]
+      confirmPassword: ['', [Validators.required]],
+      telephoneNo: ['', [Validators.required]]
 
 
     });
@@ -49,7 +50,8 @@ export class SignupComponent implements OnInit {
       email = this.signup.value.email,
       username = this.signup.value.username,
       password = this.signup.value.password,
-      gender = this.signup.value.gender
+      gender = this.signup.value.gender,
+      telephoneNo = this.signup.value.telephoneNo
     this.setupForm();
 
     const payload = {
@@ -60,7 +62,8 @@ export class SignupComponent implements OnInit {
       email,
       username,
       password,
-      gender
+      gender,
+      telephoneNo
 
 
 

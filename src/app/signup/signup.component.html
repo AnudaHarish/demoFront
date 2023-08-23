@@ -42,6 +42,18 @@
 
       </div>
       <div class="mb-3">
+        <label for="telephoneNo" form-label="telephoneNo">Contact No<span class="text-danger">*</span></label>
+        <input class="form-control" type="text" formControlName="telephoneNo" id="telephoneNo" />
+        <!-- <div class="alert alert-danger" style="height:5px; justify-content: center;" *ngIf="
+        telephoneNo?.invalid && (telephoneNo?.touched || telephoneNo?.dirty)
+            "> -->
+        <!-- <div *ngIf="telephoneNo?.errors?.['required']">
+            Contact Number can't be emtpy
+          </div> -->
+        <!-- </div> -->
+
+      </div>
+      <div class="mb-3">
         <label for="lastname" form-label="lastname">Date Of Birth<span class="text-danger">*</span></label>
         <mat-form-field>
           <mat-label>Choose a date</mat-label>

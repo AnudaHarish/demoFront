@@ -1,9 +1,11 @@
 <div class="container" class="container-fluid mt-5" style="width: 1000px;">
+
+
   <div class="row align-items-start">
-    <div class="card">
+    <div class="card border-secondary" style="padding-top: 10px;">
 
       <article>
-        <h1>Leave History</h1>
+        <h1 class="display-4">Leave History</h1>
         <h2><span>Select a type of leave:</span></h2>
         <select class="form-control" [(ngModel)]="value" (change)="selectChangedHandler($event)">
           <option value="All Leaves">All leaves</option>
@@ -23,7 +25,7 @@
 
   </div>
   <div class="row " style="align-items: center; justify-content: center;">
-    <div class="card mt-3 ">
+    <div class="card mt-3 border-secondary">
       <div class="card mt-5 table-hover" style="padding: 30px; width: 900px;margin:auto ;margin-bottom: 20px;">
         <table class="table table-hover table-boder-less">
           <thead>

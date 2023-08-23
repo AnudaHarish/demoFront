@@ -8,6 +8,9 @@ import { MatNativeDateModule } from '@angular/material/core';
 import { toHtml } from '@fortawesome/fontawesome-svg-core';
 import { UserAuthService } from 'src/app/_service/user-auth.service';
 import { EmpolyeeService } from 'src/app/_service/empolyee.service';
+import Chart, { Chart as ChartJS } from 'chart.js/auto';
+import { LeaveInfo } from 'src/app/models/leave-info.model';
+
 
 
 
@@ -27,10 +30,16 @@ export class LeaveRequestComponent implements OnInit {
   dateArray: any = [];
   leaveArray: any = [];
   inboundClick = true;
+  graph;
+
+
+
 
 
   ngOnInit(): void {
 
+
+    this.infoLeave()
     this.getDate();
     this.form = this.fb.group({
       daterange: new FormGroup({
@@ -41,6 +50,14 @@ export class LeaveRequestComponent implements OnInit {
 
 
 
+
+
+  }
+
+  info: LeaveInfo = {
+    sick: 0,
+    casual: 0,
+    annual: 0
   }
 
   constructor(private fb: FormBuilder, private fb2: FormBuilder, private userAuthService: UserAuthService, private employeeService: EmpolyeeService) {
@@ -156,6 +173,8 @@ export class LeaveRequestComponent implements OnInit {
     this.enumerateDaysBetweenDates(this.date1, this.date2);
     this.addCreds();
 
+    this.infoLeave();
+
 
   }
 
@@ -186,6 +205,8 @@ export class LeaveRequestComponent implements OnInit {
 
 
 
+
+
     this.employeeService.addRequest(this.formRepeat.value.item).subscribe(
       (resp) => {
         console.log(resp);
@@ -196,7 +217,30 @@ export class LeaveRequestComponent implements OnInit {
       }
     );
 
+
+
     this.reset();
+    this.infoLeave();
+  }
+
+  public infoLeave() {
+    let id = this.userAuthService.getId();
+
+    this.employeeService.leaveInfo(id).subscribe(
+
+      (res) => {
+        this.info.annual = res.annual;
+        this.info.casual = res.casual;
+        this.info.sick = res.sick;
+        this.chart(this.info);
+
+        // console.log(res);
+      },
+      (err) => {
+        console.log(err);
+      }
+    );
+
   }
 
 
@@ -210,6 +254,40 @@ export class LeaveRequestComponent implements OnInit {
     this.form.reset()
   }
 
+
+  public chart(info: LeaveInfo) {
+
+
+    if (this.graph) {
+      this.graph.clear();
+      this.graph.destroy();
+    }
+
+    this.graph = new Chart("myChart", {
+      type: 'bar',
+      data: {
+        labels: ['Casual', 'Sick', 'Annual'],
+        datasets: [{
+          label: '# No of Leaves',
+          data: [this.info.casual, this.info.sick, this.info.annual],
+
+          borderWidth: 1
+        }]
+      },
+      options: {
+        scales: {
+          y: {
+            beginAtZero: true
+          }
+
+        }
+      }
+    });
+
+
+
+
+  }
 
 
 

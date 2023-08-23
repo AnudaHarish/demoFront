@@ -28,7 +28,7 @@
     <div class="col col-md-6  mt-5" style="min-height: 500px;">
 
       <div class="card border-secondary" style="min-height: 500px;">
-        <h5 class="card-header fs-5 text-white" style="background-color: rgb(0, 132, 255);">Profile</h5>
+        <h5 class="card-header fs-5 text-white display-4" style="background-color: rgb(0, 132, 255);">Profile</h5>
         <div class="card-body">
           <div class="row" class="justify-content-md-center" style="align-items: center; padding-left: 100px;">
 
@@ -102,6 +102,7 @@
 
         <div class="card border-secondary" style="width: 25rem;">
           <div class="card-body" id="divChart">
+            <h5 class="card-title">Leave count</h5>
             <canvas id="myChart"></canvas>
           </div>
         </div>
@@ -112,15 +113,53 @@
 
         <div class="card mt-5 border-secondary" style="width: 25rem;">
           <div class="card-body">
-            <h5 class="card-title">Special title treatment</h5>
-            <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
-            <a href="#" class="btn btn-primary">Go somewhere</a>
-          </div>
-        </div>
+            <h5 class="card-title">Pending Leave</h5>
+            <div class="row">
 
+
+              <table class="table table-borderless">
+
+
+
+                <thead>
+
+
+                  <p>Leave Applications</p>
+                  <tr>
+
+
+                    <th>Created on</th>
+                    <th>Start Date</th>
+                    <th>End Date</th>
+                  </tr>
+                </thead>
+                <tbody>
+
+                  <tr *ngFor="let application of leaveApplicationList">
+                    <td>{{this.datePipe.transform(application.createdDate, 'yyyy-MM-dd')}}</td>
+                    <td>{{this.datePipe.transform(application.start, 'yyyy-MM-dd')}}</td>
+                    <td>{{this.datePipe.transform(application.End, 'yyyy-MM-dd')}}</td>
+                  </tr>
+
+                </tbody>
+
+
+
+
+
+              </table>
+
+
+
+
+
+
+            </div>
+          </div>
+
+        </div>
       </div>
+
     </div>
 
   </div>
-
-</div>

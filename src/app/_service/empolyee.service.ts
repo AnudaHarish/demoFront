@@ -5,6 +5,7 @@ import { Observable } from 'rxjs';
 import { Leave } from '../models/leave.model';
 import { User } from '../models/user.model';
 import { LeaveInfo } from '../models/leave-info.model';
+import { PendingInfo } from '../models/pending-info.model';
 
 @Injectable({
   providedIn: 'root'
@@ -56,6 +57,22 @@ export class EmpolyeeService {
   public leaveInfo(id): Observable<LeaveInfo> {
     return this.http.get<LeaveInfo>(`${this.baseUrl}/infoLeave/${id}`);
   }
+
+  public leaveApplication(id) {
+    return this.http.get(`${this.baseUrl}/LeaveApplication/${id}`);
+  }
+
+  public getPendingLeave(id): Observable<PendingInfo> {
+    return this.http.get<PendingInfo>(`${this.baseUrl}/getPendingLeave/${id}`);
+  }
+
+
+  public leaveApplicationList(id) {
+    return this.http.get(`${this.baseUrl}/leaveApplications/${id}`);
+  }
+
+
+
 
 
 
