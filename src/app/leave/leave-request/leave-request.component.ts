@@ -10,6 +10,7 @@ import { UserAuthService } from 'src/app/_service/user-auth.service';
 import { EmpolyeeService } from 'src/app/_service/empolyee.service';
 import Chart, { Chart as ChartJS } from 'chart.js/auto';
 import { LeaveInfo } from 'src/app/models/leave-info.model';
+import { PendingApplication } from 'src/app/models/pending-application.model';
 
 
 
@@ -31,7 +32,12 @@ export class LeaveRequestComponent implements OnInit {
   leaveArray: any = [];
   inboundClick = true;
   graph;
+  leaveItemList: any = [];
 
+  pendingApplication: PendingApplication = {
+    item: [],
+    userId: 0
+  }
 
 
 
@@ -183,7 +189,6 @@ export class LeaveRequestComponent implements OnInit {
     const formArray = this.formRepeat.controls.item as FormArray;
     this.dateArray.forEach((item) => {
       formArray.push(this.fb2.group({
-        username: this.userAuthService.getusername(),
         date: item,
         type: '',
         duration: '',
@@ -207,7 +212,9 @@ export class LeaveRequestComponent implements OnInit {
 
 
 
-    this.employeeService.addRequest(this.formRepeat.value.item).subscribe(
+    this.pendingApplication.item = this.formRepeat.value.item,
+      this.pendingApplication.userId = this.userAuthService.getId()
+    this.employeeService.addRequest(this.pendingApplication).subscribe(
       (resp) => {
         console.log(resp);
 

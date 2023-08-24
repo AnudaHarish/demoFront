@@ -1,4 +1,4 @@
-<div class="container" class="container-fluid mt-5" style="width: 1000px;">
+<!-- <div class="container" class="container-fluid mt-5" style="width: 1000px;">
 
 
   <div class="row align-items-start">
@@ -64,6 +64,169 @@
 
           </tbody>
         </table>
+      </div>
+    </div>
+  </div>
+</div> -->
+
+
+<div class="container">
+  <div class="row" style="min-width: 500px;">
+
+    <div class="card border-secondary mt-5" style="padding-top: 10px;min-width: 500px;">
+
+      <article>
+        <h1 class="display-4">Leave History</h1>
+        <h2><span>Select a type of leave:</span></h2>
+        <select class="form-select" aria-label="Default select example" [(ngModel)]="value"
+          (change)="selectChangedHandler($event)">
+
+          <option value="Pending Leaves">Pending Leaves</option>
+          <option value="Approved Leaves">Approved leaves</option>
+          <option value="Rejected Leaves">Rejected Leaves</option>
+          <option value="Deleted Leaves">Deleted Leaves</option>
+        </select>
+        <p><span>Category: </span><b>{{selectedOption}}</b></p>
+      </article>
+
+
+
+
+
+
+
+
+
+
+
+    </div>
+
+  </div>
+  <div class="row" style=" min-width: 700px;">
+
+    <div class="card text-center mt-5 border-secondary">
+      <div class="card-header" style="background-color: rgb(255, 255, 255);">
+        <ul class="nav nav-tabs card-header-tabs">
+          <li class="nav-item">
+            <a class="nav-link active  text-white" aria-current="true"
+              style="background-color: rgb(104, 104, 104);">{{selectedOption}}</a>
+          </li>
+
+
+        </ul>
+      </div>
+      <div class="card-body">
+
+        <div class="row" *ngFor="let leave of leaveList; let i = index">
+
+          <div class="card mb-3 border-info mb-3" style="padding: 20px;">
+
+            <div class="card-title" style="align-self: flex-start;">
+              <h3>Application {{i+1}}</h3>
+            </div>
+
+            <table class="table">
+              <thead>
+                <tr>
+                  <th>Start Date</th>
+                  <th>End Date</th>
+                  <th>Created On</th>
+                  <th>Apply for</th>
+
+                </tr>
+
+              </thead>
+              <tbody>
+                <tr>
+                  <td>{{createDate(leave.startDate)}}</td>
+                  <td>{{createDate(leave.endDate)}}</td>
+                  <td>{{createDate(leave.createdDate)}}</td>
+                  <td>{{leaveItemSize(leave.leaveItem)}} {{''}} day</td>
+                </tr>
+              </tbody>
+
+            </table>
+
+
+            <div class="row mt-3" style="align-self: flex-end;">
+
+
+              <div class="col mb-3">
+
+                <button type="button" class="btn btn-danger" style="margin-right: 10px;">Delete</button>
+
+                <button class="btn btn-primary" type="button" data-bs-toggle="collapse"
+                  data-bs-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
+                  View more
+                </button>
+              </div>
+
+
+
+            </div>
+            <div class="collapse" id="collapseExample">
+              <div class="card card-body border-light" style="width: 600px; align-items: center;margin: auto;">
+                <table class="table">
+                  <thead>
+                    <tr>
+                      <th>Date</th>
+                      <th>Leave Type</th>
+                      <th>Leave Duration</th>
+                      <th></th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr *ngFor="let item of leave.leaveItem ">
+                      <td>{{createDate(item.date)}}</td>
+                      <td>{{converEnum(item.type)}}</td>
+                      <td>{{converEnum(item.duration)}}</td>
+                      <td> <button type="button" class="btn btn-warning" style="margin-right: 10px;">Edit</button>
+                        <button type="button" class="btn btn-danger" style="margin-right: 10px;">Delete</button>
+                      </td>
+                    </tr>
+
+                  </tbody>
+
+                </table>
+              </div>
+            </div>
+
+
+
+
+
+
+
+          </div>
+
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+</div>
+
+
+<!-- Button trigger modal -->
+<button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
+  Launch demo modal
+</button>
+
+<!-- Modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="exampleModalLabel">Modal title</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        ...
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary">Save changes</button>
       </div>
     </div>
   </div>

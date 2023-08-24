@@ -6,4 +6,8 @@ export interface Leave {
   duration?: string;
   status?: string;
   username?: string;
+  startDate?: [];
+  endDate?: [];
+  createdDate?: [];
+  leaveItem?: [];
 }

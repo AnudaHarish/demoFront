@@ -6,6 +6,7 @@ import { Leave } from '../models/leave.model';
 import { User } from '../models/user.model';
 import { LeaveInfo } from '../models/leave-info.model';
 import { PendingInfo } from '../models/pending-info.model';
+import { PendingApplication } from '../models/pending-application.model';
 
 @Injectable({
   providedIn: 'root'
@@ -33,24 +34,28 @@ export class EmpolyeeService {
   }
 
   public approvedList(id) {
-    return this.http.get(`${this.baseUrl}/approved/${id}`);
+    return this.http.get(`${this.baseUrl}/approvedApplicationList/${id}`);
   }
 
   public disapprovedList(id) {
-    return this.http.get(`${this.baseUrl}/disapproved/${id}`);
+    return this.http.get(`${this.baseUrl}/rejectedApplicationList/${id}`);
   }
 
   public allLeaves(id) {
     return this.http.get(`${this.baseUrl}/leaves/${id}`);
   }
 
-  public addRequest(leave: []) {
-    return this.http.post(this.baseUrl + "/add" + "/request", leave);
+  public addRequest(pendingApplication: PendingApplication) {
+    return this.http.post(this.baseUrl + "/addRequest", pendingApplication);
 
   }
 
   public deleteRequest(id) {
     return this.http.delete(`${this.baseUrl}/delete/${id}`);
+
+  }
+  public deleteList(id) {
+    return this.http.get(`${this.baseUrl}/deleted/${id}`);
 
   }
 
@@ -59,7 +64,7 @@ export class EmpolyeeService {
   }
 
   public leaveApplication(id) {
-    return this.http.get(`${this.baseUrl}/LeaveApplication/${id}`);
+    return this.http.get(`${this.baseUrl}/pending/${id}`);
   }
 
   public getPendingLeave(id): Observable<PendingInfo> {
@@ -68,7 +73,7 @@ export class EmpolyeeService {
 
 
   public leaveApplicationList(id) {
-    return this.http.get(`${this.baseUrl}/leaveApplications/${id}`);
+    return this.http.get(`${this.baseUrl}/pending/${id}`);
   }
 
 

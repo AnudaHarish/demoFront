@@ -34,7 +34,7 @@ export class AdminService {
   }
 
   public rejectedtList() {
-    return this.http.get(`${this.baseUrl}/rejectedList`)
+    return this.http.get(`${this.baseUrl}/rejected`)
 
   }
 

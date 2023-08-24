@@ -70,7 +70,7 @@ export class UserComponent implements OnInit {
 
     this.userInfo();
     this.infoLeave();
-    this.hello();
+    // this.hello();
     // this.getLeaveApplication();
     this.getLeaveApplications();
 

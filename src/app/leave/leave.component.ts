@@ -19,7 +19,7 @@ export class LeaveComponent implements OnInit {
   method: any;
   isVisible = false;
   getValue: any;
-
+  application: [];
   selectLeave: any;
 
 
@@ -32,7 +32,7 @@ export class LeaveComponent implements OnInit {
 
   }
   ngOnInit(): void {
-    this.selectedOption = "All Leaves"
+    this.selectedOption = "Pending Leaves"
     this.setSelectedOption();
     console.log(this.selectedOption);
 
@@ -50,14 +50,14 @@ export class LeaveComponent implements OnInit {
   }
 
   setSelectedOption() {
-    if (this.selectedOption === "All Leaves") {
-      this.selectedOption = "All Leaves";
+    if (this.selectedOption === "Pending Leaves") {
+
       const id = this.userAuthService.getId();
       console.log('hee');
 
-      this.employeeService.allLeaves(id).subscribe(
+      this.employeeService.pendingList(id).subscribe(
         (res: any) => {
-          console.log(res);
+          // console.log(res);
           this.leaveList = res;
         },
         (erro) => {
@@ -92,20 +92,24 @@ export class LeaveComponent implements OnInit {
     else if (selectedOption === "Rejected Leaves") {
       this.method = this.employeeService.disapprovedList(id);
     }
-    else if (selectedOption === "All Leaves") {
-      this.method = this.employeeService.allLeaves(id);
+    else if (selectedOption === "Deleted Leaves") {
+      this.method = this.employeeService.deleteList(id);
     }
 
     console.log(selectedOption);
 
 
-    console.log(this.value);
+    // console.log(this.value);
     this.method.subscribe(
       (res: any) => {
 
 
         this.leaveList = res;
-        console.log(res);
+        // console.log(this.leaveList);
+        for (let item of this.leaveList) {
+          this.createDate(item.startDate);
+        }
+
 
       },
       (err) => {
@@ -158,6 +162,51 @@ export class LeaveComponent implements OnInit {
 
 
 
+  public createDate(dateList: []) {
+
+
+    length = dateList.length;
+    console.log(dateList)
+    let year = dateList[length - length];
+    let month = dateList[length - 2];
+    let day = dateList[length - 1];
+    return year + "-" + month + "-" + day;
+
+    // let day = dateList.get(2);
+    // let month = dateList.get(1);
+    // let year = dateList.get(0);
+    // console.log(dateList);
+
+    // return year + '-' + month + '-' + day;
+
+
+  }
+
+
+  leaveItemSize(leaveItem: []) {
+    return leaveItem.length;
+  }
+
+
+  converEnum(type: string) {
+
+    if (type === "TYPE_CASUAL") {
+      type = "Casual";
+      return type;
+    } else if (type === "TYPE_ANNUAL") {
+      type = "Annual";
+      return type;
+    } else if (type === "TYPE_SICK") {
+      type = "Sick";
+      return type;
+    } else if (type === "HALF") {
+      type = "Half Day";
+      return type;
+    } else {
+      type = "Full Day";
+      return type;
+    }
+  }
 
 
 
