@@ -44,20 +44,19 @@
             <h3>Name: {{user.firstname}} {{user.lastname}}</h3>
 
             <h3>Date of Birth: {{user.dob}} </h3>
-            <div class="row">
-              <div class="col">
-
-                <h3><fa-icon [icon]="at"></fa-icon>:{{user.email}} </h3>
-              </div>
-
-              <div class="col">
-                <h2><fa-icon [icon]="mobile"></fa-icon>:{{user.telephoneNo}} </h2>
-              </div>
 
 
-            </div>
 
-            <h4>Registered Date: {{user.registeredDate}}</h4>
+            <h3><fa-icon [icon]="at"></fa-icon>: {{user.email}} </h3>
+
+
+
+            <h3><fa-icon [icon]="mobile"></fa-icon>: {{user.telephoneNo}} </h3>
+
+
+
+
+            <h5>Registered Date: {{user.registeredDate}}</h5>
 
 
 
@@ -137,8 +136,8 @@
 
                   <tr *ngFor="let application of leaveApplicationList">
                     <td>{{this.datePipe.transform(application.createdDate, 'yyyy-MM-dd')}}</td>
-                    <td>{{this.datePipe.transform(application.start, 'yyyy-MM-dd')}}</td>
-                    <td>{{this.datePipe.transform(application.End, 'yyyy-MM-dd')}}</td>
+                    <td>{{this.datePipe.transform(application.startDate, 'yyyy-MM-dd')}}</td>
+                    <td>{{this.datePipe.transform(application.endDate, 'yyyy-MM-dd')}}</td>
                   </tr>
 
                 </tbody>

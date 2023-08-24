@@ -353,6 +353,26 @@ export class UserComponent implements OnInit {
 
 
 
+  public createDate(dateList: []) {
+
+
+    length = dateList.length;
+    console.log(dateList)
+    let year = dateList[length - length];
+    let month = dateList[length - 2];
+    let day = dateList[length - 1];
+    return year + "-" + month + "-" + day;
+
+    // let day = dateList.get(2);
+    // let month = dateList.get(1);
+    // let year = dateList.get(0);
+    // console.log(dateList);
+
+    // return year + '-' + month + '-' + day;
+
+
+  }
+
 
 
 
