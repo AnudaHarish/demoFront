@@ -1,142 +1,148 @@
 <div class="container">
-  <div class="row mt-5">
-    <div class="d-grid gap-2 d-md-flex justify-content-md-end">
-      <!-- <button class="btn btn-outline-dark justify-content-md-end" data-bs-toggle="modal"
-        data-bs-target="#addEmployeeModal" style="margin-right: 0px;">Add
-        Employee</button> -->
+  <div class="row">
+    <div class="card mt-5" style="width: 35rem;margin:auto; padding-top: 1rem; ">
+      <div class="card-title">
+        <div class="row">
+          <div class="col ">
+
+          </div>
+          <div class="col" style="padding-left: 13rem;padding-right: 0rem;">
+            <button class="btn btn-info" style="margin-right: 0px;" (click)="addEmployee()">Add Employee</button>
+          </div>
+        </div>
+        <div class="row">
+          <legend style="padding-left: 2rem;">Employee Manager</legend>
+        </div>
+        <div style="margin-top: 2rem;padding-left: 8rem;">
+          <div class="row">
+            <label for="search">Search Here</label>
+          </div>
+          <div class="row">
+
+            <div class="col col-md-7">
+              <input type="text" class="form-control" placeholder="search" [(ngModel)]="searchText" id="search">
+            </div>
+
+          </div>
+        </div>
 
 
-    </div>
-
-
-  </div>
-  <div class="row mt-3">
-    <div class="card text-center" style="min-width: 850px;">
-      <div class="card-header">
-        <ul class="nav nav-tabs card-header-tabs">
-          <li class="nav-item">
-            <a class="nav-link active" aria-current="true" style="background-color: rgb(239, 243, 15);"><button
-                class="btn" (click)="getactive()">Active-List</button></a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link active" aria-current="true" style="background-color: rgb(243, 68, 15);"><button
-                class="btn" (click)="DeleteList()">Delete-List</button></a>
-          </li>
-          <!-- <li class="nav-item">
-            <a class="nav-link active" aria-current="true" style="background-color: rgb(15, 175, 243);"><button
-                class="btn">Add Employee</button></a>
-          </li> -->
-
-
-        </ul>
       </div>
       <div class="card-body">
 
-        <table class="table">
-          <thead>
-            <tr>
-              <th scope="col">Employee ID</th>
-              <th scope="col">Name</th>
-              <th scope="col">Gender</th>
-              <th scope="col">Email</th>
-              <th scope="col">Leave Request</th>
-              <th scope="col">Edit</th>
-              <th scope="col">Delete</th>
+        <!-- search goes here -->
 
-            </tr>
-          </thead>
-          <tbody>
-            <tr *ngFor="let item of selectedList">
 
-              <td>{{item.id}}</td>
-              <td>{{item.firstname}} {{item.lastname}}</td>
-              <!-- <td>{{this.datePipe.transform(item.date, 'yyyy-MM-dd')}}</td> -->
-              <td>{{item.gender}}</td>
-              <td>{{item.email}}</td>
-
-              <td><button type="button" class="btn btn-primary" data-toggle="modal"
-                  data-target="#addEmployeeModal">View</button>
-              </td>
-              <td><button type="button" class="btn btn-primary" data-toggle="modal"
-                  data-target="#xampleModal">Edit</button>
-              </td>
-              <td><button type="button" class="btn btn-danger" (click)="deleteStudentById(student)"
-                  [disabled]="!visible">Delete</button></td>
-            </tr>
-
-          </tbody>
-        </table>
 
       </div>
     </div>
-    <!-- Button trigger modal -->
-
-
-    <!-- Modal -->
-
-
-
   </div>
 
+  <div class="row mt-3">
+    <div class="card" style="width: 55rem;background-color: rgba(240, 248, 255, 0);">
+      <div class="card-header" style="background-color: rgba(240, 248, 255, 0);">
+        <div class="row">
+
+          <div class="col">
+            <ul class="nav nav-tabs card-header-tabs">
+
+              <li class="nav-item">
+
+                <a class="nav-link active" aria-current="true" style="padding: 0;"><button
+                    class="btn btn-link text-white " class="btn btn-dark"
+                    style="text-decoration: none;padding: 0.2rem;padding-left: 1rem;padding-right: 1rem;margin-bottom: 0;"
+                    (click)="getactive()">Active</button></a>
+
+
+              </li>
+              <li class="nav-item">
+                <a class="nav-link active" aria-current="true" style="padding: 0;"><button
+                    class="btn btn-link text-white"
+                    style="text-decoration: none;padding: 0.2rem;padding-left: 1rem;padding-right: 1rem;margin-bottom: 0;"
+                    (click)="DeleteList()" class="btn btn-dark">Deleted</button></a>
+              </li>
+
+            </ul>
+
+
+          </div>
+          <div class="col col-md-5">
+
+          </div>
+
+        </div>
+
+
+      </div>
+      <div class="card-body" style="align-self: center;">
+
+
+        <div class="card mb-3 mt-3" style="max-width: 45rem;"
+          *ngFor="let employee of selectedList | search : searchText">
+          <div class="row g-0">
+            <div class="col-md-4">
+              <img src="https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png"
+                class="img-fluid rounded-start" alt="...">
+            </div>
+            <div class="col-md-8">
+              <div class="card-body" style="align-content: flex-start;">
+                <div class="row">
+                  <div class="col col-md-4">
+                    <h4 class="card-title">#Employee ID: {{employee.id}}</h4>
+                  </div>
+                  <div class="col" style="margin-right: 0%;padding: 0%;margin-left: 0rem; padding-left:15rem">
+                    <button class="btn btn-warning" style="margin-right: 0.3rem;padding:0.2rem"
+                      (click)="editInfo(employee.id)"><fa-icon [icon]="pen" size="sm"></fa-icon></button>
+                    <button (click)="delMsg(employee.id)" class="btn btn-danger" style="padding:0.2rem"><fa-icon
+                        [icon]="bin" type="solid" size="sm"></fa-icon></button>
+                  </div>
+                </div>
+
+                <div class="row">
+                  <p>Name: {{employee.firstname}} {{employee.lastname}}</p>
+                </div>
+                <div class="row">
+                  <p>Gender: {{ editEnum(employee.gender) }}</p>
+                </div>
+                <div class="row">
+                  <p>Date Of Birth: {{createDate(employee.dob)}}</p>
+                </div>
+                <div class="row">
+                  <div class="col">
+                    <p>Email: {{employee.email}}</p>
+                  </div>
+                  <div class="col">
+                    <p>Telephone No: {{employee.telephoneNo}}</p>
+                  </div>
+
+                </div>
 
 
 
 
+                <p class="card-text"><small class="text-muted">Registered On:
+                    {{createDate(employee.registeredDate)}}</small></p>
+                <!-- <div class="row">
+                  <div class="col">
+
+                  </div>
+                  <div class="col" style="margin-right: 0%;padding: 0%;margin-left: 8rem;">
+
+                    <button class="btn btn-info" style="margin-right: 1rem;"
+                      (click)="editInfo(employee.id)">Edit</button>
+                    <button (click)="delMsg(employee.id)" class="btn btn-danger">Delete</button>
+
+                  </div>
+                </div> -->
+              </div>
+            </div>
+          </div>
+        </div>
+
+
+
+      </div>
+    </div>
+
+  </div>
 </div>
-
-<!-- Button trigger modal -->
-<button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addEmployeeModal">
-  Launch demo modal
-</button>
-
-<!-- <div class="modal fade" id="addEmployeeModal" tabindex="-1" role="dialog" aria-labelledby="addEmployeeModalLabel"
-  data-backdrop="false">
-  <div class="modal-dialog" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h1 class="modal-title fs-5" id="addEmployeeModalLabel">Modal title</h1>
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-      </div>
-      <div class="modal-body">
-        <app-signup></app-signup>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-        <button type="button" class="btn btn-primary">Save changes</button>
-      </div>
-    </div>
-  </div>
-</div> -->
-<!-- 
-<div class="modal fade" id="addEmployeeModal" tabindex="-1" role="dialog" aria-labelledby="addEmployeeModalLabel">
-  <div class="modal-dialog" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-        <h4 class="modal-title" id="myModalLabel">Modal title</h4>
-      </div>
-      <div class="modal-body">...</div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-        <button type="button" class="btn btn-primary">Save changes</button>
-      </div>
-    </div>
-  </div> -->
-
-
-<div class="my-module">
-
-  <div class="modal fade" id="addEmployeeModal" data-backdrop="false">
-    <div class="modal-dialog">
-      <div class="modal-content">
-        <div class="modal-body">Modal</div>
-      </div>
-    </div>
-  </div>
-</div>
-
-<script type="text/javascript">
-  $('.modal').parent().on('show.bs.modal', function (e) { $(e.relatedTarget.attributes['data-target'].value).appendTo('body'); })
-</script>

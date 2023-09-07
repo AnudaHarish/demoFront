@@ -1,0 +1,127 @@
+<div class="container">
+  <div class="row justify-content-md-center">
+
+    <div class="card mt-5 border-secondary" style="width: 35rem;">
+      <div class="card-body">
+        <h5 class="card-title">
+          <legend>Leave Management</legend>
+        </h5>
+        <p class="card-text">Select a Leave Type: </p>
+
+        <select class="form-select" aria-label="Default select example" [(ngModel)]="selectedOption"
+          (change)="selectValueHandler($event)">
+
+          <option value="Pending Leaves">Pending Leave</option>
+          <option value="Approved Leaves">Accepted Leave</option>
+          <option value="Rejected leaves">Rejected Leave</option>
+        </select>
+
+
+      </div>
+    </div>
+
+
+  </div>
+
+  <div class="row">
+
+    <div class="card text-center mt-3 border-secondary" style="width: 60rem;background-color: rgba(240, 248, 255, 0);">
+
+      <div class="card-header" style="background-color: rgba(240, 248, 255, 0);">
+        <div class="row">
+          <div class="col">
+            <ul class="nav nav-tabs card-header-tabs">
+
+              <li class="nav-item">
+                <a class="nav-link active text-white" aria-current="true"
+                  style="background-color: black;">{{selectedOption}}</a>
+              </li>
+            </ul>
+          </div>
+          <div class="col col-md-4">
+            <input type="text" class="form-control" placeholder="search" [(ngModel)]="searchText2" id="search">
+          </div>
+        </div>
+
+
+
+      </div>
+
+      <div class="card-body">
+
+        <div class="row">
+
+          <div class="col " *ngFor="let leaveApplication of applicationList | search : searchText2; let i = index">
+            <div class="card text-center mt-3 card border-info" style="width: 55rem;">
+              <div class="card-body">
+                <h3 class="card-title">Leave Application {{i + 1}}</h3>
+                <table class="table table-info">
+                  <thead>
+                    <tr>
+                      <th>Applied By</th>
+                      <th>Created on </th>
+                      <th>Start Date</th>
+                      <th>End Date</th>
+                      <th>Apply Duration(Days)</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td>{{leaveApplication.fullName}}</td>
+                      <td>{{createDate(leaveApplication.createdDate)}}</td>
+                      <td>{{createDate(leaveApplication.startDate)}}</td>
+                      <td>{{createDate(leaveApplication.endDate)}}</td>
+                      <td>{{leaveApplication.item.length}}</td>
+                    </tr>
+                  </tbody>
+
+                </table>
+
+
+                <div class="row " style="align-self: flex-end;">
+                  <div class="col">
+
+                  </div>
+
+                  <div class="col">
+                    <button style="margin-right: 10px;" type="button" class="btn btn-success"
+                      (click)="mess(leaveApplication.id)">Accept</button>
+                    <button style="margin-right: 10px;" type="button" class="btn btn-primary"
+                      (click)="onCreate(leaveApplication.id)">View
+                      more</button>
+                    <button type="button" class="btn btn-danger"
+                      (click)="rejectMsg(leaveApplication.id)">Reject</button>
+                  </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                </div>
+
+
+
+
+              </div>
+            </div>
+          </div>
+
+
+
+
+
+        </div>
+      </div>
+
+    </div>
+  </div>

@@ -36,12 +36,21 @@ import { LeaveRequestComponent } from './leave/leave-request/leave-request.compo
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { SignupComponent } from './signup/signup.component';
-import { UserProfileComponent } from './user/user-profile/user-profile.component';
+
 import { UserLeaveComponent } from './user/user-leave/user-leave.component';
 import { EmployeeListComponent } from './_admin/employee-list/employee-list.component';
 import { ActiveListComponent } from './_admin/employee-list/active-list/active-list.component';
 import { DeleteListComponent } from './_admin/employee-list/delete-list/delete-list.component';
 import { AcceptLeaveComponent } from './_admin/accept-leave/accept-leave.component';
+import { LeaveManagerComponent } from './_admin/leave-manager/leave-manager.component';
+import { MatDialogModule } from '@angular/material/dialog';
+import { InfoComponent } from './_admin/leave-manager/info/info.component';
+import { UserInfoComponent } from './_admin/employee-list/user-info/user-info.component';
+import { EditComponent } from './user/edit/edit.component';
+import { LeaveInfoComponent } from './leave/leave-info/leave-info.component';
+import { SaveEmployeeComponent } from './_admin/save-employee/save-employee.component';
+import { SearchPipe } from './search.pipe';
+import { ChangePasswordComponent } from './change-password/change-password.component';
 
 
 
@@ -61,12 +70,20 @@ import { AcceptLeaveComponent } from './_admin/accept-leave/accept-leave.compone
     UserComponent,
     LeaveRequestComponent,
     SignupComponent,
-    UserProfileComponent,
     UserLeaveComponent,
     EmployeeListComponent,
     ActiveListComponent,
     DeleteListComponent,
-    AcceptLeaveComponent
+    AcceptLeaveComponent,
+    LeaveManagerComponent,
+    InfoComponent,
+    UserInfoComponent,
+    EditComponent,
+    LeaveInfoComponent,
+    SaveEmployeeComponent,
+    SearchPipe,
+    ChangePasswordComponent
+
 
 
 
@@ -78,6 +95,7 @@ import { AcceptLeaveComponent } from './_admin/accept-leave/accept-leave.compone
 
 
   ],
+
   imports: [
     BrowserModule,
     AppRoutingModule,
@@ -100,7 +118,8 @@ import { AcceptLeaveComponent } from './_admin/accept-leave/accept-leave.compone
     MatExpansionModule,
     MatFormFieldModule,
     ReactiveFormsModule,
-    MatInputModule
+    MatInputModule,
+    MatDialogModule
 
 
 

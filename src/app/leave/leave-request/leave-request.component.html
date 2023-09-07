@@ -78,7 +78,39 @@
       <div class="card mt-5 border-secondary" style="align-items: center; padding: 30px; min-width:600px">
         <legend class="mb-5">Apply Leave Request</legend>
 
-        <form [formGroup]="form">
+
+        <div class="row">
+          <div class="col">
+            <p>Start Date</p>
+            <mat-form-field>
+              <mat-label>Start Date</mat-label>
+              <input matInput [matDatepicker]="picker1" [matDatepickerFilter]="dateFilter" placeholder="Choose a date"
+                (dateChange)="selectStartDateChangedHandler($event)">
+              <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
+              <mat-datepicker #picker1></mat-datepicker>
+            </mat-form-field>
+
+          </div>
+          <div class="col">
+            <p>End Date</p>
+            <mat-form-field>
+              <mat-label>End Date </mat-label>
+              <input matInput [matDatepicker]="picker2" [matDatepickerFilter]="dateFilter" placeholder="Choose a date"
+                [min]="minimum" (dateChange)="selectEndDateChangedHandler($event)">
+              <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
+              <mat-datepicker #picker2></mat-datepicker>
+            </mat-form-field>
+
+          </div>
+        </div>
+
+
+
+
+
+
+
+        <!-- <form [formGroup]="form">
           <mat-form-field>
             <mat-label>Enter a date range</mat-label>
             <mat-date-range-input [rangePicker]="picker" formGroupName="daterange">
@@ -93,7 +125,10 @@
 
           <button class="btn btn-primary" style="margin-left: 20px;" (click)="onSubmit()" [disabled]="isVisible">Submit
             Date Range</button>
-        </form>
+        </form> -->
+        <div id="mydiv">
+
+        </div>
 
 
         <form [formGroup]="formRepeat">
@@ -104,16 +139,16 @@
                 <div class="col col-md-5">
                   <label class="form-label mt-3">Selected Date {{i+1}}:</label>
                   <input class="form-control" type="text" value="{{this.dateArray[i]}}"
-                    aria-label="Disabled input example" disabled readonly>
+                    [checkFormDate]="this.dateArray[i]" aria-label="Disabled input example" disabled readonly>
                 </div>
                 <div class="row">
                   <div class="col col-md-6">
                     <label class="form-label mt-3">Select Leave Type:</label>
                     <select class="form-control" formControlName="type">
 
-                      <option type="TYPE_CASUAL">TYPE_CASUAL</option>
-                      <option type="TYPE_SICK">TYPE_SICK</option>
-                      <option type="TYPE_ANNUAL">TYPE_ANNUAL</option>
+                      <option value="TYPE_CASUAL">Type Casual</option>
+                      <option value="TYPE_SICK">Type Sick</option>
+                      <option value="TYPE_ANNUAL">Type Annual</option>
                     </select>
 
                   </div>
@@ -121,8 +156,8 @@
                     <label class="form-label mt-3">Select Time Duration:</label>
                     <select class="form-control" formControlName="duration">
 
-                      <option duration="HALF">HALF</option>
-                      <option duration="ENTIRE">ENTIRE</option>
+                      <option value="HALF">Half Day</option>
+                      <option value="ENTIRE">Full Day</option>
 
                     </select>
 

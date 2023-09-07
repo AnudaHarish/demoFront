@@ -85,3 +85,17 @@ mat-divider{
   margin-bottom: 16px;
   background-color: rgb(110, 110, 110);
 }
+
+
+.myBox{
+  /* display: flex; */
+  align-self: center;
+  justify-content: center;
+  width: 100%;
+  margin: auto;
+
+}
+ 
+
+
+/* style="width: 150px;margin-left: 50px; align-items: center;" */

@@ -6,7 +6,7 @@ export interface User {
   dob?: string;
   gender?: string;
   registeredDate?: string;
-  telephoneNo?: number;
+  telephoneNo?: string;
 
 
 

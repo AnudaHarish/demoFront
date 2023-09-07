@@ -2,6 +2,7 @@ import { DatePipe } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 import { UserService } from '../_service/user/user.service';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-signup',
@@ -29,12 +30,12 @@ export class SignupComponent implements OnInit {
       firstname: ['', [Validators.required]],
       lastname: ['', [Validators.required]],
       dob: ['', [Validators.required]],
-      email: ['', [Validators.required]],
+      email: ['', [Validators.required, Validators.email]],
       gender: ['', [Validators.required]],
       username: ['', [Validators.required]],
       password: ['', [Validators.required]],
       confirmPassword: ['', [Validators.required]],
-      telephoneNo: ['', [Validators.required]]
+      telephoneNo: ['', [Validators.required, Validators.pattern("[0-9]{10}")]]
 
 
     });
@@ -51,7 +52,9 @@ export class SignupComponent implements OnInit {
       username = this.signup.value.username,
       password = this.signup.value.password,
       gender = this.signup.value.gender,
-      telephoneNo = this.signup.value.telephoneNo
+      telephoneNo = this.signup.value.telephoneNo,
+      confirmPassword = this.signup.value.confirmPassword
+
     this.setupForm();
 
     const payload = {
@@ -63,22 +66,17 @@ export class SignupComponent implements OnInit {
       username,
       password,
       gender,
-      telephoneNo
+      telephoneNo,
+
 
 
 
 
     };
+    this.checkPassword(payload, confirmPassword);
 
-    this.userService.signup(payload).subscribe(
-      (res) => {
-        console.log(res);
-      },
-      (erro) => {
-        console.log(erro);
-      }
 
-    )
+
     console.log(payload);
 
 
@@ -116,10 +114,115 @@ export class SignupComponent implements OnInit {
   get password() {
     return this.signup.get('confirmPassword');
   }
+  get telephoneNo() {
+    return this.signup.get('telephoneNo');
+  }
 
+
+
+
+  showSuccessMessage(
+    title, message, icon = null,
+    showCancelButton = true) {
+    return Swal.fire({
+      title: title,
+      text: message,
+      icon: icon,
+      showCancelButton: showCancelButton
+    })
+
+  }
+
+  checkPassword(payload, confirmPassword): boolean {
+    let pas = Number(payload.password);
+    let con = Number(confirmPassword);
+    console.log(this.password);
+    console.log(this.confirmPassword);
+    console.log("pas", pas);
+    console.log("con", con);
+
+    if (pas === con) {
+      this.userService.signup(payload).subscribe(
+        (res) => {
+          console.log(res);
+          this.infoMsg();
+
+        },
+        (erro) => {
+          console.log(erro);
+          console.log(erro.error.email,
+            erro.error.telephoneNo,
+            erro.error.message, erro.error.password);
+          let messInvalidTel = '';
+          let messInvalidEmail = '';
+          let messInvalidUser = '';
+          let messInvalidPass = '';
+          if (erro.error.telephoneNo !== undefined)
+            messInvalidTel = erro.error.telephoneNo;
+          if (erro.error.email !== undefined)
+            messInvalidEmail = erro.error.email;
+          if (erro.error.message !== undefined)
+            messInvalidUser = erro.error.message;
+          if (erro.error.password !== undefined)
+            messInvalidPass = erro.error.password;
+          let mess = messInvalidEmail + "\n" + messInvalidTel + "\n" + messInvalidUser + "\n" + messInvalidPass;
+
+          let splitted = mess.split(mess);
+          this.errMsg("Invalid:", mess
+
+          )
+
+        }
+
+      )
+      return true;
+    }
+
+    else
+      this.errMsg("Invalid", "Password doesn't match")
+    return false;
+
+
+
+
+
+  }
+
+  errMsg(title, text) {
+    Swal.fire({
+      icon: 'error',
+      title: title,
+      text: text,
+
+    })
+  }
+
+
+  infoMsg() {
+
+    Swal.fire({
+      position: 'top-end',
+      icon: 'success',
+      title: 'Successfully registered',
+      showConfirmButton: false,
+      timer: 1500
+    })
+
+  }
 
 
 
 
 
 }
+
+
+
+
+
+
+
+
+
+
+

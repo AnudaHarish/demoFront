@@ -5,6 +5,10 @@ import { Leave } from '../models/leave.model';
 import { DatePipe } from '@angular/common';
 import { FormBuilder, FormControl } from '@angular/forms';
 import { Router } from '@angular/router';
+import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
+import { LeaveInfoComponent } from './leave-info/leave-info.component';
+import Swal from 'sweetalert2';
+import { faPenSquare } from '@fortawesome/free-solid-svg-icons';
 
 
 @Component({
@@ -17,22 +21,25 @@ export class LeaveComponent implements OnInit {
   leaveList: Leave[];
   selectedOption: any;
   method: any;
-  isVisible = false;
+  isVisible = true;
   getValue: any;
   application: [];
   selectLeave: any;
+  pen = faPenSquare;
+  searchText;
+  leaveApplication;
 
 
 
 
-
-  constructor(private employeeService: EmpolyeeService, private userAuthService: UserAuthService, private datePipe: DatePipe, private fb: FormBuilder, private router: Router) {
+  constructor(private employeeService: EmpolyeeService, private userAuthService: UserAuthService, private datePipe: DatePipe, private fb: FormBuilder, private router: Router, private dialog: MatDialog) {
 
 
 
   }
   ngOnInit(): void {
-    this.selectedOption = "Pending Leaves"
+    this.selectedOption = "Pending Leaves";
+
     this.setSelectedOption();
     console.log(this.selectedOption);
 
@@ -53,7 +60,7 @@ export class LeaveComponent implements OnInit {
     if (this.selectedOption === "Pending Leaves") {
 
       const id = this.userAuthService.getId();
-      console.log('hee');
+      // console.log('hee');
 
       this.employeeService.pendingList(id).subscribe(
         (res: any) => {
@@ -84,16 +91,20 @@ export class LeaveComponent implements OnInit {
 
     if (selectedOption === "Approved Leaves") {
       this.method = this.employeeService.approvedList(id);
+      this.isVisible = false;
     }
     else if (selectedOption === "Pending Leaves") {
       this.method = this.employeeService.pendingList(id);
+      this.isVisible = true;
 
     }
     else if (selectedOption === "Rejected Leaves") {
       this.method = this.employeeService.disapprovedList(id);
+      this.isVisible = false;
     }
     else if (selectedOption === "Deleted Leaves") {
       this.method = this.employeeService.deleteList(id);
+      this.isVisible = false;
     }
 
     console.log(selectedOption);
@@ -166,7 +177,7 @@ export class LeaveComponent implements OnInit {
 
 
     length = dateList.length;
-    console.log(dateList)
+    // console.log(dateList)
     let year = dateList[length - length];
     let month = dateList[length - 2];
     let day = dateList[length - 1];
@@ -208,6 +219,118 @@ export class LeaveComponent implements OnInit {
     }
   }
 
+
+
+  getLeaveList(list: any) {
+
+    return this.leaveApplication = list;
+  }
+
+
+
+  viewEdit(leaveitems: [], id, i) {
+
+
+    const dialogConfig = new MatDialogConfig();
+    dialogConfig.disableClose = true;
+    dialogConfig.autoFocus = true;
+    dialogConfig.width = "40%";
+    // dialogConfig.height = "60%";
+    // console.log(leaveitems);
+    dialogConfig.data = { item: leaveitems, leaveId: id, index: i };
+    console.log(dialogConfig.data)
+
+
+    let dialogRef = this.dialog.open(LeaveInfoComponent, dialogConfig);
+    dialogRef.afterClosed().subscribe(result => {
+
+      this.selectedOption = "Pending Leaves";
+
+
+      this.setSelectedOption();
+      this.getDetails(this.selectedOption);
+
+
+    })
+
+  }
+
+
+  deleteApplication(id) {
+    Swal.fire({
+      title: 'Are you sure?',
+      text: "You won't be able to revert this!",
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Yes, delete it!'
+    }).then((result) => {
+      if (result.isConfirmed) {
+        console.log("dddd");
+        this.leaveList = [];
+        this.deleteApp(id);
+        this.selectedOption = "Pending Leaves";
+
+
+        this.setSelectedOption();
+        this.getDetails(this.selectedOption);
+
+
+
+
+
+
+      }
+    })
+  }
+
+
+  deleteApp(id) {
+
+    this.employeeService.deleteApplication(id).subscribe(
+      (res) => {
+        // this.resetPage();
+        console.log("rrr")
+        this.selectedOption = "Pending Leaves";
+
+
+        this.setSelectedOption();
+        this.getDetails(this.selectedOption);
+        // this.selectedOption = "Pending Leaves"
+        // this.setSelectedOption();
+        // this.getDetails(this.selectedOption)
+
+
+        console.log(res);
+
+
+      },
+      (err) => {
+        console.log(err);
+      }
+    );
+  }
+
+
+  resetPage() {
+    this.employeeService.refreshPage.subscribe(() => {
+      this.getDetails("Pending Leaves");
+    });
+
+  }
+
+  getPendingList() {
+    this.employeeService.pendingList(this.userAuthService.getId()).subscribe(
+      (res: any) => {
+        console.log(res);
+        this.leaveList = res;
+      },
+      (err) => {
+        console.log(err);
+      }
+    )
+  }
 
 
 }

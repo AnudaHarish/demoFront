@@ -28,12 +28,16 @@ export class HeaderComponent implements OnInit {
   arrow = faArrowCircleRight;
 
   ngOnInit(): void {
-    this.userInfo();
+    this.userInfo()
+
+
 
   }
 
   public logout() {
+
     this.userAuthService.clear();
+
 
 
 
@@ -49,10 +53,10 @@ export class HeaderComponent implements OnInit {
 
   public userInfo() {
 
-    const id = this.userAuthService.getId();
-    console.log(id);
 
 
+
+    let id = this.userAuthService.getId();
     this.employeeService.getInfoById(id).subscribe(
       (res) => {
         console.log(res);

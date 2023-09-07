@@ -1,0 +1,130 @@
+<div class="card">
+  <div class="card-header" style="background-color: rgb(74, 205, 228);">
+    <legend>Edit Profile</legend>
+
+  </div>
+  <div class="card-body">
+    <div style="width: 35rem;align-items: center;">
+      <form [formGroup]="form" (ngSubmit)="save()" class="form">
+        <div class="row mt-3">
+          <div class="col col-md-3">
+            <label for="firstname">Firstname:</label>
+          </div>
+          <div class="col col-md-8">
+            <div class="row">
+              <input type="text" id="firstname" class="form-control" formControlName="firstname" />
+            </div>
+            <div class="row">
+              <!-- <div *ngIf="firstname?.invalid &&  (firstname?.dirty || firstname?.touched)" class="alert alert-danger">
+                <div *ngIf="firstname?.errors?.['required']">
+                  Firstname can't be empty
+                </div>
+              </div> -->
+              <div
+                *ngIf="form.get('firstname').invalid && (form.get('firstname').dirty || form.get('firstname').touched)"
+                class="alert alert-danger" style="height: 8px;">
+                <div *ngIf="form.get('firstname').errors?.required">
+                  Firstname can't be empty
+                </div>
+                <div *ngIf="firstname.errors.pattern">
+                  Only text
+                </div>
+              </div>
+
+
+
+            </div>
+
+
+          </div>
+
+        </div>
+        <div class="row mt-3">
+          <div class="col col-md-3">
+            <label for="lastname">Lastname:</label>
+          </div>
+          <div class="col col-md-8">
+            <div class="row">
+              <input type="text" id="lastname" class="form-control" formControlName="lastname">
+            </div>
+            <div class="row">
+
+              <div *ngIf="form.get('lastname').invalid && (form.get('lastname').dirty || form.get('lastname').touched)"
+                class="alert alert-danger" style="height: 8px;">
+                <div *ngIf="form.get('lastname').errors?.required">
+                  Lastname can't be empty
+                </div>
+
+              </div>
+
+            </div>
+
+
+          </div>
+
+        </div>
+        <div class="row mt-3">
+          <div class="col col-md-3">
+            <label for="email">Email:</label>
+          </div>
+          <div class="col col-md-8">
+            <div class="row">
+              <input type="text" id="email" class="form-control" formControlName="email">
+            </div>
+            <div class="row">
+              <div *ngIf="email.invalid && (email.dirty || email.touched)" class="alert alert-danger"
+                style="height: 8px;">
+                <div *ngIf="email.errors.required">
+                  Email is required
+                </div>
+                <div *ngIf="email.errors.email">
+                  Enter a Valid email
+                </div>
+              </div>
+            </div>
+
+          </div>
+
+        </div>
+        <div class="row mt-3">
+          <div class="col col-md-3">
+            <label for="telephoneNo">Mobile Nubmer:</label>
+          </div>
+          <div class="col col-md-8">
+            <div class="row">
+              <input type="text" id="telephoneNo" class="form-control" formControlName="telephoneNo">
+            </div>
+            <div class="row">
+              <div *ngIf="telephoneNo.invalid && (telephoneNo.dirty || telephoneNo.touched)" class="alert alert-danger"
+                style="height: 8px;">
+                <div *ngIf="telephoneNo.errors.required">
+                  Telephone number is required
+                </div>
+                <div *ngIf="telephoneNo.errors.pattern">
+                  Enter a Valid phone no(eg:071xxxxxxx)
+                </div>
+              </div>
+            </div>
+
+          </div>
+
+        </div>
+
+        <div class="row mt-3" style="align-items: end;">
+          <div class="col"></div>
+          <div class="col">
+            <button mat-button mat-dialog-close="" class="btn btn-primary" style="margin-right: 10px;">Close</button>
+            <button mat-button class="btn btn-success" type="submit" [disabled]="form.invalid">Save
+              Changes</button>
+          </div>
+
+        </div>
+      </form>
+
+
+    </div>
+
+
+
+  </div>
+</div>

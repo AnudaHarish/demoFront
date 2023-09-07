@@ -4,6 +4,7 @@ import { NgForm } from '@angular/forms';
 import { UserAuthService } from '../user-auth.service';
 import { LeaveInfo } from 'src/app/models/leave-info.model';
 import { Observable } from 'rxjs';
+import { ChangePasswordRequest } from 'src/app/models/change-password-request.model';
 
 @Injectable({
   providedIn: 'root'
@@ -46,6 +47,15 @@ export class UserService {
       }
     }
   }
+
+
+  public changePassword(request: ChangePasswordRequest) {
+    return this.http.post(this.baseUrl + '/changePassword', request);
+  }
+
+
+
+
 
 
 

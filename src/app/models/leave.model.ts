@@ -10,4 +10,5 @@ export interface Leave {
   endDate?: [];
   createdDate?: [];
   leaveItem?: [];
+  userId: number;
 }

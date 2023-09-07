@@ -14,6 +14,7 @@ import { EmployeeListComponent } from './_admin/employee-list/employee-list.comp
 import { ActiveListComponent } from './_admin/employee-list/active-list/active-list.component';
 import { DeleteListComponent } from './_admin/employee-list/delete-list/delete-list.component';
 import { AcceptLeaveComponent } from './_admin/accept-leave/accept-leave.component';
+import { LeaveManagerComponent } from './_admin/leave-manager/leave-manager.component';
 
 
 const routes: Routes = [
@@ -30,7 +31,7 @@ const routes: Routes = [
   { path: 'active-list', component: ActiveListComponent },
 
   { path: 'delete-list', component: DeleteListComponent },
-  { path: 'accept-list', component: AcceptLeaveComponent }
+  { path: 'leave-manager', component: LeaveManagerComponent, canActivate: [AuthGuard], data: { roles: ['ROLE_ADMIN'] } }
 
 
 

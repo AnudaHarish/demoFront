@@ -30,6 +30,8 @@ export class AuthGuard implements CanActivate, OnInit {
         const match = this.userService.roleMatch(role);
 
         if (match) {
+
+          // this.router.navigate(['/user']);
           return true;
         }
         else {
@@ -37,6 +39,8 @@ export class AuthGuard implements CanActivate, OnInit {
           return false;
         }
       }
+
+
 
     }
 

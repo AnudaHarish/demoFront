@@ -45,12 +45,23 @@
 
   <mat-sidenav-container>
     <mat-sidenav mode="side" [(opened)]="opened">
+      <div class="myBox">
+        <div class="row justify-content-md-center">
+          <img src="https://cdn-icons-png.flaticon.com/512/149/149071.png" class="mt-4" alt="..." style="width: 150px;">
+
+        </div>
+
+        <div class="row mt-2" style="margin: auto;text-align: center">
+          <p>{{userAuthService.getusername()}}</p>
+        </div>
 
 
-      <img src="https://cdn-icons-png.flaticon.com/512/149/149071.png" class="mt-4" alt="..."
-        style="width: 150px;margin-left: 50px; align-items: center;">
+      </div>
 
-      <h4></h4>
+
+
+
+
 
 
 
@@ -80,8 +91,9 @@
         </button>
         <button class="menu-button" mat-button *ngIf="userService.roleMatch(['ROLE_ADMIN'])">
           <mat-list-item>
-            <a class="link-light" routerLink="/accept-list" style="text-decoration: none;"><fa-icon
-                [icon]="clock"></fa-icon>Leave Management</a></mat-list-item>
+            <a class="link-light" routerLink="/leave-manager" style="text-decoration: none;"><fa-icon
+                [icon]="clock"></fa-icon>Leave
+              Management</a></mat-list-item>
         </button>
         <button class="menu-button" mat-button *ngIf="userService.roleMatch(['ROLE_ADMIN'])">
           <mat-list-item>

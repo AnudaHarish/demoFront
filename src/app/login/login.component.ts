@@ -7,6 +7,7 @@ import { faUser } from '@fortawesome/free-solid-svg-icons';
 import { faLock } from '@fortawesome/free-solid-svg-icons';
 import { faCalendar } from '@fortawesome/free-solid-svg-icons';
 import { DatePipe } from '@angular/common';
+import Swal from 'sweetalert2';
 
 
 
@@ -26,18 +27,23 @@ export class LoginComponent implements OnInit {
   lock = faLock;
   user = faUser;
 
+
   isSubmitted = false;
   constructor(private userService: UserService, private userAuthService: UserAuthService, private router: Router, private datePipe: DatePipe) { }
 
   ngOnInit(): void {
 
+
   }
 
   login(loginInfo: NgForm) {
 
+    console.log(loginInfo);
+
 
     this.userService.login(loginInfo.value).subscribe(
       (res: any) => {
+
         this.userAuthService.setRoles(res.roles);
         this.userAuthService.setToken(res.accessToken);
         this.userAuthService.setId(res.id);
@@ -45,18 +51,38 @@ export class LoginComponent implements OnInit {
         console.log(res);
 
         const role = res.roles[0];
+        this.router.navigate(['/user']);
 
-        if (role === 'ROLE_ADMIN') {
-          this.router.navigate(['/user']);
-        } else {
-          // this.router.navigate(['/user']);
-        }
+        // if (role === 'ROLE_ADMIN') {
+        //   this.router.navigate(['/user']);
+        // } else {
+        //   // this.router.navigate(['/user']);
+        // }
 
         // console.log(res);
 
       },
       (err) => {
         console.log(err);
+        console.log(err.error)
+
+        // let pass;
+        // let use;
+
+        // if (err.error.password == undefined) {
+        //   pass = "password" + err.erro.password;
+        // }
+        // if (err.error.username == undefined) {
+        //   use = "username" + err.erro.username;
+        // }
+
+
+
+
+        // let mes = pass + use;
+
+        this.showSuccessMessage("Invalid:", err.error);
+
       }
     );
 
@@ -91,7 +117,11 @@ export class LoginComponent implements OnInit {
 
       },
       (err) => {
-        console.log(err);
+        // console.log(err);
+
+        console.log(err.error)
+        this.showSuccessMessage("Invalid:", err.error);
+
       }
 
 
@@ -102,6 +132,18 @@ export class LoginComponent implements OnInit {
 
 
 
+
+  }
+
+  showSuccessMessage(
+    title, message, icon = null,
+    showCancelButton = true) {
+    return Swal.fire({
+      title: title,
+      text: message,
+      icon: icon,
+      showCancelButton: showCancelButton
+    })
 
   }
 

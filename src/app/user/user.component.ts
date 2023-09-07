@@ -10,6 +10,9 @@ import { Chart, scales } from 'chart.js/auto';
 import { UserService } from '../_service/user/user.service';
 import { LeaveInfo } from '../models/leave-info.model';
 import { PendingInfo } from '../models/pending-info.model';
+import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
+import { EditComponent } from './edit/edit.component';
+import { ChangePasswordComponent } from '../change-password/change-password.component';
 
 @Component({
   selector: 'app-user',
@@ -36,7 +39,7 @@ export class UserComponent implements OnInit {
     lastname: '',
     email: '',
     dob: '',
-    telephoneNo: 0,
+    telephoneNo: '',
     registeredDate: ''
 
 
@@ -61,7 +64,7 @@ export class UserComponent implements OnInit {
 
 
 
-  constructor(public userAuthService: UserAuthService, private router: Router, private employeeService: EmpolyeeService, private datePipe: DatePipe, private userService: UserService) { }
+  constructor(public userAuthService: UserAuthService, private router: Router, private employeeService: EmpolyeeService, private datePipe: DatePipe, public userService: UserService, private dialog: MatDialog) { }
 
 
 
@@ -372,6 +375,53 @@ export class UserComponent implements OnInit {
 
 
   }
+
+
+  editUser() {
+
+    const dialogConfig = new MatDialogConfig();
+    dialogConfig.disableClose = true;
+    dialogConfig.autoFocus = true;
+    dialogConfig.width = "40%";
+    // dialogConfig.height = "60%";
+
+    dialogConfig.data = this.userAuthService.getId();
+
+
+    let dialogRef = this.dialog.open(EditComponent, dialogConfig)
+
+    dialogRef.afterClosed().subscribe(result => {
+      this.userInfo();
+    });
+
+  }
+
+  changePassword() {
+
+    const dialogConfig = new MatDialogConfig();
+    dialogConfig.disableClose = true;
+    dialogConfig.autoFocus = true;
+    dialogConfig.width = "60%";
+    // dialogConfig.height = "60%";
+
+    dialogConfig.data = this.userAuthService.getId();
+
+
+    let dialogRef = this.dialog.open(ChangePasswordComponent, dialogConfig)
+
+    dialogRef.afterClosed().subscribe(result => {
+      this.userInfo();
+    });
+
+  }
+
+
+
+
+
+
+
+
 
 
 

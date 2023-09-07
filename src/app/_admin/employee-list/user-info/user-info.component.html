@@ -1,0 +1,129 @@
+<!-- <div class="card">
+  <div class="card-header">
+    Edit User Information
+  </div>
+  <div class="card-body" style="align-items: center;">
+
+    <div class="card text-center" style="width: 25rem;">
+      <div class="card-body">
+
+        <form [formGroup]="form" (onsubmit)="save()">
+          <div class="row mt-3">
+
+
+
+            <label>Telephone No:</label>
+            <input type="text" class="form-control" formControlName="telephoneNo">
+          </div>
+
+          <div class="row mt-3">
+            <label>Email No:</label>
+            <input type="email" class="form-control" formControlName="email">
+          </div>
+
+
+
+
+
+
+        </form>
+
+      </div>
+    </div>
+
+
+    <div class="container" style="justify-self: end;align-items: end;">
+      <div class="row">
+        <div class="col col-md-2" style="margin-right: 10px;">
+          <button class="btn btn-primary" mat-button mat-dialog-close="">Close</button>
+        </div>
+        <div class="col col-md-2">
+          <button class="btn btn-success" mat-button mat-dialog-close="" type="submit">Save</button>
+        </div>
+
+
+      </div>
+
+    </div>
+
+  </div>
+</div> -->
+
+
+<div class="card">
+
+  <div class="card-header" style="background-color: rgb(74, 205, 228);">
+    <legend class="mt-2">Edit User</legend>
+  </div>
+  <div class="card-body text-center">
+    <form [formGroup]="form" (ngSubmit)="save()">
+      <div class="row mt-3">
+        <div class="col col-md-4">
+          <label for="email">Email :</label>
+        </div>
+        <div class="col col-md-7">
+          <div class="row">
+            <input type="text" name="email" id="email" class="form-control" formControlName="email">
+          </div>
+          <div class="row">
+            <div class="alert alert-danger" style="height:5px; justify-content: center;" *ngIf="
+            email?.invalid && (email?.touched ||email?.dirty)
+            ">
+              <div *ngIf="email?.errors?.['required']">
+                email can't be empty
+
+              </div>
+              <div *ngIf="email?.errors?.['email']">
+                Enter valid email
+
+              </div>
+            </div>
+
+          </div>
+
+
+        </div>
+      </div>
+      <div class="row mt-3">
+        <div class="col col-md-4">
+          <label for="telephoneNo">Telephone No :</label>
+        </div>
+        <div class="col col-md-7">
+          <div class="row">
+            <input type="text" name="telephoneNo" id="telephoneNo" formControlName="telephoneNo" class="form-control">
+          </div>
+          <div class="row">
+            <div class="alert alert-danger" style="height:5px; justify-content: center;" *ngIf="
+            telephoneNo?.invalid && (telephoneNo?.touched || telephoneNo?.dirty)
+            ">
+              <div *ngIf="telephoneNo?.errors?.['required']">
+                Telephone number can't be empty
+
+              </div>
+              <div *ngIf="telephoneNo?.errors?.['pattern']">
+                Telephone no should be Ex:071XXXXXXX
+
+              </div>
+
+            </div>
+
+          </div>
+
+
+
+        </div>
+      </div>
+      <div class="row">
+        <div class="col">
+
+        </div>
+        <div class="col mt-3">
+          <button class="btn btn-primary" mat-button mat-dialog-close="" style="margin-right: 1rem;">Close</button>
+          <button mat-button class="btn btn-success" type="submit" [disabled]="form.invalid">Save</button>
+        </div>
+      </div>
+
+    </form>
+
+  </div>
+</div>

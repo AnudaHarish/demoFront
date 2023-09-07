@@ -12,7 +12,9 @@ import Chart, { Chart as ChartJS } from 'chart.js/auto';
 import { LeaveInfo } from 'src/app/models/leave-info.model';
 import { PendingApplication } from 'src/app/models/pending-application.model';
 
-
+import { Observable, Subject } from 'rxjs';
+import Swal from 'sweetalert2';
+import { LeaveItem } from 'src/app/models/leave-item.model';
 
 
 @Component({
@@ -22,6 +24,63 @@ import { PendingApplication } from 'src/app/models/pending-application.model';
 
 })
 export class LeaveRequestComponent implements OnInit {
+
+
+
+  constructor(private fb: FormBuilder, private fb2: FormBuilder, private userAuthService: UserAuthService, private employeeService: EmpolyeeService) {
+
+
+  }
+
+  setForm() {
+    this.formRepeat = this.fb2.group({
+      item: this.fb2.array([])
+
+    });
+  }
+
+  ngOnInit(): void {
+
+    this.setForm();
+
+
+
+    this.infoLeave()
+    // this.getDate();
+    this.form = this.fb.group({
+      daterange: new FormGroup({
+        startDate: new FormControl(),
+        endDate: new FormControl()
+      })
+    });
+
+
+    this.disablePendingDate();
+
+
+    // this.dateConversion(this.dateList);
+
+    // console.log(this.dateList);
+    // console.log(this.holidays);
+
+  }
+
+
+  leaveItem: LeaveItem = {
+    date: [],
+    type: '',
+    duration: ''
+  }
+  checkFormDate;
+  checkDuration;
+  checkType;
+
+  checkLeaveList: [];
+
+  checkCount: any;
+  duration: any;
+  type: any;
+  msg: any;
   minDate: any;
   form: FormGroup;
   date1: any;
@@ -33,32 +92,19 @@ export class LeaveRequestComponent implements OnInit {
   inboundClick = true;
   graph;
   leaveItemList: any = [];
+  starDate: any;
+  endDate: any;
+  minimum: any;
 
   pendingApplication: PendingApplication = {
     item: [],
     userId: 0
   }
 
+  holidays: Date[] = [];
 
 
 
-  ngOnInit(): void {
-
-
-    this.infoLeave()
-    this.getDate();
-    this.form = this.fb.group({
-      daterange: new FormGroup({
-        startDate: new FormControl(),
-        endDate: new FormControl()
-      })
-    });
-
-
-
-
-
-  }
 
   info: LeaveInfo = {
     sick: 0,
@@ -66,13 +112,9 @@ export class LeaveRequestComponent implements OnInit {
     annual: 0
   }
 
-  constructor(private fb: FormBuilder, private fb2: FormBuilder, private userAuthService: UserAuthService, private employeeService: EmpolyeeService) {
+  dateList: any = [];
 
-    this.formRepeat = this.fb2.group({
-      item: this.fb2.array([])
 
-    });
-  }
 
 
 
@@ -92,8 +134,8 @@ export class LeaveRequestComponent implements OnInit {
   // });
 
 
-  getDate() {
-    let date: any = new Date();
+  getDate(data: any) {
+    let date: any = data;
     console.log(date);
     let todate: any = date.getDate();
     console.log(todate);
@@ -144,9 +186,9 @@ export class LeaveRequestComponent implements OnInit {
 
 
     }
-    console.log(dates);
+    // console.log(dates);
     this.dateArray = dates;
-    console.log(this.dateArray[0]);
+    // console.log(this.dateArray[0]);
 
     return dates;
 
@@ -167,19 +209,19 @@ export class LeaveRequestComponent implements OnInit {
     const value = this.form.value;
 
     this.visible(value);
-    console.log(value.daterange);
+    // console.log(value.daterange);
 
-    this.date1 = value.daterange.startDate;
-    this.date2 = value.daterange.endDate;
+    // this.date1 = value.daterange.startDate;
+    // this.date2 = value.daterange.endDate;
 
-    console.log(this.date1);
-    console.log(this.date2);
+    // console.log(this.date1);
+    // console.log(this.date2);
 
 
-    this.enumerateDaysBetweenDates(this.date1, this.date2);
-    this.addCreds();
+    // this.enumerateDaysBetweenDates(this.date1, this.date2);
+    // this.addCreds();
 
-    this.infoLeave();
+    // this.infoLeave();
 
 
   }
@@ -204,30 +246,36 @@ export class LeaveRequestComponent implements OnInit {
 
     // console.log(' all rows : ', this.formRepeat.value.item);
     // console.log(' all rows : ', this.formRepeat.value[1]);
-    for (let leave of this.formRepeat.value.item) {
-      console.log(leave);
-    }
+    // for (let leave of this.formRepeat.value.item) {
+    //   console.log(leave);
+    // }
 
+
+
+    console.log(this.formRepeat.value.item);
 
 
 
 
     this.pendingApplication.item = this.formRepeat.value.item,
-      this.pendingApplication.userId = this.userAuthService.getId()
-    this.employeeService.addRequest(this.pendingApplication).subscribe(
-      (resp) => {
-        console.log(resp);
+      this.pendingApplication.userId = this.userAuthService.getId();
+    this.checkLeaveItems(this.pendingApplication);
+    // this.employeeService.addRequest(this.pendingApplication).subscribe(
+    //   (resp) => {
+    //     console.log(resp);
 
-      },
-      (err) => {
-        console.log(err);
-      }
-    );
+    //     this.reset();
+    //     this.infoLeave();
+
+    //   },
+    //   (err) => {
+    //     console.log(err);
+    //   }
+    // );
 
 
 
-    this.reset();
-    this.infoLeave();
+
   }
 
   public infoLeave() {
@@ -253,12 +301,19 @@ export class LeaveRequestComponent implements OnInit {
 
   reset() {
 
-    this.dateArray = [];
+
+
     this.isVisible = false;
-    this.date1 = '';
-    this.date2 = '';
+    this.starDate = '';
+    this.endDate = '';
     this.formRepeat.reset();
-    this.form.reset()
+    this.setForm();
+    this.form.reset();
+    this.disablePendingDate();
+    this.dateList = [];
+    this.dateArray = [];
+    this.infoLeave()
+
   }
 
 
@@ -297,7 +352,288 @@ export class LeaveRequestComponent implements OnInit {
   }
 
 
+  disablePendingDate(): void {
+    let id = this.userAuthService.getId();
+    this.employeeService.getPendingLeaveDate(id).subscribe(
+      (res: any) => {
+        // this.filterdate(res);
+        this.dateConversion(res);
 
+        this.dateList = res;
+
+
+
+
+      },
+      (err) => {
+        console.log(err);
+      }
+    )
+
+
+
+
+
+
+  }
+
+
+
+  filterdate(list: any) {
+
+
+    this.dateList = list;
+
+  }
+
+
+  dateFilter = (d: Date): boolean => {
+    // console.log(d);
+    if (!d) {
+      return false;
+    }
+    const time = d.getTime();
+    // console.log(this.dateList);
+    return !this.holidays.find(x => x.getTime() == time);
+
+
+
+  }
+
+  dateConversion(_dateList) {
+
+    for (let date of _dateList) {
+      // console.log(typeof date);
+      const newdate = new Date(date);
+
+      this.holidays.push(newdate);
+
+
+    }
+
+    this.dateFilter = (d: Date): boolean => {
+      // console.log(d);
+      if (!d) {
+        return false;
+      }
+      const time = d.getTime();
+      // console.log(this.dateList);
+      return !this.holidays.find(x => x.getTime() == time);
+
+
+
+    }
+
+
+    console.log(this.holidays)
+
+
+  }
+
+
+
+
+  weekendsDatesFilter: (date: Date | null) => boolean =
+    (date: Date | null) => {
+      const day = date.getDay();
+      return day !== 0 && day !== 6;
+      //0 means sunday
+      //6 means saturday
+    }
+
+
+  selectStartDateChangedHandler(event: any) {
+    this.starDate = event.target.value;
+    this.minimum = new Date(this.starDate);
+    // console.log(this.starDate);
+
+
+
+  }
+
+  selectEndDateChangedHandler(event: any) {
+    this.endDate = event.target.value;
+    console.log(this.starDate);
+    this.enumerateDaysBetweenDates(this.starDate, this.endDate);
+    console.log(this.dateArray);
+    this.checkDate(this.dateArray);
+    console.log(this.checkFormDate);
+
+    // this.getDate(this.getMin)
+
+
+
+
+
+  }
+
+
+
+  checkDate(arrList) {
+    this.employeeService.checkAppyDate(this.userAuthService.getId(), arrList).subscribe(
+      (res: any): any => {
+
+        // for (let mess of res) {
+        //   console.log(mess);
+        // }
+        this.msg = res.message;
+        const value1: string = "Invalid";
+        console.log(value1);
+
+        const value2: string = "Already applied";
+        const value3: string = "okay"
+        console.log(this.msg);
+        if (this.msg === value1) {
+          console.log("error");
+          this.showSuccessMessage("Invalid", "Can't apply on Weekends");
+          this.resetPage();
+        }
+        if (this.msg === value2) {
+          this.showSuccessMessage("Invalid", "Already applied on the given dates")
+        }
+        if (this.msg === value3) {
+          this.addCreds();
+
+          this.onSubmit()
+        }
+
+        console.log(res);
+
+
+      },
+      (err): any => {
+        console.log(err);
+      }
+    )
+
+  }
+
+
+
+  showSuccessMessage(
+    title, message, icon = null,
+    showCancelButton = true) {
+    return Swal.fire({
+      title: title,
+      text: message,
+      icon: icon,
+      showCancelButton: showCancelButton
+    })
+
+
+  }
+
+
+
+  selectChangedDuration(event: any) {
+    this.duration = event.target.value;
+    console.log(this.duration);
+
+
+
+
+  }
+
+  selectChangedType(event: any) {
+    this.type = event.target.value;
+    console.log(this.type);
+
+
+
+
+
+  }
+
+
+
+  checkLeaveItems(pendingApplicatio: PendingApplication) {
+
+    this.employeeService.ckeckLeavesItem(pendingApplicatio).subscribe(
+      (res: any): any => {
+        let sick: string = 'Sick';
+        let casual: string = 'Casual';
+        let annual: string = 'Annual'
+        this.checkCount = res.body.message;
+        if (this.checkCount === 'Sick') {
+
+          this.erroMsg("Invalid", "Can't process due to insufficient sick leaves");
+        }
+        else if (this.checkCount === 'Casual') {
+
+          this.erroMsg("Invalid", "Can't process due to insufficient casual leaves");
+        }
+        else if (this.checkCount === 'Annual') {
+
+          this.erroMsg("Invalid", "Can't process due to insufficient annaul leaves");
+        }
+        else {
+          this.employeeService.addRequest(this.pendingApplication).subscribe(
+            (resp) => {
+              console.log(resp);
+
+              this.reset();
+              this.infoLeave();
+              this.successMsg();
+
+            },
+            (err) => {
+              console.log(err);
+            }
+          );
+        }
+        console.log(res.body.message);
+
+        // this.employeeService.addRequest(this.pendingApplication).subscribe(
+        //   (resp) => {
+        //     console.log(resp);
+
+        //     this.reset();
+        //     this.infoLeave();
+
+        //   },
+        //   (err) => {
+        //     console.log(err);
+        //   }
+        // );
+
+      },
+      (err) => {
+        console.log(err);
+      }
+    )
+  }
+
+
+
+  erroMsg(title, text) {
+    Swal.fire({
+      icon: 'error',
+      title: title,
+      text: text
+    })
+  }
+
+
+  resetPage() {
+    this.employeeService.refreshPage.subscribe(() => {
+      this.selectStartDateChangedHandler(event);
+      this.selectEndDateChangedHandler(event);
+      this.reset();
+
+
+    });
+
+  }
+
+  successMsg() {
+    Swal.fire({
+      position: 'top-end',
+      icon: 'success',
+      title: 'Your leave application was successfully sent',
+      showConfirmButton: false,
+      timer: 1500
+    })
+  }
 
 
 

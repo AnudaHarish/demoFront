@@ -1,0 +1,56 @@
+<div class="card">
+  <div class="card-header" style="background-color:rgb(17, 229, 229) ;">
+    <legend style="padding-top: 4px; ">Edit Leave Application {{data.leaveId}}</legend>
+  </div>
+  <div class="card-body">
+    <div class="form-div">
+      <form class="form fs-6" [formGroup]="form" (ngSubmit)="save()">
+        <div class="row mt-3">
+          <div class="col col-md-4">
+            <label for="date">Apply Date:</label>
+          </div>
+          <div class="col col-md-6">
+            <input type="text" class="form-control" id="date" formControlName="date">
+          </div>
+
+        </div>
+        <div class="row mt-3">
+          <div class="col col-md-4">
+            <label for="type">Select leave Type:</label>
+          </div>
+          <div class="col col-md-6">
+            <select class="form-select" id="type" formControlName="type">
+              <option value="TYPE_CASUAL">Casual</option>
+              <option value="TYPE_ANNUAL">Annual</option>
+              <option value="TYPE_SICK">Sick</option>
+            </select>
+          </div>
+
+        </div>
+        <div class="row mt-3">
+          <div class="col col-md-4">
+            <label for="">Select duration</label>
+          </div>
+          <div class="col col-md-6">
+            <select class="form-select" id="duration" formControlName="duration">
+              <option value="HALF">Half Day</option>
+              <option value="ENTIRE">Full Day</option>
+
+            </select>
+          </div>
+
+        </div>
+        <div class="row mt-3">
+          <div class="col">
+
+          </div>
+          <div class="col ">
+            <button style="margin-right: 10px;" mat-button mat-dialog-close="" class="btn btn-primary">Close</button>
+            <button type="submit" mat-button class="btn btn-success">Save Changes</button>
+          </div>
+
+        </div>
+      </form>
+    </div>
+  </div>
+</div>

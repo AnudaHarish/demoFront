@@ -1,84 +1,155 @@
-<!-- <div class="container" class="container-fluid mt-5" style="width: 1000px;">
+<!-- <div class="row" style="min-width: 500px;">
 
+  <div class="card border-secondary mt-5" style="padding-top: 10px;min-width: 500px;">
 
-  <div class="row align-items-start">
-    <div class="card border-secondary" style="padding-top: 10px;">
+    <article>
+      <h1 class="display-4">Leave History</h1>
+      <h2><span>Select a type of leave:</span></h2>
+      <select class="form-select" aria-label="Default select example" [(ngModel)]="value"
+        (change)="selectChangedHandler($event)">
 
-      <article>
-        <h1 class="display-4">Leave History</h1>
-        <h2><span>Select a type of leave:</span></h2>
-        <select class="form-control" [(ngModel)]="value" (change)="selectChangedHandler($event)">
-          <option value="All Leaves">All leaves</option>
-          <option value="Pending Leaves">Pending Leaves</option>
-          <option value="Approved Leaves">Approved leaves</option>
-          <option value="Rejected Leaves">Rejected Leaves</option>
-        </select>
-        <p><span>Category: </span><b>{{selectedOption}}</b></p>
-      </article>
-
-
-
+        <option value="Pending Leaves">Pending Leaves</option>
+        <option value="Approved Leaves">Approved leaves</option>
+        <option value="Rejected Leaves">Rejected Leaves</option>
+        <option value="Deleted Leaves">Deleted Leaves</option>
+      </select>
+      <p><span>Category: </span><b>{{selectedOption}}</b></p>
+    </article>
 
 
 
-    </div>
+
+
+
+
+
+
+
 
   </div>
-  <div class="row " style="align-items: center; justify-content: center;">
-    <div class="card mt-3 border-secondary">
-      <div class="card mt-5 table-hover" style="padding: 30px; width: 900px;margin:auto ;margin-bottom: 20px;">
-        <table class="table table-hover table-boder-less">
-          <thead>
-            <tr>
-              <th scope="col">Leave ID</th>
-              <th scope="col">Apply Date</th>
-              <th scope="col">Leave Type</th>
-              <th scope="col">Duration</th>
-              <th scope="col">Status</th>
-              <th scope="col">Created Date</th>
-              <th scope="col">Edit</th>
-              <th scope="col">Delete</th>
+
+</div>
+<div class="row" style=" min-width: 700px;">
+
+  <div class="card text-center mt-5 border-secondary" style="background-color: rgba(255, 255, 255, 0);">
+    <div class="card-header" style="background-color: rgba(255, 255, 255, 0);">
+      <ul class="nav nav-tabs card-header-tabs">
+        <li class="nav-item">
+          <a class="nav-link active  text-white" aria-current="true"
+            style="background-color: rgb(104, 104, 104);">{{selectedOption}}</a>
+        </li>
 
 
-            </tr>
-          </thead>
-          <tbody>
-            <tr *ngFor="let pending of leaveList ">
+      </ul>
+    </div>
+    <div class="card-body fs-6" style="background-color: rgba(255, 254, 254, 0);">
 
-              <td>{{pending.id}}</td>
-              <td>{{this.datePipe.transform(pending.date, 'yyyy-MM-dd')}}</td>
-              <td>{{pending.leaveType}}</td>
-              <td>{{pending.duration}}</td>
-              <td>{{pending.status}}</td>
+      <div class="row" *ngFor="let leave of leaveList; let i = index">
 
-              <td>{{this.datePipe.transform(pending.createdDate, 'yyyy-MM-dd')}}</td>
+        <div class="card mb-3 border-info mb-3" style="padding: 20px;">
 
-              <td><button [disabled]="!this.pendingStatus(pending.status)" type="button" class="btn btn-primary"
-                  data-toggle="modal" data-target="#exampleModal">Edit</button>
-              </td>
-              <td><button [disabled]="!this.pendingStatus(pending.status)" type="button" class="btn btn-danger"
-                  (click)="deleteRequest(pending.id)">Delete</button></td>
+          <div class="card-title" style="align-self: flex-start;">
+            <h3>Application {{i+1}}</h3>
+          </div>
+
+          <table class="table">
+            <thead>
+              <tr>
+                <th>Start Date</th>
+                <th>End Date</th>
+                <th>Created On</th>
+                <th>Apply for</th>
+
+              </tr>
+
+            </thead>
+            <tbody>
+              <tr>
+                <td>{{createDate(leave.startDate)}}</td>
+                <td>{{createDate(leave.endDate)}}</td>
+                <td>{{createDate(leave.createdDate)}}</td>
+                <td>{{leaveItemSize(leave.leaveItem)}} {{''}} day</td>
+              </tr>
+            </tbody>
+
+          </table>
 
 
-            </tr>
+          <div class="row mt-3" style="align-self: flex-end; width: 700px;">
 
-          </tbody>
-        </table>
+
+            <div class="col mb-3">
+
+              <button type="button" class="btn btn-danger" style="margin-right: 10px;"
+                (click)="deleteApplication(leave.id)">Delete</button>
+
+              <button class="btn btn-primary" type="button" data-bs-toggle="collapse" data-bs-target="#collapseExample"
+                aria-expanded="false" aria-controls="collapseExample" (click)="getLeaveList(leave.label)">
+                View more
+              </button>
+            </div>
+
+
+
+          </div>
+
+          <div class="collapse" id="collapseExample">
+            <div class="card card-body border-light" style="width: 600px; align-items: center;margin: auto;">
+              <table class="table">
+                <thead>
+                  <tr>
+                    <th>Date</th>
+                    <th>Leave Type</th>
+                    <th>Leave Duration</th>
+                    <th></th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr *ngFor="let item of leave.leaveItem; let i = index">
+                    <td>{{createDate(item.date)}}</td>
+                    <td>{{converEnum(item.type)}}</td>
+                    <td>{{converEnum(item.duration)}}</td>
+                    <td> <button type="button" class="btn btn-warning" style="margin-right: 10px;"
+                        (click)="viewEdit(item,leave.id,i)">Edit</button>
+
+                    </td>
+                  </tr>
+
+                </tbody>
+
+              </table>
+            </div>
+          </div>
+
+
+
+
+
+
+
+
+        </div>
+
       </div>
+
     </div>
   </div>
 </div> -->
 
 
+
 <div class="container">
-  <div class="row" style="min-width: 500px;">
+  <div class="row justify-content-md-center">
 
-    <div class="card border-secondary mt-5" style="padding-top: 10px;min-width: 500px;">
+    <div class="card mt-5" style="width: 35rem;">
 
-      <article>
-        <h1 class="display-4">Leave History</h1>
-        <h2><span>Select a type of leave:</span></h2>
-        <select class="form-select" aria-label="Default select example" [(ngModel)]="value"
+      <div class="card-body">
+        <h5 class="card-title">
+          <legend>Leave History</legend>
+        </h5>
+        <p class="card-text">Select a Leave Type: </p>
+
+        <select class="form-select" aria-label="Default select example" [(ngModel)]="selectedOption"
           (change)="selectChangedHandler($event)">
 
           <option value="Pending Leaves">Pending Leaves</option>
@@ -86,46 +157,47 @@
           <option value="Rejected Leaves">Rejected Leaves</option>
           <option value="Deleted Leaves">Deleted Leaves</option>
         </select>
-        <p><span>Category: </span><b>{{selectedOption}}</b></p>
-      </article>
 
 
-
-
-
-
-
-
-
-
+      </div>
 
     </div>
 
   </div>
-  <div class="row" style=" min-width: 700px;">
-
-    <div class="card text-center mt-5 border-secondary">
-      <div class="card-header" style="background-color: rgb(255, 255, 255);">
-        <ul class="nav nav-tabs card-header-tabs">
-          <li class="nav-item">
-            <a class="nav-link active  text-white" aria-current="true"
-              style="background-color: rgb(104, 104, 104);">{{selectedOption}}</a>
-          </li>
+  <div class="row mt-3" style="width: 60rem;">
 
 
-        </ul>
+    <div class="card text-center mt-5 border-secondary" style="background-color: rgba(255, 255, 255, 0);">
+      <div class="card-header" style="background-color: rgba(255, 255, 255, 0);">
+        <div class="row">
+          <div class="col">
+            <ul class="nav nav-tabs card-header-tabs">
+              <li class="nav-item">
+                <a class="nav-link active  text-white" aria-current="true"
+                  style="background-color: rgb(11, 11, 11);">{{selectedOption}}</a>
+              </li>
+
+
+            </ul>
+
+          </div>
+          <div class="col col-md-5">
+            <input type="text" id="search" placeholder="search" [(ngModel)]="searchText" class="form-control">
+          </div>
+        </div>
+
       </div>
-      <div class="card-body">
+      <div class="card-body fs-6" style="background-color: rgba(255, 254, 254, 0);">
 
-        <div class="row" *ngFor="let leave of leaveList; let i = index">
+        <div class="row" *ngFor="let leave of leaveList|search : searchText ; let i = index">
 
           <div class="card mb-3 border-info mb-3" style="padding: 20px;">
 
             <div class="card-title" style="align-self: flex-start;">
-              <h3>Application {{i+1}}</h3>
+              <h2>Application {{i+1}}</h2>
             </div>
 
-            <table class="table">
+            <table class="table table-borderless table-hover table-striped table-info">
               <thead>
                 <tr>
                   <th>Start Date</th>
@@ -148,15 +220,17 @@
             </table>
 
 
-            <div class="row mt-3" style="align-self: flex-end;">
+            <div class="row mt-3" style="align-self: center; width: 50rem;">
 
 
               <div class="col mb-3">
 
-                <button type="button" class="btn btn-danger" style="margin-right: 10px;">Delete</button>
+                <button type="button" class="btn btn-outline-danger" style="margin-right: 10px;"
+                  (click)="deleteApplication(leave.id)" [disabled]="!isVisible">Delete</button>
 
-                <button class="btn btn-primary" type="button" data-bs-toggle="collapse"
-                  data-bs-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
+                <button class="btn btn-outline-primary" type="button" data-bs-toggle="collapse"
+                  data-bs-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample"
+                  (click)="getLeaveList(leave.label)">
                   View more
                 </button>
               </div>
@@ -164,24 +238,27 @@
 
 
             </div>
+
             <div class="collapse" id="collapseExample">
               <div class="card card-body border-light" style="width: 600px; align-items: center;margin: auto;">
-                <table class="table">
+                <table class="table table-borderless table-hover table-striped table-light">
                   <thead>
                     <tr>
                       <th>Date</th>
                       <th>Leave Type</th>
                       <th>Leave Duration</th>
-                      <th></th>
+                      <th>Edit</th>
                     </tr>
                   </thead>
                   <tbody>
-                    <tr *ngFor="let item of leave.leaveItem ">
+                    <tr *ngFor="let item of leave.leaveItem; let i = index">
                       <td>{{createDate(item.date)}}</td>
                       <td>{{converEnum(item.type)}}</td>
                       <td>{{converEnum(item.duration)}}</td>
-                      <td> <button type="button" class="btn btn-warning" style="margin-right: 10px;">Edit</button>
-                        <button type="button" class="btn btn-danger" style="margin-right: 10px;">Delete</button>
+                      <td> <button type="button" class="btn btn-outline-warning"
+                          style="margin-right: 10px; padding: 5px;" (click)="viewEdit(item,leave.id,i)"
+                          [disabled]="!isVisible"><fa-icon [icon]="pen" size="lg"></fa-icon></button>
+
                       </td>
                     </tr>
 
@@ -197,37 +274,24 @@
 
 
 
+
           </div>
 
         </div>
 
       </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
     </div>
   </div>
-
-</div>
-
-
-<!-- Button trigger modal -->
-<button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
-  Launch demo modal
-</button>
-
-<!-- Modal -->
-<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h1 class="modal-title fs-5" id="exampleModalLabel">Modal title</h1>
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-      </div>
-      <div class="modal-body">
-        ...
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-        <button type="button" class="btn btn-primary">Save changes</button>
-      </div>
-    </div>
-  </div>
-</div>

@@ -1,5 +1,5 @@
 <div class="container " style="margin: auto;">
-  <legend class="mb-4">Signup </legend>
+
   <div class="col col-md-12" style="overflow-y: scroll;max-height: 100vh;">
 
     <form [formGroup]="signup" (ngSubmit)="save()">
@@ -20,13 +20,17 @@
       <div class="mb-3">
         <label for="lastname" form-label="email">Last Name<span class="text-danger">*</span></label>
         <input class="form-control" type="text" formControlName="lastname" id="lastname" />
+
         <div class="alert alert-danger" style="height:5px; justify-content: center;" *ngIf="
-            lastname?.invalid && (lastname?.touched ||lastname?.dirty)
+            lastname?.invalid && (lastname?.touched || lastname?.dirty)
             ">
           <div *ngIf="lastname?.errors?.['required']">
-            Last Name can't be emtpy
+            Username can't be emtpy
           </div>
+
         </div>
+
+
 
       </div>
       <div class="mb-3">
@@ -38,51 +42,65 @@
           <div *ngIf="email?.errors?.['required']">
             Email can't be emtpy
           </div>
+          <div *ngIf="email?.errors?.email">
+            Email is not valid
+          </div>
         </div>
 
       </div>
       <div class="mb-3">
         <label for="telephoneNo" form-label="telephoneNo">Contact No<span class="text-danger">*</span></label>
         <input class="form-control" type="text" formControlName="telephoneNo" id="telephoneNo" />
-        <!-- <div class="alert alert-danger" style="height:5px; justify-content: center;" *ngIf="
+        <div class="alert alert-danger" style="height:5px; justify-content: center;" *ngIf="
         telephoneNo?.invalid && (telephoneNo?.touched || telephoneNo?.dirty)
-            "> -->
-        <!-- <div *ngIf="telephoneNo?.errors?.['required']">
+            ">
+          <div *ngIf="telephoneNo?.errors?.['required']">
             Contact Number can't be emtpy
-          </div> -->
-        <!-- </div> -->
+          </div>
+          <div *ngIf="telephoneNo?.errors?.pattern">
+            Invalid. Eg:(071XXXXXXX)
+          </div>
+        </div>
 
       </div>
       <div class="mb-3">
-        <label for="lastname" form-label="lastname">Date Of Birth<span class="text-danger">*</span></label>
+        <label for="dob" form-label="dob">Date Of Birth<span class="text-danger">*</span></label>
         <mat-form-field>
           <mat-label>Choose a date</mat-label>
           <input matInput [matDatepicker]="picker" formControlName="dob" class="form-control">
-          <div class="alert alert-danger" style="height:5px; justify-content: center;" *ngIf="
-            dob?.invalid && (dob?.touched || dob?.dirty)
-            ">
-            <div *ngIf="dob?.errors?.['required']">
-              Date of birth can't be emtpy
-            </div>
-          </div>
+
           <mat-hint>MM/DD/YYYY</mat-hint>
           <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
           <mat-datepicker #picker></mat-datepicker>
         </mat-form-field>
+        <div class="alert alert-danger" style="height:5px; justify-content: center;" *ngIf="
+        dob?.invalid && (dob?.touched || dob?.dirty)
+        ">
+          <div *ngIf="dob?.errors?.['required']">
+            Date of birth can't be emtpy
+          </div>
+        </div>
 
       </div>
 
       <div class="mb-3">
 
 
-        <label for="gender" form-label="lastname">Gender<span class="text-danger">*</span></label>
+        <label for="gender" form-label="gender">Gender<span class="text-danger">*</span></label>
         <select class="form-select" formControlName="gender" aria-label="default select example">
 
-          <option value="-1">-Select-</option>
+
           <option value="MALE">Male</option>
           <option value="FEMALE">Female</option>
           <option value="FEMALE">Other</option>
         </select>
+        <div class="alert alert-danger" style="height:5px; justify-content: center;" *ngIf="
+        gender?.invalid && (gender?.touched || gender?.dirty)
+        ">
+          <div *ngIf="gender?.errors?.['required']">
+            Gender can't be empty
+          </div>
+        </div>
 
       </div>
       <div class="mb-3">
@@ -93,6 +111,9 @@
             ">
           <div *ngIf="username?.errors?.['required']">
             Username can't be emtpy
+          </div>
+          <div *ngIf="username?.errors?.pattern">
+            Invalid username
           </div>
         </div>
 
@@ -128,7 +149,7 @@
 
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-        <button type="submit" class="btn btn-primary">Save Changes</button>
+        <button type="submit" [disabled]="signup.invalid" class="btn btn-primary">Save Changes</button>
       </div>
 
 

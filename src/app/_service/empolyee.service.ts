@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { UserAuthService } from './user-auth.service';
 import { HttpClient } from '@angular/common/http';
-import { Observable } from 'rxjs';
+import { Observable, Subject, tap } from 'rxjs';
 import { Leave } from '../models/leave.model';
 import { User } from '../models/user.model';
 import { LeaveInfo } from '../models/leave-info.model';
@@ -15,6 +15,12 @@ export class EmpolyeeService {
 
 
   constructor(private userAuthService: UserAuthService, private http: HttpClient) { }
+
+
+  private _refreshPage = new Subject<void>();
+  get refreshPage() {
+    return this._refreshPage;
+  }
 
   baseUrl = "http://localhost:8080/api/user";
 
@@ -46,7 +52,12 @@ export class EmpolyeeService {
   }
 
   public addRequest(pendingApplication: PendingApplication) {
-    return this.http.post(this.baseUrl + "/addRequest", pendingApplication);
+    return this.http.post(this.baseUrl + "/addRequest", pendingApplication)
+      .pipe(
+        tap(() => {
+          this._refreshPage.next();
+        })
+      );
 
   }
 
@@ -75,6 +86,34 @@ export class EmpolyeeService {
   public leaveApplicationList(id) {
     return this.http.get(`${this.baseUrl}/pending/${id}`);
   }
+
+
+  public getPendingLeaveDate(id) {
+    return this.http.get(`${this.baseUrl}/alreadyAppliedDates/${id}`);
+  }
+
+  public checkAppyDate(id, dateList: any) {
+    return this.http.post(`${this.baseUrl}/checkDates/${id}`, dateList);
+  }
+
+
+  public ckeckLeavesItem(ckeckApp: PendingApplication) {
+    return this.http.post(`${this.baseUrl}/checkLeaveItem`, ckeckApp);
+  }
+
+  public updateUser(id, user) {
+    return this.http.put(`${this.baseUrl}/updateUser/${id}`, user);
+  }
+
+  public updateApplication(updateRequest) {
+    return this.http.put(`${this.baseUrl}/updatingApplication`, updateRequest);
+  }
+
+
+  public deleteApplication(id) {
+    return this.http.put(`${this.baseUrl}/deleteApp`, id);
+  }
+
 
 
 

@@ -1,0 +1,39 @@
+<div class="card border-secondary">
+  <legend class="card-header text-white fs-6" style="background-color: rgb(17, 168, 145);">Leave Application by
+    {{user.firstname}}
+    {{user.lastname}}</legend>
+
+  <div class="card-body">
+    <p>Application ID: {{applicationId}}</p>
+    <p>Applied leave Details:</p>
+    <div class="card text-center border-secondary" style="width: 25rem;">
+      <div class="card-body">
+
+        <table class="table">
+          <thead>
+            <tr>
+              <th>Date</th>
+              <th>Leave Type</th>
+              <th>Leave Duration</th>
+
+
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let leave of application.leaveItem">
+              <td>{{createDate(leave.date)}}</td>
+              <td>{{converEnum(leave.type)}}</td>
+              <td>{{converEnum(leave.duration)}}</td>
+            </tr>
+          </tbody>
+        </table>
+
+      </div>
+    </div>
+    <div class="row " style="align-items: flex-end;">
+      <button class="btn btn-primary mt-3" mat-button matDialogClose="">Close</button>
+    </div>
+
+
+  </div>
+</div>
