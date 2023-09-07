@@ -134,6 +134,12 @@ export class LeaveRequestComponent implements OnInit {
   // });
 
 
+  clearDate(event) {
+    event.stopPropagation();
+    this.endDate = null;
+  }
+
+
   getDate(data: any) {
     let date: any = data;
     console.log(date);
@@ -485,11 +491,11 @@ export class LeaveRequestComponent implements OnInit {
         console.log(this.msg);
         if (this.msg === value1) {
           console.log("error");
-          this.showSuccessMessage("Invalid", "Can't apply on Weekends");
+          this.erroMsg("Invalid", "Can't apply on Weekends");
           this.resetPage();
         }
         if (this.msg === value2) {
-          this.showSuccessMessage("Invalid", "Already applied on the given dates")
+          this.erroMsg("Invalid", "Already applied on the given dates")
         }
         if (this.msg === value3) {
           this.addCreds();
@@ -605,11 +611,20 @@ export class LeaveRequestComponent implements OnInit {
 
 
 
+  // erroMsg(title, text) {
+  //   Swal.fire({
+  //     icon: 'error',
+  //     title: title,
+  //     text: text
+  //   })
+  // }
+
   erroMsg(title, text) {
     Swal.fire({
       icon: 'error',
       title: title,
-      text: text
+      text: text,
+
     })
   }
 
