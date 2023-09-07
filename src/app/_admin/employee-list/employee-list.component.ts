@@ -147,11 +147,13 @@ export class EmployeeListComponent implements OnInit {
 
 
 
+
       },
       (err) => {
         console.log(err);
       }
     )
+    window.location.reload();
 
   }
 
