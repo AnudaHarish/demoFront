@@ -97,7 +97,7 @@
               <mat-label>End Date </mat-label>
               <input matInput [matDatepicker]="picker2" [matDatepickerFilter]="dateFilter" placeholder="Choose a date"
                 [min]="minimum" (dateChange)="selectEndDateChangedHandler($event)">
-              <mat-icon matDatepickerToggleIcon (click)="clearDate($event)">clear</mat-icon>
+              <!-- <mat-icon matDatepickerToggleIcon (click)="clearDate($event)">clear</mat-icon> -->
               <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
               <mat-datepicker #picker2></mat-datepicker>
             </mat-form-field>

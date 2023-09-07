@@ -7,6 +7,8 @@ import { faArrowCircleRight } from '@fortawesome/free-solid-svg-icons'; import {
 import { faClock } from '@fortawesome/free-solid-svg-icons';
 import { faUser } from '@fortawesome/free-solid-svg-icons';
 import { faMessage } from '@fortawesome/free-solid-svg-icons';
+import { faPeopleRoof } from '@fortawesome/free-solid-svg-icons';
+import { faBusinessTime } from '@fortawesome/free-solid-svg-icons';
 import { User } from '../models/user.model';
 import { EmpolyeeService } from '../_service/empolyee.service';
 '@fontawesome';
@@ -18,16 +20,18 @@ import { EmpolyeeService } from '../_service/empolyee.service';
   styleUrls: ['./header.component.css']
 })
 export class HeaderComponent implements OnInit {
-
+  dateTime: Date;
   user: User;
   constructor(public userAuthService: UserAuthService, public userService: UserService, private router: Router, private employeeService: EmpolyeeService) { }
-
+  people = faPeopleRoof;
+  btime = faBusinessTime;
   person = faUser;
   clock = faClock
   icon = faMessage;
   arrow = faArrowCircleRight;
 
   ngOnInit(): void {
+    this.dateTime = new Date();
     this.userInfo()
 
 

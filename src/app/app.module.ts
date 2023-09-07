@@ -51,7 +51,7 @@ import { LeaveInfoComponent } from './leave/leave-info/leave-info.component';
 import { SaveEmployeeComponent } from './_admin/save-employee/save-employee.component';
 import { SearchPipe } from './search.pipe';
 import { ChangePasswordComponent } from './change-password/change-password.component';
-
+import { AnalogClockComponent } from './analog-clock/analog-clock.component';
 
 
 
@@ -82,7 +82,8 @@ import { ChangePasswordComponent } from './change-password/change-password.compo
     LeaveInfoComponent,
     SaveEmployeeComponent,
     SearchPipe,
-    ChangePasswordComponent
+    ChangePasswordComponent,
+    AnalogClockComponent
 
 
 

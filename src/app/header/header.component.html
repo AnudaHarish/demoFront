@@ -45,14 +45,15 @@
 
   <mat-sidenav-container>
     <mat-sidenav mode="side" [(opened)]="opened">
-      <div class="myBox">
+      <div class="myBox mt-5">
         <div class="row justify-content-md-center">
-          <img src="https://cdn-icons-png.flaticon.com/512/149/149071.png" class="mt-4" alt="..." style="width: 150px;">
+          <!-- <img src="https://cdn-icons-png.flaticon.com/512/149/149071.png" class="mt-4" alt="..." style="width: 150px;"> -->
+          <app-analog-clock></app-analog-clock>
 
         </div>
 
-        <div class="row mt-2" style="margin: auto;text-align: center">
-          <p>{{userAuthService.getusername()}}</p>
+        <div class="row mt-3" style="margin: auto;text-align: center">
+          <p>{{dateTime| date}}</p>
         </div>
 
 
@@ -76,29 +77,29 @@
       <mat-list>
         <button class="menu-button" mat-button>
           <mat-list-item>
-            <a class="link-light" routerLink="/user" style="text-decoration: none;"><fa-icon
-                [icon]="person"></fa-icon>Home</a></mat-list-item>
+            <a class="link-light" routerLink="/user" style="text-decoration: none;"><fa-icon [icon]="person"></fa-icon>
+              Home</a></mat-list-item>
         </button>
         <button class="menu-button" mat-button *ngIf="userService.roleMatch(['ROLE_USER'])">
           <mat-list-item>
-            <a class="link-light" routerLink="/request" style="text-decoration: none;"><fa-icon
-                [icon]="icon"></fa-icon>Leave Request</a></mat-list-item>
+            <a class="link-light" routerLink="/request" style="text-decoration: none;"><fa-icon [icon]="icon"></fa-icon>
+              Leave Request</a></mat-list-item>
         </button>
         <button class="menu-button" mat-button *ngIf="userService.roleMatch(['ROLE_USER'])">
           <mat-list-item>
-            <a class="link-light" routerLink="/leave" style="text-decoration: none;"><fa-icon
-                [icon]="clock"></fa-icon>History</a></mat-list-item>
+            <a class="link-light" routerLink="/leave" style="text-decoration: none;"><fa-icon [icon]="clock"></fa-icon>
+              History</a></mat-list-item>
         </button>
         <button class="menu-button" mat-button *ngIf="userService.roleMatch(['ROLE_ADMIN'])">
           <mat-list-item>
             <a class="link-light" routerLink="/leave-manager" style="text-decoration: none;"><fa-icon
-                [icon]="clock"></fa-icon>Leave
+                [icon]="btime"></fa-icon> Leave
               Management</a></mat-list-item>
         </button>
         <button class="menu-button" mat-button *ngIf="userService.roleMatch(['ROLE_ADMIN'])">
           <mat-list-item>
             <a class="link-light" routerLink="/employee-list" style="text-decoration: none;"><fa-icon
-                [icon]="clock"></fa-icon>Employees</a></mat-list-item>
+                [icon]="people"></fa-icon> Employee Manager</a></mat-list-item>
         </button>
       </mat-list>
 
