@@ -15,6 +15,7 @@ import { PendingApplication } from 'src/app/models/pending-application.model';
 import { Observable, Subject } from 'rxjs';
 import Swal from 'sweetalert2';
 import { LeaveItem } from 'src/app/models/leave-item.model';
+import { end } from '@popperjs/core';
 
 
 @Component({
@@ -42,6 +43,8 @@ export class LeaveRequestComponent implements OnInit {
   ngOnInit(): void {
 
     this.setForm();
+    this.activeEndDate = true;
+    this.activeStartDate = false;
 
 
 
@@ -76,7 +79,8 @@ export class LeaveRequestComponent implements OnInit {
   checkType;
 
   checkLeaveList: [];
-
+  activeEndDate;
+  activeStartDate;
   checkCount: any;
   duration: any;
   type: any;
@@ -451,6 +455,7 @@ export class LeaveRequestComponent implements OnInit {
   selectStartDateChangedHandler(event: any) {
     this.starDate = event.target.value;
     this.minimum = new Date(this.starDate);
+    this.activeEndDate = false;
     // console.log(this.starDate);
 
 
@@ -464,6 +469,7 @@ export class LeaveRequestComponent implements OnInit {
     console.log(this.dateArray);
     this.checkDate(this.dateArray);
     console.log(this.checkFormDate);
+
 
     // this.getDate(this.getMin)
 
@@ -492,15 +498,21 @@ export class LeaveRequestComponent implements OnInit {
         if (this.msg === value1) {
           console.log("error");
           this.erroMsg("Invalid", "Can't apply on Weekends");
-          this.resetPage();
+          this.activeEndDate = true;
+
+
         }
         if (this.msg === value2) {
-          this.erroMsg("Invalid", "Already applied on the given dates")
+          this.erroMsg("Invalid", "Already applied on the given dates");
+          this.activeEndDate = true;
         }
         if (this.msg === value3) {
           this.addCreds();
 
-          this.onSubmit()
+          this.onSubmit();
+          this.activeEndDate = true;
+          this.activeStartDate = true;
+
         }
 
         console.log(res);
@@ -563,14 +575,17 @@ export class LeaveRequestComponent implements OnInit {
         if (this.checkCount === 'Sick') {
 
           this.erroMsg("Invalid", "Can't process due to insufficient sick leaves");
+
         }
         else if (this.checkCount === 'Casual') {
 
           this.erroMsg("Invalid", "Can't process due to insufficient casual leaves");
+
         }
         else if (this.checkCount === 'Annual') {
 
           this.erroMsg("Invalid", "Can't process due to insufficient annaul leaves");
+
         }
         else {
           this.employeeService.addRequest(this.pendingApplication).subscribe(
@@ -580,13 +595,20 @@ export class LeaveRequestComponent implements OnInit {
               this.reset();
               this.infoLeave();
               this.successMsg();
+              this.activeEndDate = true;
+              this.activeStartDate = false;
+              this.starDate = '';
+              this.endDate = '';
+
 
             },
             (err) => {
               console.log(err);
             }
           );
+
         }
+
         console.log(res.body.message);
 
         // this.employeeService.addRequest(this.pendingApplication).subscribe(
@@ -625,7 +647,8 @@ export class LeaveRequestComponent implements OnInit {
       title: title,
       text: text,
 
-    })
+    });
+
   }
 
 
@@ -647,7 +670,8 @@ export class LeaveRequestComponent implements OnInit {
       title: 'Your leave application was successfully sent',
       showConfirmButton: false,
       timer: 1500
-    })
+    });
+
   }
 
 

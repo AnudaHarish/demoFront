@@ -42,10 +42,11 @@ export class UserComponent implements OnInit {
     telephoneNo: '',
     registeredDate: ''
 
-
-
-
   }
+
+  page: number = 1;
+  count: number = 0;
+  tableSize: number = 2;
 
   pending: PendingInfo = {
     type: '',
@@ -122,6 +123,11 @@ export class UserComponent implements OnInit {
 
   }
 
+  onTableDataChange(event: any) {
+    this.page = event;
+    this.infoLeave();
+
+  }
 
   public infoLeave() {
     let id = this.userAuthService.getId();

@@ -85,7 +85,7 @@
             <mat-form-field>
               <mat-label>Start Date</mat-label>
               <input matInput [matDatepicker]="picker1" [matDatepickerFilter]="dateFilter" placeholder="Choose a date"
-                (dateChange)="selectStartDateChangedHandler($event)">
+                (dateChange)="selectStartDateChangedHandler($event)" [disabled]="activeStartDate">
               <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
               <mat-datepicker #picker1></mat-datepicker>
             </mat-form-field>
@@ -96,7 +96,7 @@
             <mat-form-field>
               <mat-label>End Date </mat-label>
               <input matInput [matDatepicker]="picker2" [matDatepickerFilter]="dateFilter" placeholder="Choose a date"
-                [min]="minimum" (dateChange)="selectEndDateChangedHandler($event)">
+                [min]="minimum" (dateChange)="selectEndDateChangedHandler($event) " [disabled]="activeEndDate">
               <!-- <mat-icon matDatepickerToggleIcon (click)="clearDate($event)">clear</mat-icon> -->
               <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
               <mat-datepicker #picker2></mat-datepicker>

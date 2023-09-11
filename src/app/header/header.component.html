@@ -1,6 +1,6 @@
 <nav class="navbar navbar-expand-lg bg-body-tertiary">
   <div class="container-fluid">
-    <a class="navbar-brand fs-4" href="#">Employee Leave Manager</a>
+    <a class="navbar-brand fs-4" routerLink="/user">Employee Leave Manager</a>
     <div *ngIf="isLoggedIn()">
       <button mat-button (click)="opened = !opened">
         <mat-icon>

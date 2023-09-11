@@ -52,6 +52,7 @@ import { SaveEmployeeComponent } from './_admin/save-employee/save-employee.comp
 import { SearchPipe } from './search.pipe';
 import { ChangePasswordComponent } from './change-password/change-password.component';
 import { AnalogClockComponent } from './analog-clock/analog-clock.component';
+import { NgxPaginationModule } from 'ngx-pagination';
 
 
 
@@ -120,7 +121,9 @@ import { AnalogClockComponent } from './analog-clock/analog-clock.component';
     MatFormFieldModule,
     ReactiveFormsModule,
     MatInputModule,
-    MatDialogModule
+    MatDialogModule,
+    NgxPaginationModule
+
 
 
 

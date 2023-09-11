@@ -3,6 +3,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 import { UserService } from '../_service/user/user.service';
 import Swal from 'sweetalert2';
+import { ConfirmedValidator } from 'src/confirmed.validator';
 
 @Component({
   selector: 'app-signup',
@@ -33,12 +34,13 @@ export class SignupComponent implements OnInit {
       email: ['', [Validators.required, Validators.email]],
       gender: ['', [Validators.required]],
       username: ['', [Validators.required]],
-      password: ['', [Validators.required]],
-      confirmPassword: ['', [Validators.required]],
+      password: ['', [Validators.required, Validators.minLength(6)]],
+      confirmPassword: ['', [Validators.required, Validators.minLength(6)]],
       telephoneNo: ['', [Validators.required, Validators.pattern("[0-9]{10}")]]
 
 
-    });
+    },
+      { validator: ConfirmedValidator('password', 'confirmPassword') });
   }
 
   save() {
@@ -108,17 +110,30 @@ export class SignupComponent implements OnInit {
   }
 
   get confirmPassword() {
-    return this.signup.get('password');
+    return this.signup.get('confirmPassword');
   }
 
   get password() {
-    return this.signup.get('confirmPassword');
+    return this.signup.get('password');
   }
   get telephoneNo() {
     return this.signup.get('telephoneNo');
   }
 
 
+  setSignupValues(formValues) {
+    this.signup.setValue({
+      firstname: formValues.firstname,
+      lastname: formValues.lastname,
+      gender: formValues.gender,
+      dob: formValues.dob,
+      email: formValues.email,
+      username: formValues.username,
+      telephoneNo: formValues.telephoneNo,
+      password: '',
+      confirmPassword: ''
+    });
+  }
 
 
   showSuccessMessage(
@@ -157,20 +172,33 @@ export class SignupComponent implements OnInit {
           let messInvalidEmail = '';
           let messInvalidUser = '';
           let messInvalidPass = '';
-          if (erro.error.telephoneNo !== undefined)
+          if (erro.error.telephoneNo !== undefined) {
+            this.setSignupValues(payload);
             messInvalidTel = erro.error.telephoneNo;
-          if (erro.error.email !== undefined)
+          }
+
+          if (erro.error.email !== undefined) {
+            this.setSignupValues(payload);
             messInvalidEmail = erro.error.email;
-          if (erro.error.message !== undefined)
+          }
+
+          if (erro.error.message !== undefined) {
+            this.setSignupValues(payload);
             messInvalidUser = erro.error.message;
-          if (erro.error.password !== undefined)
+
+          }
+
+          if (erro.error.password !== undefined) {
+            this.setSignupValues(payload);
             messInvalidPass = erro.error.password;
+
+          }
+
           let mess = messInvalidEmail + "\n" + messInvalidTel + "\n" + messInvalidUser + "\n" + messInvalidPass;
 
           let splitted = mess.split(mess);
-          this.errMsg("Invalid:", mess
-
-          )
+          this.errMsg("Invalid:", mess)
+          this.setSignupValues(payload);
 
         }
 

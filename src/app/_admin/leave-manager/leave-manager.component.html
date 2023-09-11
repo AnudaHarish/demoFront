@@ -38,6 +38,11 @@
               </li>
             </ul>
           </div>
+          <div class="col col-md-5">
+            <pagination-controls previousLabel="Prev" nextLabel="Next" (pageChange)="onTableDataChange($event)">
+
+            </pagination-controls>
+          </div>
           <div class="col col-md-4">
             <input type="text" class="form-control" placeholder="search" [(ngModel)]="searchText2" id="search">
           </div>
@@ -51,7 +56,12 @@
 
         <div class="row">
 
-          <div class="col " *ngFor="let leaveApplication of applicationList | search : searchText2; let i = index">
+          <div class="col " *ngFor="let leaveApplication of applicationList | search : searchText2 | paginate : {
+            itemsPerPage: tableSize,
+            currentPage: page,
+            totalItems: count
+          } 
+             ; let i = index">
             <div class="card text-center mt-3 card border-info" style="width: 55rem;">
               <div class="card-body">
                 <h3 class="card-title">Leave Application {{i + 1}}</h3>
@@ -85,12 +95,12 @@
 
                   <div class="col">
                     <button style="margin-right: 10px;" type="button" class="btn btn-success"
-                      (click)="mess(leaveApplication.id)">Accept</button>
+                      (click)="mess(leaveApplication.id)" [disabled]="visibility">Accept</button>
                     <button style="margin-right: 10px;" type="button" class="btn btn-primary"
                       (click)="onCreate(leaveApplication.id)">View
                       more</button>
-                    <button type="button" class="btn btn-danger"
-                      (click)="rejectMsg(leaveApplication.id)">Reject</button>
+                    <button type="button" class="btn btn-danger" (click)="rejectMsg(leaveApplication.id)"
+                      [disabled]="visibility">Reject</button>
                   </div>
 
 

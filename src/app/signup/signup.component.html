@@ -130,10 +130,13 @@
           <div *ngIf="password?.errors?.['required']">
             Password can't be emtpy
           </div>
+          <div *ngIf="password?.errors?.minlength">
+            Password must be atleast 6 character long
+          </div>
         </div>
 
       </div>
-      <div class="mb-3">
+      <div class="mb-5">
         <label for="confirmPassword" form-label="confirmPassword">Confirm Password<span
             class="text-danger">*</span></label>
         <input class="form-control" type="password" formControlName="confirmPassword" id="confirmPassword" />
@@ -142,6 +145,12 @@
             ">
           <div *ngIf="confirmPassword?.errors?.['required']">
             Confirm password can't be emtpy
+          </div>
+          <div *ngIf="confirmPassword?.errors?.minlength">
+            Confirm password must be atleast 6 character long
+          </div>
+          <div *ngIf="confirmPassword?.errors?.confirmedValidator">
+            Confirm password and the password must be match
           </div>
         </div>
 

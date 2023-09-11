@@ -26,9 +26,13 @@ export class LeaveManagerComponent implements OnInit {
   leaveItemSize;
   applicationId: any;
   nameList: any[] = [];
-  searchText2
+  searchText2;
+  page: number = 1;
+  count: number = 0;
+  tableSize: number = 10;
+  visibility;
   ngOnInit(): void {
-
+    this.visibility = false;
     this.getSelectedAppliedList(this.selectedOption);
 
 
@@ -58,6 +62,11 @@ export class LeaveManagerComponent implements OnInit {
     // this.getDetails(this.selectedOption);
   }
 
+  onTableDataChange(event: any) {
+    this.page = event;
+    this.getSelectedAppliedList(this.selectedOption);
+
+  }
 
 
   getSelectedAppliedList(selectedItem: any) {
@@ -69,7 +78,7 @@ export class LeaveManagerComponent implements OnInit {
         (res: any) => {
           this.applicationList = res;
           console.log(this.applicationList);
-
+          this.visibility = false;
         },
         (err) => {
           console.log(err);
@@ -80,6 +89,8 @@ export class LeaveManagerComponent implements OnInit {
       this.adminService.getDetailsApproved().subscribe(
         (res: any) => {
           this.applicationList = res;
+          this.visibility = true;
+
 
 
         },
@@ -94,6 +105,7 @@ export class LeaveManagerComponent implements OnInit {
       this.adminService.getDetailsRejected().subscribe(
         (res: any) => {
           this.applicationList = res;
+          this.visibility = true;
 
         },
         (err) => {

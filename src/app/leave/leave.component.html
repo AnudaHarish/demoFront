@@ -1,151 +1,11 @@
-<!-- <div class="row" style="min-width: 500px;">
-
-  <div class="card border-secondary mt-5" style="padding-top: 10px;min-width: 500px;">
-
-    <article>
-      <h1 class="display-4">Leave History</h1>
-      <h2><span>Select a type of leave:</span></h2>
-      <select class="form-select" aria-label="Default select example" [(ngModel)]="value"
-        (change)="selectChangedHandler($event)">
-
-        <option value="Pending Leaves">Pending Leaves</option>
-        <option value="Approved Leaves">Approved leaves</option>
-        <option value="Rejected Leaves">Rejected Leaves</option>
-        <option value="Deleted Leaves">Deleted Leaves</option>
-      </select>
-      <p><span>Category: </span><b>{{selectedOption}}</b></p>
-    </article>
-
-
-
-
-
-
-
-
-
-
-
-  </div>
-
-</div>
-<div class="row" style=" min-width: 700px;">
-
-  <div class="card text-center mt-5 border-secondary" style="background-color: rgba(255, 255, 255, 0);">
-    <div class="card-header" style="background-color: rgba(255, 255, 255, 0);">
-      <ul class="nav nav-tabs card-header-tabs">
-        <li class="nav-item">
-          <a class="nav-link active  text-white" aria-current="true"
-            style="background-color: rgb(104, 104, 104);">{{selectedOption}}</a>
-        </li>
-
-
-      </ul>
-    </div>
-    <div class="card-body fs-6" style="background-color: rgba(255, 254, 254, 0);">
-
-      <div class="row" *ngFor="let leave of leaveList; let i = index">
-
-        <div class="card mb-3 border-info mb-3" style="padding: 20px;">
-
-          <div class="card-title" style="align-self: flex-start;">
-            <h3>Application {{i+1}}</h3>
-          </div>
-
-          <table class="table">
-            <thead>
-              <tr>
-                <th>Start Date</th>
-                <th>End Date</th>
-                <th>Created On</th>
-                <th>Apply for</th>
-
-              </tr>
-
-            </thead>
-            <tbody>
-              <tr>
-                <td>{{createDate(leave.startDate)}}</td>
-                <td>{{createDate(leave.endDate)}}</td>
-                <td>{{createDate(leave.createdDate)}}</td>
-                <td>{{leaveItemSize(leave.leaveItem)}} {{''}} day</td>
-              </tr>
-            </tbody>
-
-          </table>
-
-
-          <div class="row mt-3" style="align-self: flex-end; width: 700px;">
-
-
-            <div class="col mb-3">
-
-              <button type="button" class="btn btn-danger" style="margin-right: 10px;"
-                (click)="deleteApplication(leave.id)">Delete</button>
-
-              <button class="btn btn-primary" type="button" data-bs-toggle="collapse" data-bs-target="#collapseExample"
-                aria-expanded="false" aria-controls="collapseExample" (click)="getLeaveList(leave.label)">
-                View more
-              </button>
-            </div>
-
-
-
-          </div>
-
-          <div class="collapse" id="collapseExample">
-            <div class="card card-body border-light" style="width: 600px; align-items: center;margin: auto;">
-              <table class="table">
-                <thead>
-                  <tr>
-                    <th>Date</th>
-                    <th>Leave Type</th>
-                    <th>Leave Duration</th>
-                    <th></th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr *ngFor="let item of leave.leaveItem; let i = index">
-                    <td>{{createDate(item.date)}}</td>
-                    <td>{{converEnum(item.type)}}</td>
-                    <td>{{converEnum(item.duration)}}</td>
-                    <td> <button type="button" class="btn btn-warning" style="margin-right: 10px;"
-                        (click)="viewEdit(item,leave.id,i)">Edit</button>
-
-                    </td>
-                  </tr>
-
-                </tbody>
-
-              </table>
-            </div>
-          </div>
-
-
-
-
-
-
-
-
-        </div>
-
-      </div>
-
-    </div>
-  </div>
-</div> -->
-
-
-
 <div class="container">
   <div class="row justify-content-md-center">
 
-    <div class="card mt-5" style="width: 35rem;">
+    <div class="card mt-5" style="width: 35rem;padding:2rem">
 
       <div class="card-body">
         <h5 class="card-title">
-          <legend>Leave History</legend>
+          <legend class="mb-4">Leave History</legend>
         </h5>
         <p class="card-text">Select a Leave Type: </p>
 
@@ -182,19 +42,28 @@
 
           </div>
           <div class="col col-md-5">
-            <input type="text" id="search" placeholder="search" [(ngModel)]="searchText" class="form-control">
+            <pagination-controls previousLabel="Prev" nextLabel="Next" (pageChange)="onTableDataChange($event)">
+
+            </pagination-controls>
           </div>
+          <!-- <div class="col col-md-4">
+            <input type="text" id="search" placeholder="search" [(ngModel)]="searchText" class="form-control">
+          </div> -->
         </div>
 
       </div>
       <div class="card-body fs-6" style="background-color: rgba(255, 254, 254, 0);">
 
-        <div class="row" *ngFor="let leave of leaveList|search : searchText ; let i = index">
+        <div class="row" *ngFor="let leave of leaveList|search : searchText | paginate : {
+          itemsPerPage: tableSize,
+          currentPage: page,
+          totalItems: count
+        } ; let i = index">
 
           <div class="card mb-3 border-info mb-3" style="padding: 20px;">
 
             <div class="card-title" style="align-self: flex-start;">
-              <h2>Application {{i+1}}</h2>
+              <h2>Application #{{leave.id}}</h2>
             </div>
 
             <table class="table table-borderless table-hover table-striped table-info">

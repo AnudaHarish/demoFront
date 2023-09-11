@@ -24,6 +24,7 @@ export class EmployeeListComponent implements OnInit {
   ngOnInit(): void {
 
     this.getactive();
+    this.visible = false;
 
   }
 
@@ -34,7 +35,7 @@ export class EmployeeListComponent implements OnInit {
   dayF;
   selectedList: any;
 
-  visible = true;
+  visible;
 
   getactive() {
 
@@ -48,7 +49,7 @@ export class EmployeeListComponent implements OnInit {
       }
     );
 
-    this.visible = true;
+    this.visible = false;
 
 
   }
@@ -59,7 +60,7 @@ export class EmployeeListComponent implements OnInit {
       (res: any): any => {
         console.log(res);
         this.selectedList = res;
-        this.visible = false;
+        this.visible = true;
         console.log(this.visible);
       },
       (err) => {

@@ -1,6 +1,6 @@
 <div class="container">
   <div class="row">
-    <div class="card mt-5" style="width: 35rem;margin:auto; padding-top: 1rem; ">
+    <div class="card mt-5 border-secondary" style="width: 35rem;margin:auto; padding-top: 1rem; ">
       <div class="card-title">
         <div class="row">
           <div class="col ">
@@ -39,7 +39,7 @@
   </div>
 
   <div class="row mt-3">
-    <div class="card" style="width: 55rem;background-color: rgba(240, 248, 255, 0);">
+    <div class="card border-secondary" style="width: 55rem;background-color: rgba(240, 248, 255, 0);">
       <div class="card-header" style="background-color: rgba(240, 248, 255, 0);">
         <div class="row">
 
@@ -92,9 +92,10 @@
                   </div>
                   <div class="col" style="margin-right: 0%;padding: 0%;margin-left: 0rem; padding-left:15rem">
                     <button class="btn btn-warning" style="margin-right: 0.3rem;padding:0.2rem"
-                      (click)="editInfo(employee.id)"><fa-icon [icon]="pen" size="sm"></fa-icon></button>
-                    <button (click)="delMsg(employee.id)" class="btn btn-danger" style="padding:0.2rem"><fa-icon
-                        [icon]="bin" type="solid" size="sm"></fa-icon></button>
+                      (click)="editInfo(employee.id)" [disabled]="visible"><fa-icon [icon]="pen"
+                        size="sm"></fa-icon></button>
+                    <button (click)="delMsg(employee.id)" class="btn btn-danger" style="padding:0.2rem"
+                      [disabled]="visible"><fa-icon [icon]="bin" type="solid" size="sm"></fa-icon></button>
                   </div>
                 </div>
 
