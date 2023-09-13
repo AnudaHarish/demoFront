@@ -15,11 +15,6 @@
               <input type="text" id="firstname" class="form-control" formControlName="firstname" />
             </div>
             <div class="row">
-              <!-- <div *ngIf="firstname?.invalid &&  (firstname?.dirty || firstname?.touched)" class="alert alert-danger">
-                <div *ngIf="firstname?.errors?.['required']">
-                  Firstname can't be empty
-                </div>
-              </div> -->
               <div
                 *ngIf="form.get('firstname').invalid && (form.get('firstname').dirty || form.get('firstname').touched)"
                 class="alert alert-danger" style="height: 8px;">
@@ -31,10 +26,7 @@
                 </div>
               </div>
 
-
-
             </div>
-
 
           </div>
 

@@ -1,56 +1,3 @@
-<!--   -->
-
-<!-- 
-<input type="date" [min]="minDate" [max]="maxDate">
-
-
-
-
-<form [formGroup]="dateForm">
-  <mat-form-field>
-    <input matInput [matDatepicker]="startatpicker" placeholder="Choose a date" formControlName="dateControl">
-    <mat-datepicker-toggle [for]="startatpicker"></mat-datepicker-toggle>
-    <mat-datepicker #startatpicker startView="year" [startAt]="startDate"></mat-datepicker>
-  </mat-form-field>
-</form> -->
-
-
-
-<!-- 
-<mat-form-field>
-  <mat-label>Month and Year</mat-label>
-  <input matInput [matDatepicker]="dp" [formControl]="date">
-  <mat-hint>MM/YYYY</mat-hint>
-  <mat-datepicker-toggle matIconSuffix [for]="dp"></mat-datepicker-toggle>
-  <mat-datepicker #dp startView="multi-year" (monthSelected)="setMonthAndYear($event, dp)"
-    panelClass="example-month-picker">
-  </mat-datepicker>
-</mat-form-field> -->
-<!-- <div class="form-group"> -->
-<!-- Date input -->
-<!-- <label>Date</label>
-  <input name="dob" id="dob" matInput [matDatepicker]="picker" class="form-control" placeholder="MM/DD/YYYY"> -->
-<!-- <mat-hint>MM/DD/YYYY</mat-hint> -->
-<!-- <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
-  <mat-datepicker #picker></mat-datepicker>
-</div> -->
-
-<!-- 
-  <div class="form-group">
-    <mat-form-field>
-
-      <mat-label>Choose a date</mat-label>
-      <input matInput [matDatepicker]="picker" min="{{minDate}}">
-      <mat-hint>MM/DD/YYYY</mat-hint>
-      <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
-      <mat-datepicker #picker></mat-datepicker>
-
-    </mat-form-field>
-
-
-  </div> -->
-
-
 <div class="container">
 
   <div class="row align-items-center justify-content-md-center">
@@ -61,24 +8,14 @@
 
         <canvas id="myChart">
           {{graph}}
-
-
-
         </canvas>
       </div>
-
-
-
     </div>
 
     <div class="row" style="margin: 0; ">
 
-
-
       <div class="card mt-5 border-secondary" style="align-items: center; padding: 30px; min-width:600px">
         <legend class="mb-5">Apply Leave Request</legend>
-
-
         <div class="row">
           <div class="col">
             <p>Start Date</p>
@@ -97,38 +34,11 @@
               <mat-label>End Date </mat-label>
               <input matInput [matDatepicker]="picker2" [matDatepickerFilter]="dateFilter" placeholder="Choose a date"
                 [min]="minimum" (dateChange)="selectEndDateChangedHandler($event) " [disabled]="activeEndDate">
-              <!-- <mat-icon matDatepickerToggleIcon (click)="clearDate($event)">clear</mat-icon> -->
               <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
               <mat-datepicker #picker2></mat-datepicker>
             </mat-form-field>
-
-
-
           </div>
         </div>
-
-
-
-
-
-
-
-        <!-- <form [formGroup]="form">
-          <mat-form-field>
-            <mat-label>Enter a date range</mat-label>
-            <mat-date-range-input [rangePicker]="picker" formGroupName="daterange">
-              <input formControlName="startDate" matStartDate placeholder="Start date" min='{{minDate}}'
-                class="form-control">
-              <input formControlName="endDate" matEndDate placeholder="End date" min=' {{minDate}}'>
-            </mat-date-range-input>
-            <mat-hint>MM/DD/YYYY – MM/DD/YYYY</mat-hint>
-            <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
-            <mat-date-range-picker #picker></mat-date-range-picker>
-          </mat-form-field>
-
-          <button class="btn btn-primary" style="margin-left: 20px;" (click)="onSubmit()" [disabled]="isVisible">Submit
-            Date Range</button>
-        </form> -->
         <div id="mydiv">
 
         </div>
@@ -166,119 +76,17 @@
 
                   </div>
                 </div>
-
-
               </div>
               <br>
-
-
-
-
             </ng-container>
           </div>
 
-          <button [disabled]="!isVisible" type="submit" class="btn btn-outline-dark"
+          <button [disabled]="!isVisible || formRepeat.invalid" type="submit" class="btn btn-outline-dark"
             (click)="submitRepeat()">Submit</button>
-
-
         </form>
 
       </div>
-
-
-
-      <!-- <div class="col" style="margin: 0%;">
-
-
-        <div class="card mt-5 border-secondary" style="width: 25rem;">
-          <div class="card-body">
-            <h3 class="card-title">Leave Applications</h3>
-            <div class="row">
-
-
-              <table class="table table-borderless">
-
-
-
-                <thead>
-
-
-
-                  <tr>
-
-
-                    <th>Created on</th>
-                    <th>Start Date</th>
-                    <th>End Date</th>
-                  </tr>
-                </thead>
-                <tbody>
-
-                  <tr *ngFor="let application of ">
-                    <td>{{this.datePipe.transform(application.createdDate, 'yyyy-MM-dd')}}</td>
-                    <td>{{this.datePipe.transform(application.start, 'yyyy-MM-dd')}}</td>
-                    <td>{{this.datePipe.transform(application.End, 'yyyy-MM-dd')}}</td>
-                  </tr>
-
-                </tbody>
-
-
-
-
-
-              </table>
-
-
-
-
-
-
-            </div>
-          </div>
-
-        </div>
-
-
-      </div> -->
-
-
-
     </div>
-
 
   </div>
 </div>
-
-<!-- <div class="card mt-5 table-hover" style="padding: 30px; width: 1000px;">
-  <table class="table">
-    <thead>
-      <tr>
-
-        <th scope="col">Date</th>
-        <th scope="col">Leave Type</th>
-        <th scope="col">Duration</th>
-
-
-      </tr>
-    </thead>
-    <tbody>
-      <tr *ngFor="let approved of ">
-
-
-
-
-        <td><input class="form-control" type="text" placeholder="Disabled input" aria-label="Disabled input example"
-            disabled></td>
-
-        <td>
-
-        </td>
-
-
-
-
-      </tr>
-
-    </tbody>
-  </table>
-</div> -->

@@ -1,5 +1,5 @@
 import { DatePipe } from '@angular/common';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 import { UserService } from '../_service/user/user.service';
 import Swal from 'sweetalert2';
@@ -19,6 +19,8 @@ export class SignupComponent implements OnInit {
 
   }
 
+  @ViewChild('modal')
+  modal: SignupComponent;
 
   constructor(private fb: FormBuilder, private datePipe: DatePipe, private userService: UserService) {
 
@@ -69,10 +71,6 @@ export class SignupComponent implements OnInit {
       password,
       gender,
       telephoneNo,
-
-
-
-
 
     };
     this.checkPassword(payload, confirmPassword);
@@ -209,9 +207,6 @@ export class SignupComponent implements OnInit {
     else
       this.errMsg("Invalid", "Password doesn't match")
     return false;
-
-
-
 
 
   }

@@ -32,43 +32,27 @@ export class HeaderComponent implements OnInit {
 
   ngOnInit(): void {
     this.dateTime = new Date();
-    this.userInfo()
-
-
-
+    this.userInfo();
   }
 
   public logout() {
-
     this.userAuthService.clear();
-
-
-
-
   }
 
   public isLoggedIn() {
     return this.userAuthService.isLoggedIn();
   }
 
-
   opened = true;
 
 
   public userInfo() {
-
-
-
 
     let id = this.userAuthService.getId();
     this.employeeService.getInfoById(id).subscribe(
       (res) => {
         console.log(res);
         this.user = res;
-        // console.log(this.user.username);
-
-
-
 
       },
       (err) => {

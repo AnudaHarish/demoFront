@@ -26,8 +26,9 @@ export class EmployeeListComponent implements OnInit {
     this.getactive();
     this.visible = false;
 
-  }
 
+  }
+  option;
   searchText
   bin = faTrashCan;
   pen = faPenToSquare;
@@ -43,6 +44,7 @@ export class EmployeeListComponent implements OnInit {
       (res: any): any => {
         console.log(res);
         this.selectedList = res;
+        this.option = "Active";
       },
       (err) => {
         console.log(err);
@@ -62,16 +64,12 @@ export class EmployeeListComponent implements OnInit {
         this.selectedList = res;
         this.visible = true;
         console.log(this.visible);
+        this.option = "Deleted";
       },
       (err) => {
         console.log(err);
       }
     );
-
-
-
-
-
   }
 
   //formatting date
@@ -93,13 +91,6 @@ export class EmployeeListComponent implements OnInit {
     }
     return year + "-" + this.monthF + "-" + this.dayF;
 
-    // let day = dateList.get(2);
-    // let month = dateList.get(1);
-    // let year = dateList.get(0);
-    // console.log(dateList);
-
-    // return year + '-' + month + '-' + day;
-
 
   }
 
@@ -118,15 +109,10 @@ export class EmployeeListComponent implements OnInit {
 
   //opening edit user information dialog
   editInfo(id) {
-
-
-
     const dialogConfig = new MatDialogConfig();
     dialogConfig.disableClose = true;
     dialogConfig.autoFocus = true;
     dialogConfig.width = "40%";
-    // dialogConfig.height = "60%";
-
     dialogConfig.data = id;
 
     this.dialogRef = this.dialog.open(UserInfoComponent, dialogConfig);
@@ -144,11 +130,6 @@ export class EmployeeListComponent implements OnInit {
       (res: any): any => {
         console.log(res);
         console.log("Working!!!!");
-        // this.activeList();
-
-
-
-
       },
       (err) => {
         console.log(err);

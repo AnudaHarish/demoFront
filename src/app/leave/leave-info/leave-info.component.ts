@@ -5,6 +5,7 @@ import { EmpolyeeService } from 'src/app/_service/empolyee.service';
 import { LeaveItem } from 'src/app/models/leave-item.model';
 import { UpdateRequest } from 'src/app/models/update-request.model';
 import { EditComponent } from 'src/app/user/edit/edit.component';
+import Swal from 'sweetalert2';
 import { __values } from 'tslib';
 
 @Component({
@@ -77,7 +78,21 @@ export class LeaveInfoComponent implements OnInit {
       (res: any): any => {
 
         if (res.body.message) {
-          this.dialogRef.close();
+          console.log(res.body.message);
+          if (res.body.message === "sick") {
+            this.erroMsg("Invalid", "Insufficient sick leaves");
+          }
+          else if (res.body.message === "Annual") {
+            this.erroMsg("Invalid", "Insufficient annual leaves");
+          }
+          else if (res.body.message === "casual") {
+            this.erroMsg("Invalid", "Insufficient casual leaves");
+          }
+          else {
+            this.msg();
+            this.dialogRef.close();
+          }
+
         }
 
       },
@@ -86,19 +101,14 @@ export class LeaveInfoComponent implements OnInit {
       }
     )
 
-
-
   }
 
 
   public createDate(dateList: []) {
 
-
     length = dateList.length;
-    // console.log(dateList)
     let year = dateList[length - length];
     this.monthF = dateList[length - 2];
-
 
     if (this.monthF < 10) {
       this.monthF = '0' + this.monthF;
@@ -109,17 +119,27 @@ export class LeaveInfoComponent implements OnInit {
     }
     return year + "-" + this.monthF + "-" + this.dayF;
 
-    // let day = dateList.get(2);
-    // let month = dateList.get(1);
-    // let year = dateList.get(0);
-    // console.log(dateList);
+  }
 
-    // return year + '-' + month + '-' + day;
+  erroMsg(title, text) {
+    Swal.fire({
+      icon: 'error',
+      title: title,
+      text: text,
 
+    });
 
   }
 
-
+  msg() {
+    Swal.fire({
+      position: 'top-end',
+      icon: 'success',
+      title: 'Your work has been saved',
+      showConfirmButton: false,
+      timer: 1500
+    })
+  }
 
 
 

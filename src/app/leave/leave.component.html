@@ -46,9 +46,6 @@
 
             </pagination-controls>
           </div>
-          <!-- <div class="col col-md-4">
-            <input type="text" id="search" placeholder="search" [(ngModel)]="searchText" class="form-control">
-          </div> -->
         </div>
 
       </div>
@@ -95,16 +92,14 @@
               <div class="col mb-3">
 
                 <button type="button" class="btn btn-outline-danger" style="margin-right: 10px;"
-                  (click)="deleteApplication(leave.id)" [disabled]="!isVisible">Delete</button>
+                  (click)="deleteApplication(leave.id)" [disabled]="!isVisible" *ngIf="isVisible">Delete</button>
 
-                <button class="btn btn-outline-primary" type="button" data-bs-toggle="collapse"
+                <button class="btn btn-outline-primary btn-text" type="button" data-bs-toggle="collapse"
                   data-bs-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample"
                   (click)="getLeaveList(leave.label)">
-                  View more
+                  <span>View more</span><b>show less</b>
                 </button>
               </div>
-
-
 
             </div>
 
@@ -124,9 +119,9 @@
                       <td>{{createDate(item.date)}}</td>
                       <td>{{converEnum(item.type)}}</td>
                       <td>{{converEnum(item.duration)}}</td>
-                      <td> <button type="button" class="btn btn-outline-warning"
-                          style="margin-right: 10px; padding: 5px;" (click)="viewEdit(item,leave.id,i)"
-                          [disabled]="!isVisible"><fa-icon [icon]="pen" size="lg"></fa-icon></button>
+                      <td> <button type="button" class="btn btn-warning" style="margin-right: 10px; padding: 5px;"
+                          (click)="viewEdit(item,leave.id,i)" [disabled]="!isVisible"><fa-icon [icon]="pen"
+                            size="lg"></fa-icon></button>
 
                       </td>
                     </tr>
@@ -136,14 +131,6 @@
                 </table>
               </div>
             </div>
-
-
-
-
-
-
-
-
           </div>
 
         </div>

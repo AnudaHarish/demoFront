@@ -77,24 +77,15 @@ export class SaveEmployeeComponent implements OnInit {
       gender,
       telephoneNo,
 
-
-
-
-
     };
     this.checkPassword(payload, confirmPassword);
 
-
-
     console.log(payload);
-
-
   }
 
   get firstname() {
     return this.signup.get('firstname');
   }
-
 
   get lastname() {
     return this.signup.get('lastname');
@@ -139,12 +130,7 @@ export class SaveEmployeeComponent implements OnInit {
       telephoneNo: formValue.telephoneNo,
       confirmPassword: ''
     })
-
-
-
-
   }
-
 
 
   checkPassword(payload, confirmPassword): boolean {
@@ -201,8 +187,6 @@ export class SaveEmployeeComponent implements OnInit {
             this.errMsg("Invalid:", mess)
           }
 
-
-
         }
 
       )
@@ -212,10 +196,6 @@ export class SaveEmployeeComponent implements OnInit {
     else
       this.errMsg("Invalid", "Password doesn't match")
     return false;
-
-
-
-
 
   }
 

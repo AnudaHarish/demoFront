@@ -32,8 +32,6 @@
 
         <!-- search goes here -->
 
-
-
       </div>
     </div>
   </div>
@@ -51,7 +49,7 @@
                 <a class="nav-link active" aria-current="true" style="padding: 0;"><button
                     class="btn btn-link text-white " class="btn btn-dark"
                     style="text-decoration: none;padding: 0.2rem;padding-left: 1rem;padding-right: 1rem;margin-bottom: 0;"
-                    (click)="getactive()">Active</button></a>
+                    (click)="getactive()" id="active"><span>Active</span></button></a>
 
 
               </li>
@@ -59,15 +57,15 @@
                 <a class="nav-link active" aria-current="true" style="padding: 0;"><button
                     class="btn btn-link text-white"
                     style="text-decoration: none;padding: 0.2rem;padding-left: 1rem;padding-right: 1rem;margin-bottom: 0;"
-                    (click)="DeleteList()" class="btn btn-dark">Deleted</button></a>
+                    (click)="DeleteList()" class="btn btn-dark" id="active">Deleted</button></a>
               </li>
 
             </ul>
 
 
           </div>
-          <div class="col col-md-5">
-
+          <div class="col col-md-5" style="padding-left: 14rem;margin-top: 0.3rem;">
+            <legend class="fs-5">{{option}} List</legend>
           </div>
 
         </div>
@@ -75,7 +73,6 @@
 
       </div>
       <div class="card-body" style="align-self: center;">
-
 
         <div class="card mb-3 mt-3" style="max-width: 45rem;"
           *ngFor="let employee of selectedList | search : searchText">
@@ -92,9 +89,9 @@
                   </div>
                   <div class="col" style="margin-right: 0%;padding: 0%;margin-left: 0rem; padding-left:15rem">
                     <button class="btn btn-warning" style="margin-right: 0.3rem;padding:0.2rem"
-                      (click)="editInfo(employee.id)" [disabled]="visible"><fa-icon [icon]="pen"
+                      (click)="editInfo(employee.id)" [disabled]="visible" *ngIf="!visible"><fa-icon [icon]="pen"
                         size="sm"></fa-icon></button>
-                    <button (click)="delMsg(employee.id)" class="btn btn-danger" style="padding:0.2rem"
+                    <button (click)="delMsg(employee.id)" class="btn btn-danger" style="padding:0.2rem" *ngIf="!visible"
                       [disabled]="visible"><fa-icon [icon]="bin" type="solid" size="sm"></fa-icon></button>
                   </div>
                 </div>
@@ -118,23 +115,8 @@
 
                 </div>
 
-
-
-
                 <p class="card-text"><small class="text-muted">Registered On:
                     {{createDate(employee.registeredDate)}}</small></p>
-                <!-- <div class="row">
-                  <div class="col">
-
-                  </div>
-                  <div class="col" style="margin-right: 0%;padding: 0%;margin-left: 8rem;">
-
-                    <button class="btn btn-info" style="margin-right: 1rem;"
-                      (click)="editInfo(employee.id)">Edit</button>
-                    <button (click)="delMsg(employee.id)" class="btn btn-danger">Delete</button>
-
-                  </div>
-                </div> -->
               </div>
             </div>
           </div>

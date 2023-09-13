@@ -27,9 +27,6 @@ import { UserService } from './_service/user/user.service';
 import { AuthInterceptor } from './auth/auth.interceptor';
 import { AuthGuard } from './auth/auth.guard';
 import { EmpolyeeService } from './_service/empolyee.service';
-import { PendingComponent } from './leave/pending/pending.component';
-import { ApprovedComponent } from './leave/approved/approved.component';
-import { RejectedComponent } from './leave/rejected/rejected.component';
 import { MatExpansionModule } from '@angular/material/expansion';
 import { UserComponent } from './user/user.component';
 import { LeaveRequestComponent } from './leave/leave-request/leave-request.component';
@@ -39,9 +36,6 @@ import { SignupComponent } from './signup/signup.component';
 
 import { UserLeaveComponent } from './user/user-leave/user-leave.component';
 import { EmployeeListComponent } from './_admin/employee-list/employee-list.component';
-import { ActiveListComponent } from './_admin/employee-list/active-list/active-list.component';
-import { DeleteListComponent } from './_admin/employee-list/delete-list/delete-list.component';
-import { AcceptLeaveComponent } from './_admin/accept-leave/accept-leave.component';
 import { LeaveManagerComponent } from './_admin/leave-manager/leave-manager.component';
 import { MatDialogModule } from '@angular/material/dialog';
 import { InfoComponent } from './_admin/leave-manager/info/info.component';
@@ -65,17 +59,11 @@ import { NgxPaginationModule } from 'ngx-pagination';
     AdminDashboardComponent,
     HeaderComponent,
     LeaveComponent,
-    PendingComponent,
-    ApprovedComponent,
-    RejectedComponent,
     UserComponent,
     LeaveRequestComponent,
     SignupComponent,
     UserLeaveComponent,
     EmployeeListComponent,
-    ActiveListComponent,
-    DeleteListComponent,
-    AcceptLeaveComponent,
     LeaveManagerComponent,
     InfoComponent,
     UserInfoComponent,

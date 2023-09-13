@@ -16,10 +16,8 @@
           <option value="Rejected leaves">Rejected Leave</option>
         </select>
 
-
       </div>
     </div>
-
 
   </div>
 
@@ -64,7 +62,7 @@
              ; let i = index">
             <div class="card text-center mt-3 card border-info" style="width: 55rem;">
               <div class="card-body">
-                <h3 class="card-title">Leave Application {{i + 1}}</h3>
+                <h3 class="card-title">Leave Application #{{leaveApplication.id}}</h3>
                 <table class="table table-info">
                   <thead>
                     <tr>
@@ -95,40 +93,19 @@
 
                   <div class="col">
                     <button style="margin-right: 10px;" type="button" class="btn btn-success"
-                      (click)="mess(leaveApplication.id)" [disabled]="visibility">Accept</button>
+                      (click)="mess(leaveApplication.id)" [disabled]="visibility" *ngIf="!visibility">Accept</button>
                     <button style="margin-right: 10px;" type="button" class="btn btn-primary"
                       (click)="onCreate(leaveApplication.id)">View
                       more</button>
                     <button type="button" class="btn btn-danger" (click)="rejectMsg(leaveApplication.id)"
-                      [disabled]="visibility">Reject</button>
+                      [disabled]="visibility" *ngIf="!visibility">Reject</button>
                   </div>
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
                 </div>
-
-
-
 
               </div>
             </div>
           </div>
-
-
-
-
 
         </div>
       </div>

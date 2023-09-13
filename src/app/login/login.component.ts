@@ -10,10 +10,6 @@ import { DatePipe } from '@angular/common';
 import Swal from 'sweetalert2';
 
 
-
-
-
-
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
@@ -43,45 +39,31 @@ export class LoginComponent implements OnInit {
 
     this.userService.login(loginInfo.value).subscribe(
       (res: any) => {
-
-        this.userAuthService.setRoles(res.roles);
-        this.userAuthService.setToken(res.accessToken);
-        this.userAuthService.setId(res.id);
-        this.userAuthService.setusername(res.username);
         console.log(res);
+        if (res.message === "Incorrect username or password") {
+          this.erroMsg("Invalid", "User not found");
+        }
+        else if (res.message === "Incorrect username or password") {
+          this.erroMsg("Invalid", "Incorrect username or password");
+        }
+        else {
+          this.userAuthService.setRoles(res.roles);
+          this.userAuthService.setToken(res.accessToken);
+          this.userAuthService.setId(res.id);
+          this.userAuthService.setusername(res.username);
+          console.log(res);
 
-        const role = res.roles[0];
-        this.router.navigate(['/user']);
+          const role = res.roles[0];
+          this.router.navigate(['/user']);
 
-        // if (role === 'ROLE_ADMIN') {
-        //   this.router.navigate(['/user']);
-        // } else {
-        //   // this.router.navigate(['/user']);
-        // }
-
-        // console.log(res);
+        }
 
       },
       (err) => {
         console.log(err);
         console.log(err.error)
 
-        // let pass;
-        // let use;
-
-        // if (err.error.password == undefined) {
-        //   pass = "password" + err.erro.password;
-        // }
-        // if (err.error.username == undefined) {
-        //   use = "username" + err.erro.username;
-        // }
-
-
-
-
-        // let mes = pass + use;
-
-        this.showSuccessMessage("Invalid:", err.error);
+        this.erroMsg("Invalid", "Incorrect username or password");
 
       }
     );
@@ -117,21 +99,15 @@ export class LoginComponent implements OnInit {
 
       },
       (err) => {
-        // console.log(err);
 
-        console.log(err.error)
+        console.log(err.error);
         this.showSuccessMessage("Invalid:", err.error);
-
       }
-
 
     );
 
     this.isSubmitted = true;
     this.router.navigate(['/login']);
-
-
-
 
   }
 
@@ -144,6 +120,16 @@ export class LoginComponent implements OnInit {
       icon: icon,
       showCancelButton: showCancelButton
     })
+
+  }
+
+  erroMsg(title, text) {
+    Swal.fire({
+      icon: 'error',
+      title: title,
+      text: text,
+
+    });
 
   }
 

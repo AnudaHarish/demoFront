@@ -86,7 +86,7 @@ export class UserInfoComponent implements OnInit {
           this.dialogRef.close();
 
         }
-        else if (res.message === 'Invalid') {
+        else if (res.message === 'alreadyExist') {
           this.errMsg();
         }
 

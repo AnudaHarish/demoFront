@@ -50,7 +50,6 @@ export class InfoComponent implements OnInit {
     this.adminService.getLeaveApplication(id).subscribe(
       (res) => {
         this.application = res;
-        // this.leaveItem = this.application.LeaveItem;
       },
       (err) => {
         console.log(err);
@@ -75,9 +74,7 @@ export class InfoComponent implements OnInit {
 
   public createDate(dateList: []) {
 
-
     length = dateList.length;
-    // console.log(dateList)
     let year = dateList[length - length];
     this.monthF = dateList[length - 2];
 
@@ -90,14 +87,6 @@ export class InfoComponent implements OnInit {
       this.dayF = '0' + this.dayF;
     }
     return year + "-" + this.monthF + "-" + this.dayF;
-
-    // let day = dateList.get(2);
-    // let month = dateList.get(1);
-    // let year = dateList.get(0);
-    // console.log(dateList);
-
-    // return year + '-' + month + '-' + day;
-
 
   }
 

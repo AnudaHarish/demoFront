@@ -5,6 +5,7 @@ import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { InfoComponent } from './info/info.component';
 import { User } from 'src/app/models/user.model';
 import Swal from 'sweetalert2';
+import { style } from '@angular/animations';
 
 @Component({
   selector: 'app-leave-manager',
@@ -55,11 +56,7 @@ export class LeaveManagerComponent implements OnInit {
 
   selectValueHandler(event: any) {
     this.selectedOption = event.target.value;
-    // console.log(this.selectedOption);
     this.getSelectedAppliedList(this.selectedOption)
-
-
-    // this.getDetails(this.selectedOption);
   }
 
   onTableDataChange(event: any) {
@@ -91,8 +88,6 @@ export class LeaveManagerComponent implements OnInit {
           this.applicationList = res;
           this.visibility = true;
 
-
-
         },
         (err) => {
           console.log(err);
@@ -116,8 +111,6 @@ export class LeaveManagerComponent implements OnInit {
 
     }
 
-
-
   }
 
 
@@ -137,7 +130,6 @@ export class LeaveManagerComponent implements OnInit {
     dialogConfig.disableClose = true;
     dialogConfig.autoFocus = true;
     dialogConfig.width = "30%";
-    // dialogConfig.height = "60%";
     dialogConfig.id = id;
     dialogConfig.data = this.applicationId;
 
@@ -162,11 +154,6 @@ export class LeaveManagerComponent implements OnInit {
           console.log(err);
         }
       );
-
-
-
-
-
     }
 
 
@@ -176,7 +163,6 @@ export class LeaveManagerComponent implements OnInit {
 
 
     length = dateList.length;
-    // console.log(dateList)
     let year = dateList[length - length];
     this.monthF = dateList[length - 2];
 
@@ -189,14 +175,6 @@ export class LeaveManagerComponent implements OnInit {
       this.dayF = '0' + this.dayF;
     }
     return year + "-" + this.monthF + "-" + this.dayF;
-
-    // let day = dateList.get(2);
-    // let month = dateList.get(1);
-    // let year = dateList.get(0);
-    // console.log(dateList);
-
-    // return year + '-' + month + '-' + day;
-
 
   }
 
@@ -215,28 +193,15 @@ export class LeaveManagerComponent implements OnInit {
     console.log(this.nameList);
   }
 
-
   acceptLeave(id) {
     this.adminService.accept(id).subscribe(
       (res: any): any => {
         console.log(res);
-
-        // this.getDetails();
-
-        // console.log("hooo")
-        // this.selectedOption = "Pending Leaves";
-        // this.getSelectedAppliedList(this.selectedOption);
-
-
-
       },
       (err) => {
         console.log(err);
       }
     );
-
-
-
 
   }
 
@@ -246,17 +211,11 @@ export class LeaveManagerComponent implements OnInit {
     this.adminService.reject(id).subscribe(
       (res: any): any => {
         console.log(res);
-
-
       },
       (err) => {
         console.log(err);
       }
     );
-    // this.getSelectedAppliedList(this.selectedOption);
-
-
-
 
   }
 
@@ -265,8 +224,6 @@ export class LeaveManagerComponent implements OnInit {
     this.adminService.refreshPage.subscribe(() => {
       this.selectedOption = "Pending Leaves";
       this.getSelectedAppliedList(this.selectedOption);
-
-
     }
 
     )
@@ -276,8 +233,8 @@ export class LeaveManagerComponent implements OnInit {
   mess(id) {
     const swalWithBootstrapButtons = Swal.mixin({
       customClass: {
-        confirmButton: 'btn btn-success',
-        cancelButton: 'btn btn-danger'
+        confirmButton: 'btn btn-success spaced-button',
+        cancelButton: 'btn btn-danger spaced-button'
       },
       buttonsStyling: false
     })
@@ -332,7 +289,7 @@ export class LeaveManagerComponent implements OnInit {
       text: "You won't be able to revert this!",
       icon: 'warning',
       showCancelButton: true,
-      confirmButtonText: 'Yes, reject it!',
+      confirmButtonText: 'Yes,reject it!',
       cancelButtonText: 'No, cancel!',
       reverseButtons: true
     }).then((result) => {
@@ -341,8 +298,6 @@ export class LeaveManagerComponent implements OnInit {
         this.selectedOption = "Pending Leaves";
         this.getSelectedAppliedList(this.selectedOption);
         this.getDetails();
-
-        // console.log(this.getDetails());
         swalWithBootstrapButtons.fire(
           'Rejected!',
           'Leave Application has been rejected.',
@@ -359,4 +314,7 @@ export class LeaveManagerComponent implements OnInit {
       }
     })
   }
+
+
+
 }

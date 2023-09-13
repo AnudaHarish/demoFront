@@ -40,11 +40,6 @@ export class EditComponent implements OnInit {
   }
 
 
-
-
-
-
-
   onClick(): void {
     this.dialogRef.close();
   }
@@ -71,12 +66,12 @@ export class EditComponent implements OnInit {
           this.dialogRef.close();
 
         }
-        else if (this.msg === "Invalid") {
+        else if (this.msg === "alreadyExist") {
 
-          this.showSuccessMessage("Invalid", "Email is alredy in user, Enter another email")
+          this.erroMsg("Invalid", "Email is alredy in use." +
+            "\n Enter another email")
 
         }
-
 
         console.log(res.message);
 
@@ -85,8 +80,6 @@ export class EditComponent implements OnInit {
         console.log(erro);
       }
     );
-
-
 
   }
 
@@ -106,8 +99,6 @@ export class EditComponent implements OnInit {
       }
     )
   }
-
-
 
 
   get email() {
@@ -133,6 +124,16 @@ export class EditComponent implements OnInit {
       showCancelButton: showCancelButton
     })
 
+
+  }
+
+  erroMsg(title, text) {
+    Swal.fire({
+      icon: 'error',
+      title: title,
+      text: text,
+
+    });
 
   }
 }

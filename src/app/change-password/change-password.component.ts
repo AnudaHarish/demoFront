@@ -64,7 +64,7 @@ export class ChangePasswordComponent implements OnInit {
 
           console.log(res.message);
           if (res.message === "Bad Request") {
-            this.errorMes("Invalid", "Bad Request")
+            this.errorMes("Invalid", "Incorrect password")
           } else if (res.message === "successful") {
             this.dialogRef.close();
             this.succMesg("Successfully updated the password");
@@ -81,17 +81,12 @@ export class ChangePasswordComponent implements OnInit {
       this.errorMes("Invalid", "Password doesn't match")
     }
 
-
-
-
-
   }
 
   checkPassword(): boolean {
     if (this.getNewPass === this.getConfPass) {
       console.log(this.getNewPass === this.getConfPass)
       return true;
-
     }
     else
       return false;
@@ -100,12 +95,10 @@ export class ChangePasswordComponent implements OnInit {
 
   getNewPassword(event: any) {
     this.getNewPass = event.target.value;
-    // console.log(this.getNewPass);
   }
 
   getConfirmPassword(event: any) {
     this.getConfPass = event.target.value;
-    // console.log(this.confirmPassword);
   }
 
 

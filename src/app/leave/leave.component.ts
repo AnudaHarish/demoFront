@@ -33,7 +33,7 @@ export class LeaveComponent implements OnInit {
   tableSize: number = 10;
   tableSizes: any = [5, 10, 15, 20]
 
-
+  setView;
 
 
   constructor(private employeeService: EmpolyeeService, private userAuthService: UserAuthService, private datePipe: DatePipe, private fb: FormBuilder, private router: Router, private dialog: MatDialog) {
@@ -46,6 +46,7 @@ export class LeaveComponent implements OnInit {
 
     this.setSelectedOption();
     console.log(this.selectedOption);
+    this.setView = "View more"
 
 
 
@@ -64,11 +65,10 @@ export class LeaveComponent implements OnInit {
     if (this.selectedOption === "Pending Leaves") {
 
       const id = this.userAuthService.getId();
-      // console.log('hee');
 
       this.employeeService.pendingList(id).subscribe(
         (res: any) => {
-          // console.log(res);
+
           this.leaveList = res;
         },
         (erro) => {
@@ -125,14 +125,11 @@ export class LeaveComponent implements OnInit {
 
     console.log(selectedOption);
 
-
-    // console.log(this.value);
     this.method.subscribe(
       (res: any) => {
 
 
         this.leaveList = res;
-        // console.log(this.leaveList);
         for (let item of this.leaveList) {
           this.createDate(item.startDate);
         }
@@ -152,8 +149,6 @@ export class LeaveComponent implements OnInit {
   pendingStatus(status: string) {
     if (status === "Pending") {
       this.isVisible = true;
-
-
     }
     else {
       this.isVisible = false;
@@ -173,17 +168,9 @@ export class LeaveComponent implements OnInit {
         console.log(erro);
       }
 
-
-
-
     );
 
     this.getDetails("All Leaves");
-
-
-
-
-
 
   }
 
@@ -193,21 +180,10 @@ export class LeaveComponent implements OnInit {
 
 
     length = dateList.length;
-    // console.log(dateList)
     let year = dateList[length - length];
     let month = dateList[length - 2];
     let day = dateList[length - 1];
     return year + "-" + month + "-" + day;
-
-
-
-    // let day = dateList.get(2);
-    // let month = dateList.get(1);
-    // let year = dateList.get(0);
-    // console.log(dateList);
-
-    // return year + '-' + month + '-' + day;
-
 
   }
 
@@ -241,6 +217,8 @@ export class LeaveComponent implements OnInit {
 
   getLeaveList(list: any) {
 
+
+    this.setView = "Show less"
     return this.leaveApplication = list;
   }
 
@@ -253,8 +231,6 @@ export class LeaveComponent implements OnInit {
     dialogConfig.disableClose = true;
     dialogConfig.autoFocus = true;
     dialogConfig.width = "40%";
-    // dialogConfig.height = "60%";
-    // console.log(leaveitems);
     dialogConfig.data = { item: leaveitems, leaveId: id, index: i };
     console.log(dialogConfig.data)
 
@@ -263,12 +239,8 @@ export class LeaveComponent implements OnInit {
     dialogRef.afterClosed().subscribe(result => {
 
       this.selectedOption = "Pending Leaves";
-
-
       this.setSelectedOption();
       this.getDetails(this.selectedOption);
-
-
     })
 
   }
@@ -308,20 +280,13 @@ export class LeaveComponent implements OnInit {
 
     this.employeeService.deleteApplication(id).subscribe(
       (res) => {
-        // this.resetPage();
         console.log("rrr")
         this.selectedOption = "Pending Leaves";
 
 
         this.setSelectedOption();
         this.getDetails(this.selectedOption);
-        // this.selectedOption = "Pending Leaves"
-        // this.setSelectedOption();
-        // this.getDetails(this.selectedOption)
-
-
         console.log(res);
-
 
       },
       (err) => {
@@ -339,6 +304,7 @@ export class LeaveComponent implements OnInit {
   }
 
   getPendingList() {
+
     this.employeeService.pendingList(this.userAuthService.getId()).subscribe(
       (res: any) => {
         console.log(res);
@@ -346,6 +312,10 @@ export class LeaveComponent implements OnInit {
       },
       (err) => {
         console.log(err);
+
+      },
+      () => {
+
       }
     )
   }

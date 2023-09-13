@@ -1,0 +1,3 @@
+.btn-text b{display:inline}
+.btn-text:not(.collapsed)  span{display:none}
+.btn-text.collapsed b {display:none}

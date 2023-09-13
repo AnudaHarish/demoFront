@@ -12,23 +12,13 @@
 
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
       <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-        <!-- <li class="nav-item">
-          <a class="nav-link active" aria-current="page" *ngIf="userService.roleMatch(['ROLE_ADMIN'])">admin</a>
-        </li> -->
 
       </ul>
-
-
 
       <a class="nav-link active fs-5" aria-current="page" style="margin-right: 20px ;"
         *ngIf="userService.roleMatch(['ROLE_USER'])|| userService.roleMatch(['ROLE_ADMIN'])">{{this.userAuthService.getusername()}}</a>
       <button *ngIf="isLoggedIn()" class="button-logout" type="button" class="btn btn-success text-white"
         style="margin: 0%;" (click)="logout()"><fa-icon [icon]="arrow"></fa-icon>Logout</button>
-      <!-- <a routerLink="/login"><fa-icon [icon]="arrow"></fa-icon>Logout</a> -->
-
-
-
-
 
     </div>
   </div>
@@ -47,9 +37,7 @@
     <mat-sidenav mode="side" [(opened)]="opened">
       <div class="myBox mt-5">
         <div class="row justify-content-md-center">
-          <!-- <img src="https://cdn-icons-png.flaticon.com/512/149/149071.png" class="mt-4" alt="..." style="width: 150px;"> -->
           <app-analog-clock></app-analog-clock>
-
         </div>
 
         <div class="row mt-3" style="margin: auto;text-align: center">
