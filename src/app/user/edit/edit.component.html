@@ -17,7 +17,8 @@
             <div class="row">
               <div
                 *ngIf="form.get('firstname').invalid && (form.get('firstname').dirty || form.get('firstname').touched)"
-                class="alert alert-danger" style="height: 8px;">
+                class="alert alert-danger"
+                style="height: 8px;border: none;background-color: rgb(255, 255, 255);color: rgb(226, 74, 74);padding-top: 3px;">
                 <div *ngIf="form.get('firstname').errors?.required">
                   Firstname can't be empty
                 </div>
@@ -42,7 +43,8 @@
             <div class="row">
 
               <div *ngIf="form.get('lastname').invalid && (form.get('lastname').dirty || form.get('lastname').touched)"
-                class="alert alert-danger" style="height: 8px;">
+                class="alert alert-danger"
+                style="height: 8px;border: none;background-color: rgb(255, 255, 255);color: rgb(226, 74, 74);padding-top: 3px;">
                 <div *ngIf="form.get('lastname').errors?.required">
                   Lastname can't be empty
                 </div>
@@ -65,7 +67,7 @@
             </div>
             <div class="row">
               <div *ngIf="email.invalid && (email.dirty || email.touched)" class="alert alert-danger"
-                style="height: 8px;">
+                style="height: 8px;border: none;background-color: rgb(255, 255, 255);color: rgb(226, 74, 74);padding-top: 3px;">
                 <div *ngIf="email.errors.required">
                   Email is required
                 </div>
@@ -88,7 +90,7 @@
             </div>
             <div class="row">
               <div *ngIf="telephoneNo.invalid && (telephoneNo.dirty || telephoneNo.touched)" class="alert alert-danger"
-                style="height: 8px;">
+                style="height: 8px;border: none;background-color: rgb(255, 255, 255);color: rgb(226, 74, 74);padding-top: 3px;">
                 <div *ngIf="telephoneNo.errors.required">
                   Telephone number is required
                 </div>

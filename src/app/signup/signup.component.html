@@ -4,37 +4,55 @@
 
     <form [formGroup]="signup" (ngSubmit)="save()">
 
-      <div class="mb-3">
-        <label for="firstname" form-label="firstname">First Name<span class="text-danger">*</span></label>
-        <input class="form-control" type="text" formControlName="firstname" id="firstname" />
-        <div class="alert alert-danger" style="height:5px; justify-content: center;" *ngIf="
-            firstname?.invalid && (firstname?.touched || firstname?.dirty)
-            ">
-          <div *ngIf="firstname?.errors?.['required']">
-            First Name can't be emtpy
+      <div class="row">
+        <div class="col col-md-6">
+          <div class="mb-3">
+            <label for="firstname" form-label="firstname">First Name<span class="text-danger">*</span></label>
+            <input class="form-control" type="text" formControlName="firstname" id="firstname" />
+            <div class="alert alert-danger"
+              style="height:5px; justify-content: center;border: none;background-color: rgb(255, 255, 255);color: rgb(226, 74, 74);padding-top: 3px;"
+              *ngIf="
+                firstname?.invalid && (firstname?.touched || firstname?.dirty)
+                ">
+              <div *ngIf="firstname?.errors?.['required']">
+                First Name can't be emtpy
+              </div>
+            </div>
           </div>
+
+
+        </div>
+        <div class="col col-md-6">
+          <div class="mb-3">
+            <label for="lastname" form-label="email">Last Name<span class="text-danger">*</span></label>
+            <input class="form-control" type="text" formControlName="lastname" id="lastname" />
+
+            <div class="alert alert-danger"
+              style="height:5px; justify-content: center;border: none;background-color: rgb(255, 255, 255);color: rgb(226, 74, 74);padding-top: 3px;"
+              *ngIf="
+              lastname?.invalid && (lastname?.touched || lastname?.dirty)
+              ">
+              <div *ngIf="lastname?.errors?.['required']">
+                lastname can't be emtpy
+              </div>
+
+            </div>
+
+          </div>
+
         </div>
 
 
-      </div>
-      <div class="mb-3">
-        <label for="lastname" form-label="email">Last Name<span class="text-danger">*</span></label>
-        <input class="form-control" type="text" formControlName="lastname" id="lastname" />
 
-        <div class="alert alert-danger" style="height:5px; justify-content: center;" *ngIf="
-            lastname?.invalid && (lastname?.touched || lastname?.dirty)
-            ">
-          <div *ngIf="lastname?.errors?.['required']">
-            Username can't be emtpy
-          </div>
-
-        </div>
 
       </div>
+
       <div class="mb-3">
         <label for="email" form-label="email">Email<span class="text-danger">*</span></label>
         <input class="form-control" type="email" formControlName="email" id="email" />
-        <div class="alert alert-danger" style="height:5px; justify-content: center;" *ngIf="
+        <div class="alert alert-danger"
+          style="height:5px; justify-content: center;border: none;background-color: rgb(255, 255, 255);color: rgb(226, 74, 74);padding-top: 3px;"
+          *ngIf="
             email?.invalid && (email?.touched || email?.dirty)
             ">
           <div *ngIf="email?.errors?.['required']">
@@ -49,7 +67,9 @@
       <div class="mb-3">
         <label for="telephoneNo" form-label="telephoneNo">Contact No<span class="text-danger">*</span></label>
         <input class="form-control" type="text" formControlName="telephoneNo" id="telephoneNo" />
-        <div class="alert alert-danger" style="height:5px; justify-content: center;" *ngIf="
+        <div class="alert alert-danger"
+          style="height:5px; justify-content: center;border: none;background-color: rgb(255, 255, 255);color: rgb(226, 74, 74);padding-top: 3px;"
+          *ngIf="
         telephoneNo?.invalid && (telephoneNo?.touched || telephoneNo?.dirty)
             ">
           <div *ngIf="telephoneNo?.errors?.['required']">
@@ -71,7 +91,9 @@
           <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
           <mat-datepicker #picker></mat-datepicker>
         </mat-form-field>
-        <div class="alert alert-danger" style="height:5px; justify-content: center;" *ngIf="
+        <div class="alert alert-danger"
+          style="height:5px; justify-content: center;border: none;background-color: rgb(255, 255, 255);color: rgb(226, 74, 74);padding-top: 3px;"
+          *ngIf="
         dob?.invalid && (dob?.touched || dob?.dirty)
         ">
           <div *ngIf="dob?.errors?.['required']">
@@ -92,7 +114,9 @@
           <option value="FEMALE">Female</option>
           <option value="FEMALE">Other</option>
         </select>
-        <div class="alert alert-danger" style="height:5px; justify-content: center;" *ngIf="
+        <div class="alert alert-danger"
+          style="height:5px; justify-content: center;border: none;background-color: rgb(255, 255, 255);color: rgb(226, 74, 74);padding-top: 3px;"
+          *ngIf="
         gender?.invalid && (gender?.touched || gender?.dirty)
         ">
           <div *ngIf="gender?.errors?.['required']">
@@ -104,7 +128,9 @@
       <div class="mb-3">
         <label for="username2" form-label="username">Username<span class="text-danger">*</span></label>
         <input class="form-control" type="text" formControlName="username" id="username2" />
-        <div class="alert alert-danger" style="height:5px; justify-content: center;" *ngIf="
+        <div class="alert alert-danger"
+          style="height:5px; justify-content: center;border: none;background-color: rgb(255, 255, 255);color: rgb(226, 74, 74);padding-top: 3px;"
+          *ngIf="
             username?.invalid && (username?.touched || username?.dirty)
             ">
           <div *ngIf="username?.errors?.['required']">
@@ -116,41 +142,54 @@
         </div>
 
       </div>
+      <div class="row">
+        <div class="col">
+          <div class="mb-3">
+            <label for="password2" form-label="password">Password<span class="text-danger">*</span></label>
+            <input class="form-control" type="password" formControlName="password" id="password2" />
+            <div class="alert alert-danger"
+              style="height:5px; justify-content: center;border: none;background-color: rgb(255, 255, 255);color: rgb(226, 74, 74);padding-top: 3px;"
+              *ngIf="
+                password?.invalid && (password?.touched || password?.dirty)
+                ">
+              <div *ngIf="password?.errors?.['required']">
+                Password can't be emtpy
+              </div>
+              <div *ngIf="password?.errors?.minlength">
+                Password must be atleast 6 character long
+              </div>
+            </div>
 
-      <div class="mb-3">
-        <label for="password2" form-label="password">Password<span class="text-danger">*</span></label>
-        <input class="form-control" type="password" formControlName="password" id="password2" />
-        <div class="alert alert-danger" style="height:5px; justify-content: center;" *ngIf="
-            password?.invalid && (password?.touched || password?.dirty)
-            ">
-          <div *ngIf="password?.errors?.['required']">
-            Password can't be emtpy
-          </div>
-          <div *ngIf="password?.errors?.minlength">
-            Password must be atleast 6 character long
           </div>
         </div>
+        <div class="col">
+          <div class="mb-5">
+            <label for="confirmPassword" form-label="confirmPassword">Confirm Password<span
+                class="text-danger">*</span></label>
+            <input class="form-control" type="password" formControlName="confirmPassword" id="confirmPassword" />
+            <div class="alert alert-danger"
+              style="height:5px; justify-content: center;border: none;background-color: rgb(255, 255, 255);color: rgb(226, 74, 74);padding-top: 3px;"
+              *ngIf="
+            confirmPassword?.invalid && (confirmPassword?.touched || confirmPassword?.dirty)
+                ">
+              <div *ngIf="confirmPassword?.errors?.['required']">
+                Confirm password can't be emtpy
+              </div>
+              <div *ngIf="confirmPassword?.errors?.minlength">
+                Confirm password must be atleast 6 character long
+              </div>
+              <div *ngIf="confirmPassword?.errors?.confirmedValidator">
+                Confirm password and the password must be match
+              </div>
+            </div>
 
-      </div>
-      <div class="mb-5">
-        <label for="confirmPassword" form-label="confirmPassword">Confirm Password<span
-            class="text-danger">*</span></label>
-        <input class="form-control" type="password" formControlName="confirmPassword" id="confirmPassword" />
-        <div class="alert alert-danger" style="height:5px; justify-content: center;" *ngIf="
-        confirmPassword?.invalid && (confirmPassword?.touched || confirmPassword?.dirty)
-            ">
-          <div *ngIf="confirmPassword?.errors?.['required']">
-            Confirm password can't be emtpy
           </div>
-          <div *ngIf="confirmPassword?.errors?.minlength">
-            Confirm password must be atleast 6 character long
-          </div>
-          <div *ngIf="confirmPassword?.errors?.confirmedValidator">
-            Confirm password and the password must be match
-          </div>
+
         </div>
-
       </div>
+
+
+
 
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>

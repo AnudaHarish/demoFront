@@ -546,6 +546,9 @@ export class LeaveRequestComponent implements OnInit {
 
   }
 
+  resetWindow() {
+    window.location.reload();
+  }
 
 
 

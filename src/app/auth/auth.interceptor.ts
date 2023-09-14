@@ -35,7 +35,7 @@ export class AuthInterceptor implements HttpInterceptor, OnInit {
           console.log(err.status);
           if (err.status === 401) {
 
-            this.showSuccessMessage("SweetAlert warning", "Erro 401", "warining", true)
+            // this.showSuccessMessage("SweetAlert warning", "Erro 401", "warining", true)
           } else if (err.status === 403) {
 
             this.showSuccessMessage("SweetAlert warning", "Erro 403", "warining", true)

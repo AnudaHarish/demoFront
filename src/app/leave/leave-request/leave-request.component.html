@@ -3,7 +3,7 @@
   <div class="row align-items-center justify-content-md-center">
 
     <div class="card text-center mt-5 border-secondary" style="width:30rem; ">
-      <h4>Leave Count</h4>
+      <h4 style="padding-top: 1rem;">Leave Count</h4>
       <div class="card-body">
 
         <canvas id="myChart">
@@ -82,7 +82,8 @@
           </div>
 
           <button [disabled]="!isVisible || formRepeat.invalid" type="submit" class="btn btn-outline-dark"
-            (click)="submitRepeat()">Submit</button>
+            *ngIf="isVisible || formRepeat.invalid" (click)="submitRepeat()">Submit</button>
+          <button class="btn btn-outline-dark" style="margin-left: 1rem;" (click)="resetWindow()">Reset</button>
         </form>
 
       </div>

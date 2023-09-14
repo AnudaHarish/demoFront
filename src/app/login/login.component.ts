@@ -18,7 +18,7 @@ import Swal from 'sweetalert2';
 export class LoginComponent implements OnInit {
 
   model: any;
-
+  showModal = true;
   calender = faCalendar;
   lock = faLock;
   user = faUser;
@@ -133,5 +133,22 @@ export class LoginComponent implements OnInit {
 
   }
 
+  modalClosed(event) {
+    // this.showModal = false;
+    window.location.reload();
+    this.infoMsg();
+  }
+
+  infoMsg() {
+
+    Swal.fire({
+      position: 'top-end',
+      icon: 'success',
+      title: 'Successfully registered',
+      showConfirmButton: false,
+      timer: 750
+    })
+
+  }
 
 }

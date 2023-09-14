@@ -7,22 +7,27 @@ import { User } from '../models/user.model';
 import { LeaveInfo } from '../models/leave-info.model';
 import { PendingInfo } from '../models/pending-info.model';
 import { PendingApplication } from '../models/pending-application.model';
+import { environment } from 'src/environments/environment.development';
 
 @Injectable({
   providedIn: 'root'
 })
 export class EmpolyeeService {
 
-
-  constructor(private userAuthService: UserAuthService, private http: HttpClient) { }
-
-
   private _refreshPage = new Subject<void>();
+  private baseUrl: string | undefined;
+
+  constructor(private userAuthService: UserAuthService, private http: HttpClient) {
+    this.baseUrl = environment.domain + "user";
+  }
+
+
+
   get refreshPage() {
     return this._refreshPage;
   }
 
-  baseUrl = "http://localhost:8080/api/user";
+  // baseUrl = "http://localhost:8080/api/user";
 
   public getInfoById(id): Observable<User> {
 

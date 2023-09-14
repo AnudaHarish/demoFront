@@ -5,20 +5,27 @@ import { AppDeatails } from 'src/app/models/app-deatails.model';
 import { EditEmployee } from 'src/app/models/edit-employee.model';
 import { Leave } from 'src/app/models/leave.model';
 import { User } from 'src/app/models/user.model';
+import { environment } from 'src/environments/environment.development';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AdminService {
-
-  constructor(private http: HttpClient) { }
-
   private _refreshPage = new Subject<void>();
+  private baseUrl: string | undefined;
+
+
+  constructor(private http: HttpClient) {
+    this.baseUrl = environment.domain + "manager";
+  }
+
+
   get refreshPage() {
     return this._refreshPage;
   }
 
-  baseUrl = "http://localhost:8080/api/manager";
+
+  // baseUrl = "http://localhost:8080/api/manager";
 
 
 

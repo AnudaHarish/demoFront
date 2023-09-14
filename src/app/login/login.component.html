@@ -77,18 +77,19 @@
 
 
 <!-- Modal -->
-<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true"
+  style="padding-top: 2rem;">
   <div class="modal-dialog modal-dialog-centered">
     <div class="modal-content">
-      <div class="modal-header bg-primary text-white">
-        <h1 class="modal-title fs-5" id="exampleModalLabel">
+      <div class="modal-header bg-primary text-white" style="height: 3rem;padding: 0.7rem;padding-bottom:0rem">
+        <h1 class="modal-title fs-4" id="exampleModalLabel">
           Signup
         </h1>
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
-      <div class="modal-body">
+      <div class="modal-body ">
 
-        <app-signup></app-signup>
+        <app-signup *ngIf="showModal" (onClose)="modalClosed($event)"></app-signup>
 
       </div>
     </div>

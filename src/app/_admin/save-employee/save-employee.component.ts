@@ -39,13 +39,13 @@ export class SaveEmployeeComponent implements OnInit {
       email: ['', [Validators.required, Validators.email]],
       gender: ['', [Validators.required]],
       username: ['', [Validators.required]],
-      newPassword: ['', [Validators.required, Validators.minLength(6)]],
+      password: ['', [Validators.required, Validators.minLength(6)]],
       confirmPassword: ['', [Validators.required, Validators.minLength(6)]],
       telephoneNo: ['', [Validators.required, Validators.pattern("[0-9]{10}")]]
     },
 
       {
-        validator: ConfirmedValidator('newPassword', 'confirmPassword')
+        validator: ConfirmedValidator('password', 'confirmPassword')
       });
   }
 
@@ -59,7 +59,7 @@ export class SaveEmployeeComponent implements OnInit {
       dob = formattedDate,
       email = this.signup.value.email,
       username = this.signup.value.username,
-      password = this.signup.value.newPassword,
+      password = this.signup.value.password,
       gender = this.signup.value.gender,
       telephoneNo = this.signup.value.telephoneNo,
       confirmPassword = this.signup.value.confirmPassword
@@ -109,8 +109,8 @@ export class SaveEmployeeComponent implements OnInit {
     return this.signup.get('confirmPassword');
   }
 
-  get newPassword() {
-    return this.signup.get('newPassword');
+  get password() {
+    return this.signup.get('password');
   }
   get telephoneNo() {
     return this.signup.get('telephoneNo');
@@ -125,7 +125,7 @@ export class SaveEmployeeComponent implements OnInit {
       dob: formValue.dob,
       email: formValue.email,
       username: formValue.username,
-      newPassword: formValue.newPassword,
+      password: formValue.password,
       gender: formValue.gender,
       telephoneNo: formValue.telephoneNo,
       confirmPassword: ''
@@ -136,7 +136,7 @@ export class SaveEmployeeComponent implements OnInit {
   checkPassword(payload, confirmPassword): boolean {
     let pas = Number(payload.password);
     let con = Number(confirmPassword);
-    console.log(this.newPassword);
+    console.log(this.password);
     console.log(this.confirmPassword);
     console.log("pas", pas);
     console.log("con", con);
@@ -154,7 +154,7 @@ export class SaveEmployeeComponent implements OnInit {
           console.log(erro);
           console.log(erro.error.email,
             erro.error.telephoneNo,
-            erro.error.message, erro.error.newPassword);
+            erro.error.message, erro.error.password);
           let messInvalidTel = '';
           let messInvalidEmail = '';
           let messInvalidUser = '';

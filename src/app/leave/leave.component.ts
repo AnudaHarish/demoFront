@@ -257,9 +257,9 @@ export class LeaveComponent implements OnInit {
       confirmButtonText: 'Yes, delete it!'
     }).then((result) => {
       if (result.isConfirmed) {
-        console.log("dddd");
         this.leaveList = [];
         this.deleteApp(id);
+        window.location.reload();
         this.selectedOption = "Pending Leaves";
 
 

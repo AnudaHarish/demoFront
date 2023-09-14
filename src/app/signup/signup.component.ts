@@ -1,9 +1,11 @@
 import { DatePipe } from '@angular/common';
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, EventEmitter, OnInit, Output, ViewChild } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 import { UserService } from '../_service/user/user.service';
 import Swal from 'sweetalert2';
 import { ConfirmedValidator } from 'src/confirmed.validator';
+import { RouteReuseStrategy, Router } from '@angular/router';
+import { outputAst } from '@angular/compiler';
 
 @Component({
   selector: 'app-signup',
@@ -11,7 +13,7 @@ import { ConfirmedValidator } from 'src/confirmed.validator';
   styleUrls: ['./signup.component.css']
 })
 export class SignupComponent implements OnInit {
-
+  IsModelShow = true;
   signup: any;
   ngOnInit(): void {
 
@@ -22,7 +24,10 @@ export class SignupComponent implements OnInit {
   @ViewChild('modal')
   modal: SignupComponent;
 
-  constructor(private fb: FormBuilder, private datePipe: DatePipe, private userService: UserService) {
+  @Output()
+  onClose: EventEmitter<boolean> = new EventEmitter();
+
+  constructor(private fb: FormBuilder, private datePipe: DatePipe, private userService: UserService, private router: Router) {
 
   }
 
@@ -159,6 +164,9 @@ export class SignupComponent implements OnInit {
         (res) => {
           console.log(res);
           this.infoMsg();
+          this.router.navigate(["/login"]);
+          this.closeModel();
+
 
         },
         (erro) => {
@@ -234,6 +242,10 @@ export class SignupComponent implements OnInit {
   }
 
 
+  closeModel() {
+    // this.IsModelShow = true;
+    this.onClose.emit(true);
+  }
 
 
 
